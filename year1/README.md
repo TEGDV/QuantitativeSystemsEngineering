@@ -1,76 +1,48 @@
-# Year 1 – Core Foundations
+# Year 1: The Foundation
 
-This year focuses on rebuilding and solidifying fundamental knowledge in mathematics, systems-level programming, and the basics of market microstructure. The objective is to establish technical fluency in C programming, linear algebra, probability theory, and low-level systems concepts essential for high-performance financial systems.
+## Mission Dossier
 
----
+This year is not about building complex systems. It is about forging the steel from which those systems will be built. The mission for Year 1 is to achieve an uncompromising mastery of the absolute fundamentals. You will deconstruct the machine to its essential components—bits, memory addresses, and logic gates—and rebuild your understanding from first principles. You will internalize the mathematics of structure and the language of the machine.
 
-## Objectives
-
-- Relearn and deepen core mathematical concepts: linear algebra, probability, and discrete math
-- Develop fluency in C programming and memory-safe, low-level development
-- Gain working knowledge of Linux internals and process control
-- Understand the foundations of financial markets, exchanges, and order execution
-- Build small-scale, systems-oriented projects to solidify technical concepts
+This is the most important year. A weak foundation guarantees the collapse of any structure built upon it. There are no shortcuts here. The work is non-negotiable. Humility, discipline, and relentless execution are the only requirements.
 
 ---
 
-## Structure
+## Core Objectives
 
-### 1. Notes
+By the end of this year, you will have demonstrated mastery in the following areas:
 
-All theoretical and practical content covered throughout the year, including:
-
-- `notes/math/` – linear algebra, probability, discrete structures
-- `notes/systems/` – C syntax, system calls, memory models, I/O
-- `notes/finance/` – trading basics, market microstructure
-
-### 2. Projects
-
-Hands-on development tasks focused on reinforcing theoretical knowledge:
-
-- CLI calculator (C)
-- Memory visualizer (linked list + heap tracking)
-- Order book simulator (FIFO matching engine)
-- File copy utility (`mycp`)
-- Random number simulators (coin toss, dice, uniform distribution)
-
-Each project includes a brief write-up, source code, build instructions, and test cases.
+* **Computer Architecture & Systems:** You will understand how a program is compiled, linked, loaded, and executed by the hardware. You will be able to explain the memory hierarchy, process management, and system calls from a programmer's perspective.
+* **Manual Memory Management (C):** You will write, debug, and manage non-trivial applications in C. You will master pointers, memory allocation (`malloc`/`free`), and the construction of fundamental data structures from scratch. This is not for production use; it is a tool to force a deep understanding of memory.
+* **Linear Algebra:** You will not just "know" linear algebra. You will think in terms of vector spaces, matrix transformations, and eigenvalues. You will be able to solve systems and analyze their properties by hand and with code.
+* **Foundational Rust:** You will achieve proficiency in Rust's core concepts: ownership, the borrow checker, structs, enums, and traits. You will understand *why* these concepts exist by contrasting them with the manual dangers of C.
 
 ---
 
-## Key Resources
+## The Forge: Capstone Project
 
-- **Mathematics**
-  - *MIT 18.06 – Linear Algebra (Strang)*
-  - *Introduction to Probability – Grinstead & Snell*
-  - *Discrete Mathematics and Its Applications – Rosen*
+The culmination of Year 1 is the construction of a **Limit Order Book (LOB) Matching Engine.**
 
-- **Systems**
-  - *The C Programming Language – Kernighan & Ritchie*
-  - *Computer Systems: A Programmer’s Perspective – Bryant & O’Hallaron*
-  - *Beej’s Guide to Network Programming*
+* **Phase 1: C Implementation.** You will first build the engine in C. This will force you to confront the raw challenges of performance, data structure design, and manual memory management in a high-stakes context.
+* **Phase 2: Rust Implementation.** You will then rewrite the engine idiomatically in Rust. This exercise will cement the value of Rust's safety guarantees and modern abstractions, demonstrating how they prevent the classes of bugs you undoubtedly introduced in the C version.
 
-- **Finance**
-  - *Trading and Exchanges – Larry Harris*
-  - *The High-Frequency Trading Arms Race – Budish et al.*
-  - *Flash Boys – Michael Lewis*
+This project was chosen because it is a microcosm of a trading system. It requires efficient data structures (for storing orders), algorithmic logic (for matching), and a focus on correctness. It is the perfect crucible to test this year's foundational skills.
 
 ---
 
-## Expected Outcomes
+## Directory Mandates
 
-By the end of Year 1, the learner should be able to:
+This directory is your operational base for the year. Its structure is not a suggestion.
 
-- Write and debug medium-complexity C programs
-- Use system-level APIs for file I/O, process control, and memory
-- Apply linear algebra and probability to small-scale simulations
-- Describe the operation of basic trading venues and order books
-- Create modular, tested code for small systems
+* `./planning/`: Weekly execution protocols. Each file (`week_01.md`, `week_02.md`, etc.) will detail the specific reading, lectures, and coding tasks for that week. This is where strategy meets the calendar.
+* `./notes/`: Your digital brain trust. All notes from books, lectures, and papers will be stored here, organized by subject. They must be clear, concise, and written in your own words.
+* `./projects/`: The proof of work. This contains all code, from small practice programs to the final capstone project. Each sub-directory must have its own `README.md` explaining its purpose and how to build/run it.
+* `./resources/`: A curated list of links, papers, and supplementary materials acquired throughout the year.
 
 ---
 
-## Notes
+> "We are what we repeatedly do. Excellence, then, is not an act, but a habit."
+>
+> \- Aristotle
 
-- All materials in this year are written in Markdown (`.md`) for quick iteration and Vim integration
-- Projects are written in C using GNU build tools, tested on Linux
-- LaTeX templates available in `../templates/` for final write-ups if needed
+Discipline is a habit. Forge it here.
