@@ -1,0 +1,1 @@
+/home/templance1/Notes/QuantitativeSystemsEngineeringMajor/year1/projects/hello_cargo/target/debug/hello_cargo: /home/templance1/Notes/QuantitativeSystemsEngineeringMajor/year1/projects/hello_cargo/src/main.rs
