@@ -1,4 +1,4 @@
-# Week 1: Protocol - Zeroing the Sights
+# Week 1: Protocol - Foundations of Representation
 
 This is the operational mandate for the first seven days. The objective is singular: establish a rhythm of deep work in the two core pillars of this year—Computer Systems and Mathematics. Distractions are eliminated. The 2-4 hour block is a non-negotiable commitment.
 
@@ -6,14 +6,13 @@ Adherence to the schedule is the only metric for success this week. The work mus
 
 ---
 
-### **Monday: Computer Science - The Life of a Program**
-* **Objective:** To trace a program from a human-readable file to executable machine code. You must understand the full journey.
-* **Block (2-4 Hours):** Read *Computer Systems: A Programmer's Perspective* (CS:APP), Chapter 1: "A Tour of Computer Systems."
+### **Monday: Computer Science - The Language of Memory**
+* **Objective:** Master hexadecimal notation, the concept of "word size," and the critical distinction between big-endian and little-endian byte ordering.
+* **Block (2 Hours):** Read CS:APP, pp. 29-41 (Sección 2.1.1 a 2.1.4).
 * **Execution:**
-    1.  Read the chapter actively, with a notebook.
-    2.  Type, compile, and run the `hello.c` program yourself. Use `gcc -o hello hello.c`.
-    3.  Use the commands shown (`cpp`, `cc1`, `as`, `ld`) to see the intermediate files. Do not skip this step. It is critical.
-    4.  Write a one-page summary explaining the roles of the preprocessor, compiler, assembler, and linker. If you cannot explain it simply, read the chapter again.
+    1.  Escribe un programa en C que declare una variable `int x = 0x01234567;` y luego imprima sus bytes individuales para determinar el endianness de tu máquina.
+    2.  Convierte a mano los números decimales 15, 16, 255, y 256 a binario y hexadecimal.
+    3.  Explica en tus notas por qué el byte ordering es un problema fundamental en la programación de redes.
 
 ### **Tuesday: Mathematics - The Geometry of Equations**
 * **Objective:** To visualize linear equations not as abstract algebra, but as geometric objects: lines, planes, and their intersections.
@@ -23,13 +22,13 @@ Adherence to the schedule is the only metric for success this week. The work mus
     2.  For a 2x2 system, draw the row picture (intersecting lines) and the column picture (vector addition). Do this for a system with one solution, no solution, and infinite solutions.
     3.  Perform Gaussian elimination on a 3x3 system by hand. Show your work.
 
-### **Wednesday: Computer Science - Bits, Bytes, and Integers**
-* **Objective:** To understand how information is represented at the lowest level.
-* **Block (2-3 Hours):** Read CS:APP, Chapter 2, Sections 2.1-2.3 ("Information is Bits + Context", "Integral Representations").
+### **Wednesday: Computer Science - Bit-Level Manipulation**
+* **Objective:** Entender cómo se representan las cadenas de caracteres y el código, y dominar las operaciones a nivel de bit en C.
+* **Block (2 Hours):** Read CS:APP, pp. 46-56 (Sección 2.1.5 a 2.1.10).
 * **Execution:**
-    1.  Work through the conversions between binary, decimal, and hexadecimal by hand.
-    2.  Explain the difference between signed (two's complement) and unsigned integers.
-    3.  Write down the range of values that can be represented by an 8-bit and a 32-bit signed integer.
+    1.  Escribe una función en C que use máscaras de bits (`&`) y desplazamientos (`>>`) para extraer el byte más significativo de un entero de 32 bits.
+    2.  Implementa la operación XOR (`^`) usando solo las operaciones AND (`&`) y NOT (`~`).
+    3.  Explica la diferencia fundamental entre el desplazamiento lógico a la derecha y el desplazamiento aritmético a la derecha.
 
 ### **Thursday: Mathematics - Elimination and Inverses**
 * **Objective:** To master the mechanics of matrix operations, the core machinery of linear algebra.
@@ -48,7 +47,6 @@ Adherence to the schedule is the only metric for success this week. The work mus
     3.  Write, compile, and run `hello, world` in C.
     4.  Write, compile, and run `hello, world` in Rust using `rustc` directly.
     5.  Create a new project using `cargo new hello_cargo`, build it, and run it. Read the output to understand what Cargo is doing for you.
-    6.  Organize your project directory structure as defined in the Year 1 `README.md`.
 
 ### **Saturday: The Forge - Basic Training**
 * **Objective:** To move from "hello, world" to programs that perform logic. Solidify basic syntax and concepts.
@@ -59,7 +57,6 @@ Adherence to the schedule is the only metric for success this week. The work mus
         * Temperature converter.
         * Fibonacci number generator.
         * "The Twelve Days of Christmas" lyrics generator.
-    3.  Attempt to write the temperature converter in C. Note the differences in syntax, type safety, and boilerplate. This contrast is important.
 
 ### **Sunday: Review and Reload**
 * **Objective:** To assess the week's progress, identify weak points, and prepare for the next operational cycle.
@@ -67,9 +64,9 @@ Adherence to the schedule is the only metric for success this week. The work mus
 * **Execution:**
     1.  Read through every single note you took this week.
     2.  Create a "Weak Points" list. Write down the 1-3 concepts that you feel least confident about.
-    3.  Create the `week_02.md` file. The first task for next week will be to attack the items on your "Weak Points" list before moving on to new material.
-    4.  Outline the new topics for Week 2: CS:APP Ch. 2 (Floating Point), Math Lectures 5-6.
+    3.  Create the `week_02.md` file. The first task for next week will be to attack the items on your "Weak Points" list.
+    4.  Outline the new topics for Week 2 in Year1.md
 
 ---
 
-This is the standard. There is no deviation.
+The plan is updated. The mission is unchanged.
