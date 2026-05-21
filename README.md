@@ -82,8 +82,26 @@ I have designed this curriculum as a forced march through foundational knowledge
 
 **The clock is ticking. Execute.**
 
+---
+
+## 🛠️ Operational Tools & NotebookLM Sync
+
+To support your daily study habit and sync notes with your LLM context:
+
+*   **Daily Log Generator:** Automatically generates formatted daily study logs in your active curriculum path.
+    ```bash
+    python3 scripts/new_log.py [year_number] [quarter_number]
+    # Example: python3 scripts/new_log.py 1
+    ```
+*   **Notes Compiler:** Manually compiles all markdown files into a single master file (`compiled_academic_notes.md`). Note: This runs automatically on push via GitHub Actions.
+    ```bash
+    python3 scripts/compile_notes.py
+    ```
+*   **NotebookLM Sync:** Connect your NotebookLM context to the compiled notes. See the complete setup instructions and study routine tips in [NOTEBOOK_LM_SYNC.md](file:///home/templance1/QuantitativeSystemsEngineering/NOTEBOOK_LM_SYNC.md).
+
 ## 📞 Contact
 
-* **Author:** \[Jair Aguilar Peña]
-* **Email:** \[apjair97@gmail.com]
-* **Website:** \[jap_kode.pro] (WIP)
+* **Author:** [Jair Aguilar Peña]
+* **Email:** [apjair97@gmail.com]
+* **Website:** [jap_kode.pro] (WIP)
+

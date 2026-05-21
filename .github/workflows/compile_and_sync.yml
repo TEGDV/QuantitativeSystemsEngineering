@@ -1,0 +1,51 @@
+name: Compile Academic Notes for NotebookLM
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      # Trigger only when markdown files or compilation scripts change
+      - '**.md'
+      - 'scripts/compile_notes.py'
+      # But ignore the compiled notes file itself to prevent recursion
+      - '!compiled_academic_notes.md'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          # Fetch all history so git diff works correctly
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - name: Run Notes Compiler
+        run: |
+          python scripts/compile_notes.py
+
+      - name: Commit and Push Compiled Notes
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          
+          # Stage the compiled notes file
+          git add compiled_academic_notes.md
+          
+          # Check if there are differences staged
+          if git diff --cached --quiet; then
+            echo "No updates detected in compiled notes."
+          else
+            echo "Changes detected. Committing and pushing..."
+            git commit -m "docs: Auto-compile academic notes [skip ci]"
+            git push origin main
+          fi
