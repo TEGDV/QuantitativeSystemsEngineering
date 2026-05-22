@@ -1,22 +1,77 @@
 #!/usr/bin/env python3
 import os
 import re
+import subprocess
 from datetime import datetime
 
 # Configuration
 REPO_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-OUTPUT_FILE = os.path.join(REPO_ROOT, "compiled_academic_notes.md")
+OUTPUT_TEX = os.path.join(REPO_ROOT, "compiled_academic_notes.tex")
 
-# Folders to ignore during compilation
+# Folders/files to ignore during compilation
 IGNORE_DIRS = {".git", ".github", "scripts", "node_modules", "venv", ".venv"}
-IGNORE_FILES = {"README.md", "compiled_academic_notes.md"}
+IGNORE_FILES = {"compiled_academic_notes.tex"}
+
+PREAMBLE = r"""\documentclass[11pt,a4paper]{report}
+\usepackage[utf8]{inputenc}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb}
+\usepackage{xcolor}
+\usepackage{listings}
+\usepackage{textcomp}
+\usepackage{graphicx}
+\usepackage{hyperref}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    urlcolor=cyan,
+    pdftitle={Quantitative Systems Engineering: Compiled Notes and Logs},
+    pdfauthor={Jair Aguilar Peña}
+}
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=4
+}
+
+\lstset{style=mystyle}
+
+\title{Quantitative Systems Engineering\\ \large Compiled Study Notes \& Logs}
+\author{Jair Aguilar Peña}
+\date{\today}
+
+\begin{document}
+\maketitle
+\tableofcontents
+\newpage
+"""
 
 def clean_relative_path(path):
     return os.path.relpath(path, REPO_ROOT)
 
-def get_markdown_files():
-    """Traverses the repository and collects all markdown files under year directories, sorted logically."""
-    md_files = []
+def get_tex_files():
+    """Traverses the repository and collects all latex fragment files under year directories, sorted logically."""
+    tex_files = []
     for root, dirs, files in os.walk(REPO_ROOT):
         # Prune ignored directories in place
         dirs[:] = [d for d in dirs if d not in IGNORE_DIRS]
@@ -30,15 +85,15 @@ def get_markdown_files():
             continue
             
         for file in files:
-            if file.endswith(".md") and file not in IGNORE_FILES:
+            if file.endswith(".tex") and file not in IGNORE_FILES:
                 full_path = os.path.join(root, file)
                 rel_path = clean_relative_path(full_path)
-                md_files.append((rel_path, full_path))
+                tex_files.append((rel_path, full_path))
     
     # Sort files logically:
     # 1. By year directory (e.g., year1, year_01, year2)
     # 2. By subdirectories (quarter_01, planning, notes)
-    # 3. By filename (e.g., YYYY-MM-DD_log.md or alphabetical)
+    # 3. By filename (e.g., YYYY-MM-DD_log.tex or alphabetical)
     def sorting_key(file_tuple):
         rel_path = file_tuple[0]
         parts = rel_path.split(os.sep)
@@ -54,58 +109,35 @@ def get_markdown_files():
                 key_parts.append((1, 0, part))
         return (key_parts, rel_path)
 
-    md_files.sort(key=sorting_key)
-    return md_files
+    tex_files.sort(key=sorting_key)
+    return tex_files
 
-def shift_headers(content, shift_amount):
-    """Shifts all markdown headers in the content by the specified shift_amount."""
-    lines = content.split('\n')
-    new_lines = []
-    for line in lines:
-        # Match standard ATX headers (e.g., # Header, ## Subheader)
-        # We only match if it starts with # and has a space after the last #
-        m = re.match(r'^(#+)(?:\s+(.*))?$', line)
-        if m:
-            header_symbols = m.group(1)
-            header_text = m.group(2) or ""
-            current_level = len(header_symbols)
-            new_level = min(current_level + shift_amount, 6) # Max H6 in markdown
-            new_lines.append(f"{'#' * new_level} {header_text}")
-        else:
-            new_lines.append(line)
-    return '\n'.join(new_lines)
-
-def count_words(text):
-    """Rough estimation of word count."""
-    return len(re.findall(r'\w+', text))
+def insert_source_link(content, rel_path):
+    github_url = f"https://github.com/TEGDV/QuantitativeSystemsEngineering/blob/main/{rel_path}"
+    escaped_path = rel_path.replace('_', '\\_')
+    link_tex = f"\n\\noindent\\textit{{Source Path: \\href{{{github_url}}}{{{escaped_path}}}}}\\\\\n"
+    
+    # Try to find the first \section
+    m = re.search(r'(\\section\{.*?\})', content)
+    if m:
+        pos = m.end()
+        return content[:pos] + link_tex + content[pos:]
+    else:
+        return link_tex + content
 
 def compile_notes():
-    md_files = get_markdown_files()
-    if not md_files:
-        print("No markdown files found to compile.")
+    tex_files = get_tex_files()
+    if not tex_files:
+        print("No latex fragment files found to compile.")
         return
     
-    print(f"Found {len(md_files)} markdown files. Compiling...")
+    print(f"Found {len(tex_files)} LaTeX files. Compiling master document...")
     
-    compiled_content = []
+    compiled_content = [PREAMBLE]
     
-    # Write Master Header
-    compiled_content.append("# Quantitative Systems Engineering: Compiled Notes & Logs")
-    compiled_content.append(f"*Last compiled: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}*")
-    compiled_content.append("")
-    compiled_content.append("This file contains the unified learning notes, plans, and daily logs compiled from the repository. ")
-    compiled_content.append("It is automatically updated on every push to the repository to keep the NotebookLM context synchronized.")
-    compiled_content.append("")
-    compiled_content.append("## 📁 Compiled Sources")
+    current_breadcrumbs = None
     
-    for rel_path, _ in md_files:
-        compiled_content.append(f"- [{rel_path}](https://github.com/TEGDV/QuantitativeSystemsEngineering/blob/main/{rel_path})")
-    
-    compiled_content.append("")
-    compiled_content.append("---")
-    compiled_content.append("")
-    
-    for rel_path, full_path in md_files:
+    for rel_path, full_path in tex_files:
         print(f"Processing: {rel_path}")
         
         # Read the file
@@ -116,41 +148,48 @@ def compile_notes():
             print(f"Error reading {rel_path}: {e}")
             continue
         
-        # Determine the logical hierarchy depth of the file based on directory structure
-        # e.g., year1/notes/systems/chapter1.md -> parts: ["year1", "notes", "systems", "chapter1.md"]
-        # We will treat each level as an H2, H3, H4 context, and shift the file's internal headers accordingly.
+        # Track breadcrumbs/chapters
         parts = rel_path.split(os.sep)
+        breadcrumbs = parts[:-1]
+        # Human readable and escaped for LaTeX
+        breadcrumbs_str = " $\\rightarrow$ ".join([p.replace('_', ' ').title() for p in breadcrumbs])
+        # Escape any special characters that title() might leave behind, though replace already handles _
         
-        # Remove extension from the file name
-        file_display_name = os.path.splitext(parts[-1])[0].replace('_', ' ').title()
+        if breadcrumbs_str != current_breadcrumbs:
+            current_breadcrumbs = breadcrumbs_str
+            compiled_content.append(f"\n\\chapter{{{breadcrumbs_str}}}\n")
+            
+        # Insert Source Link
+        processed_content = insert_source_link(content, rel_path)
         
-        # Construct the context breadcrumbs
-        breadcrumbs = " › ".join([p.replace('_', ' ').title() for p in parts[:-1]])
-        
-        # Append Section Divider
-        compiled_content.append(f"## 📄 Source: {breadcrumbs} › {file_display_name}")
-        compiled_content.append(f"*Path: [{rel_path}](https://github.com/TEGDV/QuantitativeSystemsEngineering/blob/main/{rel_path})*")
-        compiled_content.append("")
-        
-        # Shift headers in the file by 2 levels (since the source header is H2)
-        # So H1 inside the file becomes H3, H2 becomes H4, etc.
-        shifted_content = shift_headers(content, shift_amount=2)
-        
-        compiled_content.append(shifted_content)
-        compiled_content.append("")
-        compiled_content.append("---")
-        compiled_content.append("")
+        compiled_content.append(processed_content)
+        compiled_content.append("\n\\newpage\n")
+    
+    compiled_content.append("\n\\end{document}\n")
     
     # Write to master file
     try:
-        with open(OUTPUT_FILE, 'w', encoding='utf-8') as f:
-            f.write("\n".join(compiled_content))
-        
-        total_words = count_words("\n".join(compiled_content))
-        print(f"Successfully compiled {len(md_files)} files into {OUTPUT_FILE}.")
-        print(f"Total Word Count: {total_words} words.")
+        with open(OUTPUT_TEX, 'w', encoding='utf-8') as f:
+            f.write("".join(compiled_content))
+        print(f"Successfully compiled {len(tex_files)} fragment files into {OUTPUT_TEX}.")
     except Exception as e:
         print(f"Error writing to output file: {e}")
+        return
+
+    # Attempt to compile to PDF
+    print("Attempting to compile to PDF...")
+    compiled = False
+    for engine in [["tectonic", "compiled_academic_notes.tex"], ["pdflatex", "-interaction=nonstopmode", "compiled_academic_notes.tex"]]:
+        try:
+            print(f"Running {' '.join(engine)}...")
+            res = subprocess.run(engine, check=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, cwd=REPO_ROOT)
+            print("PDF compilation successful!")
+            compiled = True
+            break
+        except (subprocess.CalledProcessError, FileNotFoundError) as e:
+            continue
+    if not compiled:
+        print("Could not compile to PDF. Please ensure tectonic or pdflatex is installed.")
 
 if __name__ == "__main__":
     compile_notes()

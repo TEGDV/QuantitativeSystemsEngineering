@@ -93,7 +93,7 @@ To support your daily study habit and sync notes with your LLM context:
     python3 scripts/new_log.py [year_number] [quarter_number]
     # Example: python3 scripts/new_log.py 1
     ```
-*   **Notes Compiler:** Manually compiles all markdown files into a single master file (`compiled_academic_notes.md`). Note: This runs automatically on push via GitHub Actions.
+*   **Notes Compiler:** Manually compiles all LaTeX fragment files into a master document (`compiled_academic_notes.tex`) and compiles them into a unified PDF (`compiled_academic_notes.pdf`). Note: This runs automatically on push via GitHub Actions.
     ```bash
     python3 scripts/compile_notes.py
     ```

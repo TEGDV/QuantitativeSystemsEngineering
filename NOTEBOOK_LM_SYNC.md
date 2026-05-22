@@ -6,9 +6,9 @@ This guide details how to connect this repository to Google NotebookLM for a sea
 
 ## 🔄 NotebookLM Integration
 
-Since Google NotebookLM does not natively integrate with Git repositories, we use a **single compiled master source file** approach. The repository is configured to automatically aggregate all scattered markdown notes, weekly planning files, and daily logs into a single structured file: `compiled_academic_notes.md`.
+Since Google NotebookLM does not natively integrate with Git repositories, we compile our notes into a **unified professional PDF** (`compiled_academic_notes.pdf`). The repository is configured to automatically aggregate all scattered LaTeX fragment notes, weekly planning files, and daily logs, wrap them in a master academic template, and compile them to a PDF.
 
-This file is automatically updated on GitHub every time you push changes to your `main` branch.
+This PDF file is automatically updated on GitHub every time you push changes to your `main` branch.
 
 ### How to Connect NotebookLM (Step-by-Step)
 
@@ -18,17 +18,18 @@ This file is automatically updated on GitHub every time you push changes to your
 2. **Add the Source:**
    - Click **Add Source** (under the Sources panel).
    - Select **Link** / **Website**.
-   - Paste the following **Public Raw GitHub URL** of your compiled notes file:
+   - Paste the following **Public Raw GitHub URL** of your compiled PDF file:
      ```text
-     https://raw.githubusercontent.com/TEGDV/QuantitativeSystemsEngineering/main/compiled_academic_notes.md
+     https://raw.githubusercontent.com/TEGDV/QuantitativeSystemsEngineering/main/compiled_academic_notes.pdf
      ```
-   - Click **Add**. NotebookLM will fetch the entire document, parse the hierarchy, and index it.
+   - Click **Add**. NotebookLM will fetch the PDF, parse the mathematical formulas and code blocks beautifully, and index it.
+   - *Alternative:* You can also download `compiled_academic_notes.pdf` from your repository and upload it directly to NotebookLM as a PDF file, or upload it to Google Drive and connect it.
 
 3. **How to Sync New Notes (One-Click Refresh):**
-   - Every time you finish a study session and push your new log or note to GitHub, the GitHub Action automatically runs `scripts/compile_notes.py` and pushes the updated `compiled_academic_notes.md` to GitHub.
+   - Every time you finish a study session and push your new log or note to GitHub, the GitHub Action automatically runs `scripts/compile_notes.py` using **Tectonic** to compile the LaTeX into `compiled_academic_notes.pdf` and pushes it back to GitHub.
    - Go to your NotebookLM notebook.
-   - In the **Sources** panel, hover over the `compiled_academic_notes.md` source and click the **Refresh** icon (🔄).
-   - NotebookLM will instantly pull the latest notes, updates, and daily logs into its active context!
+   - In the **Sources** panel, hover over the `compiled_academic_notes.pdf` source and click the **Refresh** icon (🔄).
+   - NotebookLM will instantly pull the latest PDF, updating its context with your new math practice, notes, and study logs!
 
 ---
 
@@ -51,11 +52,7 @@ python3 scripts/new_log.py 1
 python3 scripts/new_log.py 1 1
 ```
 
-This creates a file named `YYYY-MM-DD_log.md` (e.g. `2026-05-21_log.md`) in `year_01/quarter_01/notes/` containing:
-- **Session Stats:** Date, Focus Area, Duration, and a Habit Checklist.
-- **Theory & Reading:** Spaces for resources studied and key concepts.
-- **Implementation & Practice:** Space for code snippets or commands run.
-- **Questions & Next Focus:** Space for blockers and tomorrow's goals.
+This creates a file named `YYYY-MM-DD_log.tex` (e.g. `2026-05-21_log.tex`) in `year_01/quarter_01/notes/` containing a pre-formatted LaTeX fragment with daily metrics, check lists, and a Rust listing block.
 
 ### 2. Compiling Notes Locally (`compile_notes.py`)
 
@@ -64,7 +61,7 @@ If you want to compile your notes locally to verify the structure or check the o
 ```bash
 python3 scripts/compile_notes.py
 ```
-This traverses all folders in the repository, sorts all markdown files logically (by Year -> Quarter -> Category), shifts their headers to preserve hierarchy, and writes them into `compiled_academic_notes.md` in the root.
+This traverses all folders in the repository, sorts all LaTeX fragment files logically (by Year -> Quarter -> Category), groups them into chapters by path, wraps them in a master document preamble (with code highlight styles, link colors, and document geometry), and outputs `compiled_academic_notes.tex` (and compiles to `compiled_academic_notes.pdf` if local LaTeX compilers like `tectonic` or `pdflatex` are installed).
 
 ---
 
@@ -87,7 +84,7 @@ Divide your daily block into three phases:
   - Commit and push to GitHub.
 
 ### 2. Leverage NotebookLM as an Active Mentor
-Once NotebookLM is loaded with your `compiled_academic_notes.md` context, use it to review and test yourself:
+Once NotebookLM is loaded with your `compiled_academic_notes.pdf` context, use it to review and test yourself:
 - **"Grill Me" Session:** Ask NotebookLM: *"Based on my study logs for the past week, quiz me on two's complement arithmetic and memory layout. Give me 3 exercises to solve."*
 - **Explain the Gaps:** When you log a doubt under **Blockers/Doubts**, paste it to NotebookLM: *"Here is a blocker I logged today about epoll edge-triggered vs level-triggered behavior. Explain this using the context of my OSTEP notes."*
 - **Concept Association:** Ask: *"How does the linear algebra concept I studied on Tuesday (nullspaces) relate to the systems programming topics I was working on last week?"*

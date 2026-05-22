@@ -1,0 +1,80 @@
+\subsection{CS:APP 2nd Edition - Assault Protocol}
+
+This book is the doctrinal backbone for Year 1 systems knowledge. It will be approached methodically, one chapter per month, to ensure deep mastery over superficial understanding.
+
+\subsubsection{\textbf{Preliminary Mission: Chapter 1 - Reconnaissance}}
+
+Chapter 1, "A Tour of Computer Systems," is a high-level operational overview. \textbf{Read it once, quickly, for context.} Do not get bogged down in details. Its purpose is to give you a map of the territory you will explore in depth in the following chapters. You have already covered it in Week 1. Refer back to it only if you need to recall how the pieces fit together.
+
+\subsubsection{\textbf{Month 1: Chapter 2 - Representing Information}}
+
+This is the true starting point. The objective is to master how data exists at the bit level. The chapter is divided into a four-week assault.
+
+\begin{itemize}
+  \item \textbf{Week 1: Foundations of Representation}
+  \item \textbf{Monday:} Read pp. 29-46 (Section 2.1.1 to 2.1.4).
+  \item \textbf{Focus:} Hexadecimal notation, \texttt{word size}, and byte ordering (endianness).
+  \item \textbf{Wednesday:} Read pp. 46-56 (Section 2.1.5 to 2.1.10).
+  \item \textbf{Focus:} String representation, bit-level operations (\texttt{\&}, \texttt{|}, \texttt{\textasciicircum{}}, \texttt{\textasciitilde{}}), and shift operations (\texttt{\textless{}\textless{}}, \texttt{\textgreater{}\textgreater{}}).
+
+  \item \textbf{Week 2: Integer Representation}
+  \item \textbf{Monday:} Read pp. 56-69 (Section 2.2 to 2.2.4).
+  \item \textbf{Focus:} Unsigned integers and the logic of two's complement for signed integers.
+  \item \textbf{Wednesday:} Read pp. 69-79 (Section 2.2.5 to 2.2.8).
+  \item \textbf{Focus:} Conversions between signed/unsigned, sign extension, and the dangers of truncation.
+
+  \item \textbf{Week 3: Integer Arithmetic}
+  \item \textbf{Monday:} Read pp. 79-88 (Section 2.3 to 2.3.3).
+  \item \textbf{Focus:} Two's complement addition, subtraction, and negation; overflow detection.
+  \item \textbf{Wednesday:} Read pp. 88-99 (Section 2.3.4 to 2.3.8).
+  \item \textbf{Focus:} Multiplication and the optimization of division by powers of two via shifts.
+
+  \item \textbf{Week 4: Floating-Point Arithmetic}
+  \item \textbf{Monday:} Read pp. 99-110 (Section 2.4 to 2.4.3).
+  \item \textbf{Focus:} Fractional binary representation and the IEEE 754 standard (sign, exponent, fraction).
+  \item \textbf{Wednesday:} Read pp. 110-118 (Section 2.4.4 to 2.5).
+  \item \textbf{Focus:} Rounding modes, floating-point operations, and the nature of precision errors.
+
+\end{itemize}
+\noindent\rule{\textwidth}{0.4pt}
+\begin{itemize}
+  \item Homework problems (pp. 119 - 134)
+  \item Solutions (pp. 134 - 151)
+
+\end{itemize}
+\subsubsection{\textbf{Month 2: Chapter 3 - Machine-Level Program Representation}}
+
+This month, you move from \textit{what} data is to \textit{how} the machine acts upon it. The objective is to learn to read and understand x86-64 assembly language. This is not an academic exercise; it is the process of learning the machine's native tongue. The pace is aggressive. It requires absolute focus.
+
+\begin{itemize}
+  \item \textbf{Week 5: Assembly Fundamentals}
+  \item \textbf{Monday:} Read pp. 156-177 (Sections 3.1 to 3.4).
+  \item \textbf{Focus:} Program encodings, data formats, accessing information, and the roles of the primary integer registers.
+  \item \textbf{Wednesday:} Read pp. 177-199 (Sections 3.5 to 3.6).
+  \item \textbf{Focus:} Arithmetic and logical operations (\texttt{leaq}, \texttt{add}, shifts) and the fundamentals of control flow (condition codes, jumps).
+
+  \item \textbf{Week 6: Procedures and Arrays}
+  \item \textbf{Monday:} Read pp. 200-218 (Section 3.7).
+  \item \textbf{Focus:} The run-time stack, control transfer (\texttt{call}/\texttt{ret}), and register usage conventions for procedures.
+  \item \textbf{Wednesday:} Read pp. 219-240 (Section 3.8).
+  \item \textbf{Focus:} Array allocation, pointer arithmetic, and the layout of nested and variable-sized arrays in memory.
+
+  \item \textbf{Week 7: Data Structures and Pointers}
+  \item \textbf{Monday:} Read pp. 241-253 (Section 3.9 to 3.10).
+  \item \textbf{Focus:} The memory layout of \texttt{structs} and \texttt{unions}, data alignment, and a consolidated understanding of pointers.
+  \item \textbf{Wednesday:} Read pp. 254-266 (Sections 3.11 to 3.12).
+  \item \textbf{Focus:} Practical use of the GDB debugger and the critical security implications of buffer overflow vulnerabilities.
+
+  \item \textbf{Week 8: x86-64 and Floating Point}
+  \item \textbf{Monday:} Read pp. 267-280 (Section 3.13).
+  \item \textbf{Focus:} The extension to 64-bit, how information is accessed, and control flow in x86-64.
+  \item \textbf{Wednesday:} Read pp. 280-294 (Sections 3.13 to 3.15).
+  \item \textbf{Focus:} Data structures in x86-64, machine-level representation of floating-point programs, and the chapter summary.
+
+\end{itemize}
+\noindent\rule{\textwidth}{0.4pt}
+\begin{itemize}
+  \item \textbf{Homework Problems:} (pp. 294 - 308)
+  \item \textbf{Solutions to Practice Problems:} (pp. 308 - ...)
+
+\end{itemize}

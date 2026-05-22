@@ -1,0 +1,586 @@
+\documentclass[11pt,a4paper]{report}
+\usepackage[utf8]{inputenc}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb}
+\usepackage{xcolor}
+\usepackage{listings}
+\usepackage{textcomp}
+\usepackage{graphicx}
+\usepackage{hyperref}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    urlcolor=cyan,
+    pdftitle={Quantitative Systems Engineering: Compiled Notes and Logs},
+    pdfauthor={Jair Aguilar Peña}
+}
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=4
+}
+
+\lstset{style=mystyle}
+
+\title{Quantitative Systems Engineering\\ \large Compiled Study Notes \& Logs}
+\author{Jair Aguilar Peña}
+\date{\today}
+
+\begin{document}
+\maketitle
+\tableofcontents
+\newpage
+
+\chapter{Year 01 $\rightarrow$ Quarter 01 $\rightarrow$ Notes}
+\section{Daily Study Log: 2026-05-21}
+\noindent\textit{Source Path: \href{https://github.com/TEGDV/QuantitativeSystemsEngineering/blob/main/year_01/quarter_01/notes/2026-05-21_log.tex}{year\_01/quarter\_01/notes/2026-05-21\_log.tex}}\\
+
+
+\subsection{📊 Session Stats}
+\begin{itemize}
+  \item \textbf{Date:} 2026-05-21
+  \item \textbf{Focus Area:} [e.g., Systems Programming / Linear Algebra / Rust]
+  \item \textbf{Time Invested:} [e.g., 1 hour 45 minutes]
+  \item \textbf{Habit Checklist:}
+  \item {[ ]} 📖 Reading \& Theory Study
+  \item {[ ]} 🛠️ Hands-on coding/math problem solving
+  \item {[ ]} ✍️ Notes documented \& compiled to NotebookLM
+
+\end{itemize}
+\noindent\rule{\textwidth}{0.4pt}
+
+\subsection{📖 Theory \& Reading Summary}
+\textit{What theoretical concepts did I cover today? Include book name/chapter and core notes.}
+
+\begin{itemize}
+  \item \textbf{Topic/Resource:} [e.g., CS:APP Chapter 2 - Representing and Manipulating Information]
+  \item \textbf{Key Concepts learned:}
+  \item 
+  \item 
+
+\end{itemize}
+\noindent\rule{\textwidth}{0.4pt}
+
+\subsection{🛠️ Implementation \& Practice}
+\textit{What did I build, compile, profile, or debug today? Show code snippets, command lines, or math solutions.}
+
+\begin{itemize}
+  \item \textbf{Task/Project:} [e.g., Floating point conversions or Rust memory ownership exercise]
+  \item \textbf{Key Code/Output:}
+\end{itemize}
+\begin{lstlisting}[language=Rust]
+  // Insert code snippets or terminal logs
+\end{lstlisting}
+\begin{itemize}
+  \item \textbf{What worked/What failed:}
+  \item 
+
+\end{itemize}
+\noindent\rule{\textwidth}{0.4pt}
+
+\subsection{🧠 Questions \& Next Focus}
+\textit{What was difficult or needs further clarification? What is the goal for tomorrow's study session?}
+
+\begin{itemize}
+  \item \textbf{Blockers/Doubts:}
+  \item 
+  \item \textbf{Tomorrow's Goal:}
+  \item 
+
+\end{itemize}
+\newpage
+
+\chapter{Year 01 $\rightarrow$ Quarter 01 $\rightarrow$ Notes $\rightarrow$ Systems}
+High level c -\textgreater{} \texttt{program.c}
+low level C -\textgreater{} any binary file compiled
+
+to compile a 
+low level C - any binary file compiled
+
+to compile a \texttt{.c} file into binary we use \texttt{gcc}.
+common compile command.
+
+\texttt{gcc -o \textless{}bin\_name\textgreater{} \textless{}c\_file\textgreater{}} example \texttt{gcc -o hello hello.c}
+
+the \texttt{gcc} command its an interface to run linked commands:
+
+\begin{enumerate}
+  \item preprocersor \texttt{cpp} (converts \texttt{.c} files into a modified source program \texttt{.i}) modifies directives like \#include \textless{}stdio.h\textgreater{} reads the his content and insert that content directly in the \texttt{.i} resulting file.
+  \item A compiler \texttt{cc1} turns the text modified program into assembly program Text. Converts the \texttt{.i} into a text Assembly code litterallly the byte code represented on the numerial bit representation as Text.
+  \item An Assembler \texttt{as} tool turns assembly text file (\texttt{.s}) into a relocable object program ( \texttt{.o} binary) instead of characters character representation the Assembler stores these bytes in a space memory to write the real Assembly Instructions.
+  \item A linker \texttt{ld} that turn the re-locable program into an executable binary file. i.e \texttt{hello} binary file no-extention.
+
+
+\end{enumerate}
+\section{1.4 Processors Reand And interpret instructions stored memory}
+\noindent\textit{Source Path: \href{https://github.com/TEGDV/QuantitativeSystemsEngineering/blob/main/year_01/quarter_01/notes/systems/chapter1_cssapp.tex}{year\_01/quarter\_01/notes/systems/chapter1\_cssapp.tex}}\\
+
+
+
+Buses. The electrical connection around a computer where the bytes are carried between components. Buses are desingned to transfer fixed size chinks of bytes known as \textit{words}. Most machines today uses either 4 bytes (32bits) or 8 bytes (64 bits).
+
+I/O devices. Systems connection to the external world. keyobard, mouse, a display , a disk drive, etc.
+
+Main memory. is a temporary storage. Memory is organized as a linear array f bytes. each with its own unique adress (array index) starting at 0.
+
+CPU. central progracessing unit, is the engine that interprets or executes instructions stored in main memory.
+\begin{itemize}
+  \item At is core is a word sized storae device or register called \textit{program counter}.
+  \item PC points at some chenie language intruction in main memory.
+  \item 
+
+\end{itemize}
+ALU. Aritmetic/Logic unit.
+
+Common Processing Unit instructions:
+\begin{itemize}
+  \item load: copu a byte or a word from main memory into a register, overwriting the previous contents of the register.
+  \item Store: Copy a bute ot a word from a register to a location in main moemory, overwriting the previous contents of the register.
+  \item Operate: Copyu the contents of two register to the ALU, perform an arthmetic operation the two words. and store the result in a register, overwriting the previous contents of that register.
+  \item Jump: Extract a word from the instruction itself and copy that word in the program counter (PC), overwriting the previous value of the PC.
+
+
+\end{itemize}
+Save temporary files of compilation for C programs:
+
+\texttt{gcc -save-temps \textless{}input\textgreater{} -o \textless{}ouput\_bin\textgreater{}}
+
+\subsection{Summary}
+\noindent\rule{\textwidth}{0.4pt}
+\texttt{preprocersor} its the responsible of remove coments and ingest built-in code like stdio.h types and functions.
+
+\texttt{compiler} its the responsible of optimize the code by re arraging instructions to result into an assembly code, also checks for errors before this previous step and generate the corresponding AS code for the target Architecture (i.e ARM, x86-64).
+
+\texttt{Assembler} Transform the \texttt{.s} assembly code file into machine code that its a collections of 1 and 0.
+
+\texttt{Linker} this is one of the most powerful stages. Since modern compiler don't write all the code into binaries to don't repeat instruction the linker bind some known utilities directly from the System ROM or Drivers and instead of write a new block of code in the binary the binary writes a instruction to execute the already existing instruction.
+
+
+
+\newpage
+Your premise that history is irrelevant to a technical focus is a common one, but it is incorrect, especially for foundational technologies like the C language. The historical context is not trivia; it is the technical rationale for the language's design. The text by Dennis M. Ritchie reveals that C's features are not arbitrary rules but pragmatic solutions to specific hardware limitations and software problems of its time. Understanding this history provides a deeper comprehension of why the language works the way it does, which is essential for mastering it.
+
+\section{C as a Product of Evolution, Not Grand Design}
+\noindent\textit{Source Path: \href{https://github.com/TEGDV/QuantitativeSystemsEngineering/blob/main/year_01/quarter_01/notes/systems/history_of_C_lang.tex}{year\_01/quarter\_01/notes/systems/history\_of\_C\_lang.tex}}\\
+
+
+The provided text demonstrates that C was not designed in a vacuum. It evolved directly from the typeless language B, which itself was a stripped-down version of BCPL, created to function on a DEC PDP-7 computer with only 8K of memory. C's core technical characteristics are a direct consequence of this evolutionary path, shaped by three main forces:
+
+\begin{itemize}
+  \item Hardware Constraints: The transition from the word-addressed PDP-7 to the byte-addressable PDP-11 was the primary catalyst for C's most significant feature: its type system. Types were not initially added for safety, but for efficiency and direct hardware mapping.
+
+  \item Pragmatic Problem-Solving: C was built to write the Unix operating system. Every feature was a tool with a purpose. Features were added, like the ++ and -- operators, because they produced more efficient machine code. Features were modified, like the \&\& and || operators, to resolve ambiguity found in its predecessor, B.
+
+  \item Path Dependence: C retains "fossils" from its ancestors. Decisions made to ease the transition from B, or due to the limitations of early compilers, have left permanent marks on C's syntax and semantics.
+
+
+\end{itemize}
+\newpage
+
+\chapter{Year 01 $\rightarrow$ Quarter 01 $\rightarrow$ Planning}
+\section{Week 1: Protocol - Foundations of Representation}
+\noindent\textit{Source Path: \href{https://github.com/TEGDV/QuantitativeSystemsEngineering/blob/main/year_01/quarter_01/planning/week1.tex}{year\_01/quarter\_01/planning/week1.tex}}\\
+
+
+This is the operational mandate for the first seven days. The objective is singular: establish a rhythm of deep work in the two core pillars of this year—Computer Systems and Mathematics. Distractions are eliminated. The 2-4 hour block is a non-negotiable commitment.
+
+Adherence to the schedule is the only metric for success this week. The work must be done.
+
+\noindent\rule{\textwidth}{0.4pt}
+
+\subsubsection{\textbf{Monday: Computer Science - The Language of Memory}}
+\begin{itemize}
+  \item \textbf{Objective:} Master hexadecimal notation, the concept of "word size," and the critical distinction between big-endian and little-endian byte ordering.
+  \item \textbf{Block (2 Hours):} Read CS:APP, pp. 29-41 (Sección 2.1.1 a 2.1.4).
+  \item \textbf{Execution:}
+\end{itemize}
+\begin{enumerate}
+  \item Escribe un programa en C que declare una variable \texttt{int x = 0x01234567;} y luego imprima sus bytes individuales para determinar el endianness de tu máquina.
+  \item Convierte a mano los números decimales 15, 16, 255, y 256 a binario y hexadecimal.
+  \item Explica en tus notas por qué el byte ordering es un problema fundamental en la programación de redes.
+
+\end{enumerate}
+\subsubsection{\textbf{Tuesday: Mathematics - The Geometry of Equations}}
+\begin{itemize}
+  \item \textbf{Objective:} To visualize linear equations not as abstract algebra, but as geometric objects: lines, planes, and their intersections.
+  \item \textbf{Block (2-3 Hours):} Watch MIT 18.06 Linear Algebra, Lecture 1 ("The Geometry of Linear Equations") and Lecture 2 ("Elimination with Matrices").
+  \item \textbf{Execution:}
+\end{itemize}
+\begin{enumerate}
+  \item Take handwritten notes. The physical act of writing aids memory.
+  \item For a 2x2 system, draw the row picture (intersecting lines) and the column picture (vector addition). Do this for a system with one solution, no solution, and infinite solutions.
+  \item Perform Gaussian elimination on a 3x3 system by hand. Show your work.
+
+\end{enumerate}
+\subsubsection{\textbf{Wednesday: Computer Science - Bit-Level Manipulation}}
+\begin{itemize}
+  \item \textbf{Objective:} Entender cómo se representan las cadenas de caracteres y el código, y dominar las operaciones a nivel de bit en C.
+  \item \textbf{Block (2 Hours):} Read CS:APP, pp. 46-56 (Sección 2.1.5 a 2.1.10).
+  \item \textbf{Execution:}
+\end{itemize}
+\begin{enumerate}
+  \item Escribe una función en C que use máscaras de bits (\texttt{\&}) y desplazamientos (\texttt{\textgreater{}\textgreater{}}) para extraer el byte más significativo de un entero de 32 bits.
+  \item Implementa la operación XOR (\texttt{\textasciicircum{}}) usando solo las operaciones AND (\texttt{\&}) y NOT (\texttt{\textasciitilde{}}).
+  \item Explica la diferencia fundamental entre el desplazamiento lógico a la derecha y el desplazamiento aritmético a la derecha.
+
+\end{enumerate}
+\subsubsection{\textbf{Thursday: Mathematics - Elimination and Inverses}}
+\begin{itemize}
+  \item \textbf{Objective:} To master the mechanics of matrix operations, the core machinery of linear algebra.
+  \item \textbf{Block (2-3 Hours):} Watch MIT 18.06, Lecture 3 ("Multiplication and Inverse Matrices") and Lecture 4 ("Factorization into A = LU").
+  \item \textbf{Execution:}
+\end{itemize}
+\begin{enumerate}
+  \item Multiply two 3x3 matrices by hand.
+  \item Find the inverse of a 2x2 matrix using the formula.
+  \item Take a 3x3 matrix and perform LU decomposition on it by hand.
+
+\end{enumerate}
+\subsubsection{\textbf{Friday: The Forge - Armory and First Contact}}
+\begin{itemize}
+  \item \textbf{Objective:} To prepare your development environment and make first contact with your primary language. A warrior's weapon must be sharp and ready.
+  \item \textbf{Block (2-3 Hours):}
+  \item \textbf{Execution:}
+\end{itemize}
+\begin{enumerate}
+  \item Install a C compiler (GCC via MinGW, macOS Command Line Tools, or \texttt{build-essential} on Linux).
+  \item Install Rust via \texttt{rustup}.
+  \item Write, compile, and run \texttt{hello, world} in C.
+  \item Write, compile, and run \texttt{hello, world} in Rust using \texttt{rustc} directly.
+  \item Create a new project using \texttt{cargo new hello\_cargo}, build it, and run it. Read the output to understand what Cargo is doing for you.
+
+\end{enumerate}
+\subsubsection{\textbf{Saturday: The Forge - Basic Training}}
+\begin{itemize}
+  \item \textbf{Objective:} To move from "hello, world" to programs that perform logic. Solidify basic syntax and concepts.
+  \item \textbf{Block (3-4 Hours):} Work through Chapter 3 of \textit{The Rust Programming Language} ("Common Programming Concepts").
+  \item \textbf{Execution:}
+\end{itemize}
+\begin{enumerate}
+  \item For every concept (variables, data types, functions, control flow), write a small, separate program in a \texttt{practice} directory to test it.
+  \item Build the three programs requested in the book:
+\end{enumerate}
+\begin{itemize}
+  \item Temperature converter.
+  \item Fibonacci number generator.
+  \item "The Twelve Days of Christmas" lyrics generator.
+
+\end{itemize}
+\subsubsection{\textbf{Sunday: Review and Reload}}
+\begin{itemize}
+  \item \textbf{Objective:} To assess the week's progress, identify weak points, and prepare for the next operational cycle.
+  \item \textbf{Block (2 Hours):}
+  \item \textbf{Execution:}
+\end{itemize}
+\begin{enumerate}
+  \item Read through every single note you took this week.
+  \item Create a "Weak Points" list. Write down the 1-3 concepts that you feel least confident about.
+  \item Create the \texttt{week\_02.md} file. The first task for next week will be to attack the items on your "Weak Points" list.
+  \item Outline the new topics for Week 2 in Year1.md
+
+\end{enumerate}
+\noindent\rule{\textwidth}{0.4pt}
+
+The plan is updated. The mission is unchanged.
+
+\newpage
+\section{Week 2: Protocol - Integer Representation and Vector Spaces}
+\noindent\textit{Source Path: \href{https://github.com/TEGDV/QuantitativeSystemsEngineering/blob/main/year_01/quarter_01/planning/week2.tex}{year\_01/quarter\_01/planning/week2.tex}}\\
+
+
+The baseline is established. This week, we descend to the next layer of abstraction. You will master the machine's representation of signed and unsigned integers and how mathematicians conceptualize the spaces that vectors inhabit. These topics are dense.
+\noindent\rule{\textwidth}{0.4pt}
+
+\subsubsection{\textbf{Monday: Computer Science - The World of Integers}}
+\begin{itemize}
+  \item \textbf{Objective:} Master the representation of unsigned and signed integers, focusing on the logic of two's complement.
+  \item \textbf{Block (2 Hours):} Read CS:APP, pp. 56-69 (Sección 2.2 a 2.2.4).
+  \item \textbf{Execution:}
+\end{itemize}
+\begin{enumerate}
+  \item For a 4-bit integer, write down all possible values in a table showing their binary, unsigned decimal, and two's complement decimal representations.
+  \item Calculate by hand the two's complement of -5 and -1 for an 8-bit integer.
+  \item Explain in your notes why the range of a two's complement number is asymmetric (e.g., -128 to 127 for 8 bits).
+
+\end{enumerate}
+\subsubsection{\textbf{Tuesday: Mathematics - The Structure of Vector Spaces}}
+\begin{itemize}
+  \item \textbf{Objective:} Move beyond simple vectors to understand the properties of the spaces they inhabit.
+  \item \textbf{Block (2-3 Hours):} Watch MIT 18.06, Lecture 5 ("Transposes, Permutations, Vector Spaces") and Lecture 6 ("Column Space and Nullspace").
+  \item \textbf{Execution:}
+\end{itemize}
+\begin{enumerate}
+  \item Take handwritten notes. Pay close attention to the formal definition of a vector space and a subspace.
+  \item For a given 3x3 matrix, determine if its column space is a line, a plane, or all of R³.
+  \item Find the nullspace for a simple 2x3 matrix. Explain geometrically what the nullspace represents.
+
+\end{enumerate}
+\subsubsection{\textbf{Wednesday: Computer Science - The Dangers of Conversion}}
+\begin{itemize}
+  \item \textbf{Objective:} Understand the implicit conversions between signed and unsigned integers in C and the subtle bugs they can introduce.
+  \item \textbf{Block (2 Hours):} Read CS:APP, pp. 69-79 (Sección 2.2.5 a 2.2.8).
+  \item \textbf{Execution:}
+\end{itemize}
+\begin{enumerate}
+  \item Write a C program that demonstrates that \texttt{(unsigned int)-1 \textgreater{} 0} evaluates to true and explain precisely why this happens at the bit level.
+  \item Show how an 8-bit integer with a value of -10 is expanded to a 16-bit integer (sign extension).
+  \item Describe a scenario where the truncation of a number (e.g., casting a \texttt{long} to an \texttt{int}) could lead to an exploitable security vulnerability.
+
+\end{enumerate}
+\subsubsection{\textbf{Thursday: Mathematics - Reinforcement: The Four Subspaces}}
+\begin{itemize}
+  \item \textbf{Objective:} Solidify your understanding of the column space and nullspace, which are fundamental to all of linear algebra.
+  \item \textbf{Block (2-3 Hours):} Re-watch Lecture 6. Dedicate the entire session to solving problems from the associated problem set.
+  \item \textbf{Execution:}
+\end{itemize}
+\begin{enumerate}
+  \item For at least three different matrices, find a basis for their column space and their nullspace.
+  \item Create a matrix \texttt{A} where the vector \texttt{(1, 2, 3)} is in its column space.
+  \item Create a matrix \texttt{B} where the vector \texttt{(1, 1, 1)} is in its nullspace. Explain your reasoning.
+
+\end{enumerate}
+\subsubsection{\textbf{Friday: The Forge - The Soul of Rust: Ownership}}
+\begin{itemize}
+  \item \textbf{Objective:} To understand Rust's core principle of ownership. This is the single most important concept to master.
+  \item \textbf{Block (2-4 Hours):} Read and work through Chapter 4 of \textit{The Rust Programming Language} ("Understanding Ownership").
+  \item \textbf{Execution:}
+\end{itemize}
+\begin{enumerate}
+  \item Read the chapter without distraction. Type out every single code example and run it.
+  \item Draw diagrams showing how ownership is transferred when a variable is passed to a function.
+  \item Create examples that show the difference between a \texttt{move} and a \texttt{clone}.
+
+\end{enumerate}
+\subsubsection{\textbf{Saturday: The Forge - The Borrow Checker is Your Mentor}}
+\begin{itemize}
+  \item \textbf{Objective:} To develop an intuitive feel for the borrow checker by intentionally provoking errors and understanding them.
+  \item \textbf{Block (3-4 Hours):} Continue practicing concepts from Chapter 4 of the Rust book.
+  \item \textbf{Execution:}
+\end{itemize}
+\begin{enumerate}
+  \item Write a program that tries to use a value after it has been moved. Read the compiler error carefully. Understand \textit{why} it failed.
+  \item Write a program that tries to have two mutable references to the same data in the same scope. Analyze the error.
+  \item Write a function that calculates the length of a string without taking ownership of it (using a reference).
+
+\end{enumerate}
+\subsubsection{\textbf{Sunday: Review and Reload}}
+\begin{itemize}
+  \item \textbf{Objective:} Consolidate the week's knowledge, identify areas of weakness, and prepare the next week's operational plan.
+  \item \textbf{Block (2 Hours):}
+  \item \textbf{Execution:}
+\end{itemize}
+\begin{enumerate}
+  \item Review all notes from the week. Pay special attention to two's complement, nullspace, and Rust's ownership rules.
+  \item Update your "Weak Points" list.
+  \item Create the \texttt{week\_03.md} file. The first task is to address your weak points.
+  \item Outline the new topics for Week 3 in Year1.md
+
+\end{enumerate}
+\noindent\rule{\textwidth}{0.4pt}
+
+The plan is updated. The mission continues. Execute.
+
+\newpage
+\section{Week 3: Protocol - Integer Arithmetic and The Complete Solution}
+\noindent\textit{Source Path: \href{https://github.com/TEGDV/QuantitativeSystemsEngineering/blob/main/year_01/quarter_01/planning/week3.tex}{year\_01/quarter\_01/planning/week3.tex}}\\
+
+
+This week, we move from how numbers are stored to how they are manipulated. You will implement the logic of integer arithmetic at the bit level. In parallel, you will master the complete algorithm for solving any system of linear equations, the computational core of countless scientific problems. The work requires precision.
+
+\noindent\rule{\textwidth}{0.4pt}
+
+\subsubsection{\textbf{Monday: Computer Science - The Logic of Addition}}
+\begin{itemize}
+  \item \textbf{Objective:} Understand addition, subtraction, and negation in complement a dos, including the critical concept of desbordamiento (overflow).
+  \item \textbf{Block (2 Hours):} Read CS:APP, pp. 79-88 (Sección 2.3 a 2.3.3).
+  \item \textbf{Execution:}
+\end{itemize}
+\begin{enumerate}
+  \item Realiza a mano la suma de 5 + 3 y 5 + 5 en complemento a dos de 4 bits, mostrando si ocurre desbordamiento y por qué.
+  \item Realiza a mano la resta 5 - 3 (calculada como 5 + (-3)) en complemento a dos de 4 bits.
+  \item Demuestra que negar el número más negativo en complemento a dos (ej. -8 en 4 bits) resulta en el mismo número, y explica la implicación de este caso límite.
+
+\end{enumerate}
+\subsubsection{\textbf{Tuesday: Mathematics - Solving Ax = b}}
+\begin{itemize}
+  \item \textbf{Objective:} Master the complete algorithm for solving systems of linear equations, including cases with no solution or infinite solutions.
+  \item \textbf{Block (2-3 Hours):} Watch MIT 18.06, Lecture 7 ("Solving Ax = 0: Pivot Variables, Special Solutions") and Lecture 8 ("Solving Ax = b: Row Reduced Form R").
+  \item \textbf{Execution:}
+\end{itemize}
+\begin{enumerate}
+  \item Toma una matriz 3x4 \texttt{A} y encuentra la solución completa para \texttt{Ax = 0}. Esto implica encontrar las variables pivote y libres, y construir las soluciones especiales que forman el nullspace.
+  \item Usando la misma matriz \texttt{A} y un vector \texttt{b}, encuentra la solución completa para \texttt{Ax = b}.
+  \item Explica con tus propias palabras la relación entre la solución particular (una solución a Ax=b) y el nullspace (todas las soluciones a Ax=0).
+
+\end{enumerate}
+\subsubsection{\textbf{Wednesday: Computer Science - Multiplication by Machine}}
+\begin{itemize}
+  \item \textbf{Objective:} Entender la multiplicación y la división por potencias de dos usando desplazamientos de bits, una optimización fundamental.
+  \item \textbf{Block (2 Hours):} Read CS:APP, pp. 88-99 (Sección 2.3.4 a 2.3.8).
+  \item \textbf{Execution:}
+\end{itemize}
+\begin{enumerate}
+  \item Multiplica 6 * 3 en binario sin signo de 4 bits, mostrando el resultado completo de 8 bits.
+  \item Escribe una función en C que multiplique un entero por 17 usando solo desplazamientos (\texttt{\textless{}\textless{}}) y sumas (\texttt{+}).
+  \item Explica cómo la división de un número negativo por una potencia de dos usando desplazamiento aritmético a la derecha (\texttt{\textgreater{}\textgreater{}}) difiere de la división matemática tradicional y cómo se puede corregir este sesgo.
+
+\end{enumerate}
+\subsubsection{\textbf{Thursday: Mathematics - Independence, Basis, and Dimension}}
+\begin{itemize}
+  \item \textbf{Objective:} Solidify your understanding of linear independence, spanning, basis, and dimension—the core concepts describing the "size" y la estructura de un espacio vectorial.
+  \item \textbf{Block (2-3 Hours):} Watch MIT 1.06, Lecture 9 ("Linear Independence, Basis, and Dimension"). Dedica la sesión a resolver problemas del problem set asociado.
+  \item \textbf{Execution:}
+\end{itemize}
+\begin{enumerate}
+  \item Dado un conjunto de 3 vectores en R³, determina si son linealmente independientes.
+  \item Encuentra una base para el column space y una base para el nullspace de una matriz 3x4.
+  \item Para una matriz \texttt{m x n} de rango \texttt{r}, escribe las dimensiones de sus cuatro subespacios fundamentales (column space, nullspace, row space, left nullspace).
+
+\end{enumerate}
+\subsubsection{\textbf{Friday: The Forge - Structuring Data}}
+\begin{itemize}
+  \item \textbf{Objective:} Learn how to create complex data types using structs in Rust. This is the foundation for building any non-trivial application.
+  \item \textbf{Block (2-3 Hours):} Read and work through Chapter 5 of \textit{The Rust Programming Language} ("Using Structs to Structure Related Data").
+  \item \textbf{Execution:}
+\end{itemize}
+\begin{enumerate}
+  \item Define a \texttt{User} struct with fields like \texttt{username}, \texttt{email}, y \texttt{active}.
+  \item Write functions that toman una instancia del \texttt{User} struct como argumento.
+  \item Implementa métodos en el \texttt{User} struct usando un bloque \texttt{impl}. Crea un método que devuelva la información del usuario como un string formateado.
+
+\end{enumerate}
+\subsubsection{\textbf{Saturday: The Forge - Structs in Action}}
+\begin{itemize}
+  \item \textbf{Objective:} Apply your knowledge of structs to a practical problem and explore more advanced features like tuple structs and debug printing.
+  \item \textbf{Block (3-4 Hours):} Continue practicing concepts from Chapter 5 of the Rust book.
+  \item \textbf{Execution:}
+\end{itemize}
+\begin{enumerate}
+  \item Crea un programa que calcule el área de un rectángulo, primero usando variables separadas, y luego refactorízalo para usar un \texttt{Rectangle} struct.
+  \item Refactoriza el programa de nuevo para usar métodos en el \texttt{Rectangle} struct, como \texttt{area()} y \texttt{can\_hold()}.
+  \item Añade la anotación \texttt{\#[derive(Debug)]} a tus structs y experimenta imprimiéndolos usando los especificadores de formato \texttt{\{:?\}} y \texttt{\{:\#?\}}.
+
+\end{enumerate}
+\subsubsection{\textbf{Sunday: Review and Reload}}
+\begin{itemize}
+  \item \textbf{Objective:} Consolidate the week's knowledge, identify areas of weakness, and prepare the next week's operational plan.
+  \item \textbf{Block (2 Hours):}
+  \item \textbf{Execution:}
+\end{itemize}
+\begin{enumerate}
+  \item Review all notes. Focus on integer overflow, the process of finding the complete solution to \texttt{Ax = b}, y la sintaxis de los métodos \texttt{impl} en Rust.
+  \item Update your "Weak Points" list.
+  \item Create the \texttt{week\_04.md} file. The first task is to address your weak points.
+  \item Outline the new topics for Week 4 in Year1.md
+
+\end{enumerate}
+\noindent\rule{\textwidth}{0.4pt}
+
+The pace is deliberate. The standard is absolute. Execute.
+
+\newpage
+
+\noindent\textit{Source Path: \href{https://github.com/TEGDV/QuantitativeSystemsEngineering/blob/main/year_01/quarter_01/planning/README.tex}{year\_01/quarter\_01/planning/README.tex}}\\
+\subsection{CS:APP 2nd Edition - Assault Protocol}
+
+This book is the doctrinal backbone for Year 1 systems knowledge. It will be approached methodically, one chapter per month, to ensure deep mastery over superficial understanding.
+
+\subsubsection{\textbf{Preliminary Mission: Chapter 1 - Reconnaissance}}
+
+Chapter 1, "A Tour of Computer Systems," is a high-level operational overview. \textbf{Read it once, quickly, for context.} Do not get bogged down in details. Its purpose is to give you a map of the territory you will explore in depth in the following chapters. You have already covered it in Week 1. Refer back to it only if you need to recall how the pieces fit together.
+
+\subsubsection{\textbf{Month 1: Chapter 2 - Representing Information}}
+
+This is the true starting point. The objective is to master how data exists at the bit level. The chapter is divided into a four-week assault.
+
+\begin{itemize}
+  \item \textbf{Week 1: Foundations of Representation}
+  \item \textbf{Monday:} Read pp. 29-46 (Section 2.1.1 to 2.1.4).
+  \item \textbf{Focus:} Hexadecimal notation, \texttt{word size}, and byte ordering (endianness).
+  \item \textbf{Wednesday:} Read pp. 46-56 (Section 2.1.5 to 2.1.10).
+  \item \textbf{Focus:} String representation, bit-level operations (\texttt{\&}, \texttt{|}, \texttt{\textasciicircum{}}, \texttt{\textasciitilde{}}), and shift operations (\texttt{\textless{}\textless{}}, \texttt{\textgreater{}\textgreater{}}).
+
+  \item \textbf{Week 2: Integer Representation}
+  \item \textbf{Monday:} Read pp. 56-69 (Section 2.2 to 2.2.4).
+  \item \textbf{Focus:} Unsigned integers and the logic of two's complement for signed integers.
+  \item \textbf{Wednesday:} Read pp. 69-79 (Section 2.2.5 to 2.2.8).
+  \item \textbf{Focus:} Conversions between signed/unsigned, sign extension, and the dangers of truncation.
+
+  \item \textbf{Week 3: Integer Arithmetic}
+  \item \textbf{Monday:} Read pp. 79-88 (Section 2.3 to 2.3.3).
+  \item \textbf{Focus:} Two's complement addition, subtraction, and negation; overflow detection.
+  \item \textbf{Wednesday:} Read pp. 88-99 (Section 2.3.4 to 2.3.8).
+  \item \textbf{Focus:} Multiplication and the optimization of division by powers of two via shifts.
+
+  \item \textbf{Week 4: Floating-Point Arithmetic}
+  \item \textbf{Monday:} Read pp. 99-110 (Section 2.4 to 2.4.3).
+  \item \textbf{Focus:} Fractional binary representation and the IEEE 754 standard (sign, exponent, fraction).
+  \item \textbf{Wednesday:} Read pp. 110-118 (Section 2.4.4 to 2.5).
+  \item \textbf{Focus:} Rounding modes, floating-point operations, and the nature of precision errors.
+
+\end{itemize}
+\noindent\rule{\textwidth}{0.4pt}
+\begin{itemize}
+  \item Homework problems (pp. 119 - 134)
+  \item Solutions (pp. 134 - 151)
+
+\end{itemize}
+\subsubsection{\textbf{Month 2: Chapter 3 - Machine-Level Program Representation}}
+
+This month, you move from \textit{what} data is to \textit{how} the machine acts upon it. The objective is to learn to read and understand x86-64 assembly language. This is not an academic exercise; it is the process of learning the machine's native tongue. The pace is aggressive. It requires absolute focus.
+
+\begin{itemize}
+  \item \textbf{Week 5: Assembly Fundamentals}
+  \item \textbf{Monday:} Read pp. 156-177 (Sections 3.1 to 3.4).
+  \item \textbf{Focus:} Program encodings, data formats, accessing information, and the roles of the primary integer registers.
+  \item \textbf{Wednesday:} Read pp. 177-199 (Sections 3.5 to 3.6).
+  \item \textbf{Focus:} Arithmetic and logical operations (\texttt{leaq}, \texttt{add}, shifts) and the fundamentals of control flow (condition codes, jumps).
+
+  \item \textbf{Week 6: Procedures and Arrays}
+  \item \textbf{Monday:} Read pp. 200-218 (Section 3.7).
+  \item \textbf{Focus:} The run-time stack, control transfer (\texttt{call}/\texttt{ret}), and register usage conventions for procedures.
+  \item \textbf{Wednesday:} Read pp. 219-240 (Section 3.8).
+  \item \textbf{Focus:} Array allocation, pointer arithmetic, and the layout of nested and variable-sized arrays in memory.
+
+  \item \textbf{Week 7: Data Structures and Pointers}
+  \item \textbf{Monday:} Read pp. 241-253 (Section 3.9 to 3.10).
+  \item \textbf{Focus:} The memory layout of \texttt{structs} and \texttt{unions}, data alignment, and a consolidated understanding of pointers.
+  \item \textbf{Wednesday:} Read pp. 254-266 (Sections 3.11 to 3.12).
+  \item \textbf{Focus:} Practical use of the GDB debugger and the critical security implications of buffer overflow vulnerabilities.
+
+  \item \textbf{Week 8: x86-64 and Floating Point}
+  \item \textbf{Monday:} Read pp. 267-280 (Section 3.13).
+  \item \textbf{Focus:} The extension to 64-bit, how information is accessed, and control flow in x86-64.
+  \item \textbf{Wednesday:} Read pp. 280-294 (Sections 3.13 to 3.15).
+  \item \textbf{Focus:} Data structures in x86-64, machine-level representation of floating-point programs, and the chapter summary.
+
+\end{itemize}
+\noindent\rule{\textwidth}{0.4pt}
+\begin{itemize}
+  \item \textbf{Homework Problems:} (pp. 294 - 308)
+  \item \textbf{Solutions to Practice Problems:} (pp. 308 - ...)
+
+\end{itemize}
+\newpage
+
+\end{document}

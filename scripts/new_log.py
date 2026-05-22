@@ -126,7 +126,7 @@ def get_target_notes_dir():
 def create_daily_log():
     target_dir = get_target_notes_dir()
     today_str = datetime.now().strftime("%Y-%m-%d")
-    log_filename = f"{today_str}_log.md"
+    log_filename = f"{today_str}_log.tex"
     log_filepath = os.path.join(target_dir, log_filename)
     
     rel_path = os.path.relpath(log_filepath, REPO_ROOT)
@@ -140,49 +140,59 @@ def create_daily_log():
     os.makedirs(target_dir, exist_ok=True)
     
     # Template contents
-    template = f"""# Daily Study Log: {today_str}
+    template = f"""\\section{{Daily Study Log: {today_str}}}
 
-## 📊 Session Stats
-- **Date:** {today_str}
-- **Focus Area:** [e.g., Systems Programming / Linear Algebra / Rust]
-- **Time Invested:** [e.g., 1 hour 45 minutes]
-- **Habit Checklist:**
-  - [ ] 📖 Reading & Theory Study
-  - [ ] 🛠️ Hands-on coding/math problem solving
-  - [ ] ✍️ Notes documented & compiled to NotebookLM
+\\subsection{{📊 Session Stats}}
+\\begin{{itemize}}
+  \\item \\textbf{{Date:}} {today_str}
+  \\item \\textbf{{Focus Area:}} [e.g., Systems Programming / Linear Algebra / Rust]
+  \\item \\textbf{{Time Invested:}} [e.g., 1 hour 45 minutes]
+  \\item \\textbf{{Habit Checklist:}}
+  \\item {{[ ]}} 📖 Reading \\& Theory Study
+  \\item {{[ ]}} 🛠️ Hands-on coding/math problem solving
+  \\item {{[ ]}} ✍️ Notes documented \\& compiled to NotebookLM
+\\end{{itemize}}
 
----
+\\noindent\\rule{{\\textwidth}}{{0.4pt}}
 
-## 📖 Theory & Reading Summary
-*What theoretical concepts did I cover today? Include book name/chapter and core notes.*
+\\subsection{{📖 Theory \\& Reading Summary}}
+\\textit{{What theoretical concepts did I cover today? Include book name/chapter and core notes.}}
 
-- **Topic/Resource:** [e.g., CS:APP Chapter 2 - Representing and Manipulating Information]
-- **Key Concepts learned:**
-  - 
-  - 
+\\begin{{itemize}}
+  \\item \\textbf{{Topic/Resource:}} [e.g., CS:APP Chapter 2 - Representing and Manipulating Information]
+  \\item \\textbf{{Key Concepts learned:}}
+  \\item 
+  \\item 
+\\end{{itemize}}
 
----
+\\noindent\\rule{{\\textwidth}}{{0.4pt}}
 
-## 🛠️ Implementation & Practice
-*What did I build, compile, profile, or debug today? Show code snippets, command lines, or math solutions.*
+\\subsection{{🛠️ Implementation \\& Practice}}
+\\textit{{What did I build, compile, profile, or debug today? Show code snippets, command lines, or math solutions.}}
 
-- **Task/Project:** [e.g., Floating point conversions or Rust memory ownership exercise]
-- **Key Code/Output:**
-  ```rust
-  // Insert code snippets or terminal logs
-  ```
-- **What worked/What failed:**
-  - 
+\\begin{{itemize}}
+  \\item \\textbf{{Task/Project:}} [e.g., Floating point conversions or Rust memory ownership exercise]
+  \\item \\textbf{{Key Code/Output:}}
+\\end{{itemize}}
+\\begin{{lstlisting}}[language=Rust]
+// Insert code snippets or terminal logs
+\\end{{lstlisting}}
+\\begin{{itemize}}
+  \\item \\textbf{{What worked/What failed:}}
+  \\item 
+\\end{{itemize}}
 
----
+\\noindent\\rule{{\\textwidth}}{{0.4pt}}
 
-## 🧠 Questions & Next Focus
-*What was difficult or needs further clarification? What is the goal for tomorrow's study session?*
+\\subsection{{🧠 Questions \\& Next Focus}}
+\\textit{{What was difficult or needs further clarification? What is the goal for tomorrow's study session?}}
 
-- **Blockers/Doubts:**
-  - 
-- **Tomorrow's Goal:**
-  - 
+\\begin{{itemize}}
+  \\item \\textbf{{Blockers/Doubts:}}
+  \\item 
+  \\item \\textbf{{Tomorrow's Goal:}}
+  \\item 
+\\end{{itemize}}
 """
     
     try:
