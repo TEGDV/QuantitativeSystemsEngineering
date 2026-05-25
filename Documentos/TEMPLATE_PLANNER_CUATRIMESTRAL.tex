@@ -1,0 +1,257 @@
+% =========================================================================
+% TEMPLATE_PLANNER_CUATRIMESTRAL.tex
+% Planeador Académico Cuatrimestral - Quantitative Systems Engineering
+% Basado en el estándar de diseño de plantilla_sobria.tex
+% =========================================================================
+\documentclass[11pt, a4paper]{article}
+
+% --- Paquetes Esenciales ---
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[english, spanish, es-tabla]{babel}
+\spanishdeactivate{~<>"}
+\usepackage{amsmath, amssymb, amsfonts}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{xcolor}
+\usepackage{listings}
+\usepackage{caption} % Personalización avanzada de leyendas (captions)
+
+% --- Tipografía de Alta Calidad (Charter) ---
+\usepackage{charter}
+\usepackage{microtype}
+\usepackage{metalogo}
+
+% --- Diseño de Página y Espaciados ---
+\usepackage[margin=2.5cm]{geometry}
+\usepackage{setspace}
+\setstretch{1.12}
+
+% --- Paleta de Colores Sobria ---
+\definecolor{primary}{rgb}{0.0, 0.35, 0.35}  % Teal apagado - Formal y sobrio
+\definecolor{secondary}{rgb}{0.2, 0.2, 0.2} % Gris carbón para texto principal
+\definecolor{codebg}{rgb}{0.97, 0.97, 0.95}  % Fondo suave para código
+\definecolor{grayborder}{rgb}{0.85, 0.85, 0.85}
+
+% Aplicar color secundario al cuerpo del texto
+\makeatletter
+\newcommand{\globalcolor}[1]{%
+  \color{#1}\global\let\default@color\current@color
+}
+\makeatother
+\AtBeginDocument{\globalcolor{secondary}}
+
+% --- Hipervínculos Elegantes ---
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=primary,
+    urlcolor=primary,
+    citecolor=primary,
+    pdftitle={Planeador Académico Cuatrimestral - QSE Program},
+    pdfauthor={Jair Aguilar Peña}
+}
+
+% --- Comandos Personalizados ---
+\newcommand{\vect}[1]{\mathbf{#1}}
+
+% =========================================================================
+% CONFIGURACIÓN DE JERARQUÍA DE CAPTIONS (LEYENDAS)
+% =========================================================================
+\DeclareCaptionFont{teal}{\color{primary}}
+\captionsetup[figure]{
+    labelfont={bf,teal},
+    textfont=normalfont,
+    labelsep=colon,
+    skip=10pt
+}
+\captionsetup[table]{
+    labelfont={bf,teal},
+    textfont=normalfont,
+    labelsep=colon,
+    skip=10pt
+}
+\captionsetup[lstlisting]{
+    labelfont={bf,teal},
+    textfont=normalfont,
+    labelsep=colon,
+    skip=10pt
+}
+
+% --- Soporte Multilingüe para Leyendas (Babel) ---
+\addto\captionsspanish{%
+  \renewcommand{\figurename}{Figura}%
+  \renewcommand{\tablename}{Tabla}%
+  \renewcommand{\lstlistingname}{Fragmento de código}%
+}
+\addto\captionsenglish{%
+  \renewcommand{\figurename}{Figure}%
+  \renewcommand{\tablename}{Table}%
+  \renewcommand{\lstlistingname}{Code Snippet}%
+}
+
+% =========================================================================
+% SOPORTE MULTILENGUAJE DE CÓDIGO (LISTINGS)
+% =========================================================================
+\lstdefinestyle{customcode}{
+    backgroundcolor=\color{codebg},
+    commentstyle=\color{primary!70}\itshape,
+    keywordstyle=\color{primary}\bfseries,
+    numberstyle=\tiny\color{gray},
+    stringstyle=\color{orange!80!black},
+    basicstyle=\ttfamily\small,
+    breakatwhitespace=false,
+    breaklines=true,
+    captionpos=b,
+    keepspaces=true,
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2,
+    frame=single,
+    rulecolor=\color{grayborder},
+    aboveskip=15pt,
+    belowskip=10pt
+}
+\lstset{style=customcode}
+
+% --- Definiciones de Lenguajes Adicionales ---
+\lstdefinelanguage{Pseudocodigo}{
+    sensitive=false,
+    morekeywords={Inicio, Fin, Si, Entonces, Sino, FinSi, Para, Hasta, Hacer, FinPara, Mientras, FinMientras, Retornar, Funcion, Procedimiento, Escribir, Leer},
+    morecomment=[l]{//},
+    morestring=[b]"
+}
+
+% --- Pseudocode (English) ---
+\lstdefinelanguage{Pseudocode}{
+    sensitive=false,
+    morekeywords={Begin, End, If, Then, Else, EndIf, For, To, Do, EndFor, While, EndWhile, Return, Function, Procedure, Write, Read},
+    morecomment=[l]{//},
+    morestring=[b]"
+}
+
+\lstdefinelanguage{Rust}{
+    sensitive=true,
+    morekeywords={fn, let, mut, impl, struct, enum, trait, use, mod, pub, match, return, if, else, loop, while, for, in, unsafe, async, await, type, as, self, Self},
+    morecomment=[l]{//},
+    morecomment=[s]{/*}{*/},
+    morestring=[b]",
+    morestring=[b]'
+}
+
+\lstdefinelanguage{JavaScript}{
+    sensitive=true,
+    morekeywords={const, let, var, function, return, if, else, for, while, class, extends, new, import, export, from, true, false, null, undefined, console, log},
+    morecomment=[l]{//},
+    morecomment=[s]{/*}{*/},
+    morestring=[b]",
+    morestring=[b]'
+}
+
+\lstdefinelanguage{CSS}{
+    sensitive=false,
+    morekeywords={color, background, margin, padding, border, display, flex, position, width, height, font, family, size, weight, align, justify},
+    morecomment=[s]{/*}{*/},
+    morestring=[b]"
+}
+
+\lstdefinelanguage{Lua}{
+    sensitive=true,
+    morekeywords={local, function, end, then, else, elseif, if, for, while, do, repeat, until, nil, true, false, return, break, in, pairs, ipairs},
+    morecomment=[l]{--},
+    morecomment=[s]{--[[}{]]},
+    morestring=[b]",
+    morestring=[b]'
+}
+
+\title{\textbf{\color{primary}Planeador Académico Cuatrimestral\\ \large Quantitative Systems Engineering (Ph.D. Track)}}
+\author{Jair Aguilar Peña}
+\date{Cuatrimestre: [Indicar Año/Trimestre, ej. Y1Q1]}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+Este documento constituye el plan operativo maestro centralizado para el cuatrimestre académico. Sustituye la creación de múltiples archivos semanales atómicos para evitar la sobrecarga cognitiva. Organiza el trimestre en bloques de 16 semanas detallando las lecturas teóricas diarias (lunes a viernes: 1 hora), los laboratorios prácticos de código (sábados: 3 horas) y la planeación/auditoría semanal (domingos: 30 minutos).
+\end{abstract}
+
+\tableofcontents
+\newpage
+
+\section{Resumen Cuatrimestral y Metas Core}
+\begin{itemize}
+    \item \textbf{Objetivo Principal del Cuatrimestre}: [Ej. Dominar la representación de información a nivel de bits en memoria física y configurar atajos básicos en Neovim]
+    \item \textbf{Recursos Principales de Lectura}: [Ej. CS:APP 3rd Ed, Strang 6th Ed]
+    \item \textbf{Proyecto de la Forja (Entregable Cuatrimestral)}: [Ej. Conversor Decimal a Hexadecimal robusto en C y Rust]
+    \item \textbf{Estatus de los Minors Activos}:
+    \begin{itemize}
+        \item Minor 1 (Neovim + \LaTeX): [Ej. Atajos de movimiento rápido y compilación local en vimtex]
+        \item Minor 2 (Inglés Técnico): [Ej. Lectura de 5 abstracts semanales de papers de la ACM]
+    \end{itemize}
+\end{itemize}
+
+\noindent\rule{\textwidth}{0.4pt}
+\newpage
+
+% ==========================================
+% SECCIÓN DE SEMANAS
+% ==========================================
+\section{Bloque Académico: Semanas 1 a 4}
+
+\subsection{Semana 1: [Nombre de la Semana]}
+\textbf{Objetivo semanal}: [Breve descripción conceptual]
+
+\subsubsection{Planeación Diaria y Lecturas (Lunes a Viernes - 1h/día)}
+\begin{itemize}
+    \item \textbf{Lunes (Teoría/Sistemas)}: [Ej. Leer CS:APP pp. 29-41 (Hexadecimal y bytes)]
+    \item \textbf{Martes (Teoría/Matemáticas)}: [Ej. Strang 6th Ed, Cap. 1 (Geometría de vectores)]
+    \item \textbf{Miércoles (Teoría/Sistemas)}: [Ej. Leer CS:APP pp. 41-46 (Tamaño de palabra y endianness)]
+    \item \textbf{Jueves (Minor/Conceptos rápidos)}: [Ej. Practicar atajos en Neovim con vimtutor]
+    \item \textbf{Viernes (Preparación/Revisión de Lectura)}: [Ej. Revisar y resumir notas del capítulo en borrador]
+\end{itemize}
+
+\subsubsection{Laboratorio Práctico de La Forja (Sábado - 3h)}
+\begin{itemize}
+    \item \textbf{Proyecto}: [Ej. Escribir programa en C para detectar dinámicamente el endianness]
+    \item \textbf{Repositorio}: Carpeta \texttt{Ejercicios/Y1Q1\_E01\_hello/}
+    \item \textbf{Código/Sintaxis a probar}: [Detalle de punteros, casting a char*, etc.]
+\end{itemize}
+
+\subsubsection{Auditoría y Planificación (Domingo - 30 min)}
+\begin{itemize}
+    \item \textbf{Revisión de Cumplimiento}: [ ] Completado | [ ] Incompleto (Detallar por qué)
+    \item \textbf{Puntos Débiles Identificados}: [Indicar 1-3 conceptos que requieran refuerzo]
+    \item \textbf{Próximo Ciclo}: [Ajustes necesarios en la intensidad de estudio]
+\end{itemize}
+
+\noindent\rule{\textwidth}{0.4pt}
+
+\subsection{Semana 2: [Nombre de la Semana]}
+\textbf{Objetivo semanal}: [Breve descripción conceptual]
+
+\subsubsection{Planeación Diaria y Lecturas (Lunes a Viernes - 1h/día)}
+\begin{itemize}
+    \item \textbf{Lunes}: [Detalle]
+    \item \textbf{Martes}: [Detalle]
+    \item \textbf{Miércoles}: [Detalle]
+    \item \textbf{Jueves}: [Detalle]
+    \item \textbf{Viernes}: [Detalle]
+\end{itemize}
+
+\subsubsection{Laboratorio Práctico de La Forja (Sábado - 3h)}
+\begin{itemize}
+    \item \textbf{Proyecto}: [Detalle]
+    \item \textbf{Repositorio}: Carpeta \texttt{Ejercicios/[Format]}
+\end{itemize}
+
+\subsubsection{Auditoría y Planificación (Domingo - 30 min)}
+\begin{itemize}
+    \item \textbf{Revisión}: [ ] Completado
+    \item \textbf{Puntos Débiles}: [Detalle]
+\end{itemize}
+
+\end{document}

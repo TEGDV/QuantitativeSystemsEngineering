@@ -1,0 +1,254 @@
+% =========================================================================
+% TEMPLATE_CUADERNO_NOTAS.tex
+% Cuaderno de Notas Académicas - Quantitative Systems Engineering
+% Basado en el estándar de diseño de plantilla_sobria.tex
+% =========================================================================
+\documentclass[11pt, a4paper]{article}
+
+% --- Paquetes Esenciales ---
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[english, spanish, es-tabla]{babel}
+\spanishdeactivate{~<>"}
+\usepackage{amsmath, amssymb, amsfonts}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{xcolor}
+\usepackage{listings}
+\usepackage{caption} % Personalización avanzada de leyendas (captions)
+
+% --- Tipografía de Alta Calidad (Charter) ---
+\usepackage{charter}
+\usepackage{microtype}
+\usepackage{metalogo}
+
+% --- Diseño de Página y Espaciados ---
+\usepackage[margin=2.5cm]{geometry}
+\usepackage{setspace}
+\setstretch{1.12}
+
+% --- Paleta de Colores Sobria ---
+\definecolor{primary}{rgb}{0.0, 0.35, 0.35}  % Teal apagado - Formal y sobrio
+\definecolor{secondary}{rgb}{0.2, 0.2, 0.2} % Gris carbón para texto principal
+\definecolor{codebg}{rgb}{0.97, 0.97, 0.95}  % Fondo suave para código
+\definecolor{grayborder}{rgb}{0.85, 0.85, 0.85}
+
+% Aplicar color secundario al cuerpo del texto
+\makeatletter
+\newcommand{\globalcolor}[1]{%
+  \color{#1}\global\let\default@color\current@color
+}
+\makeatother
+\AtBeginDocument{\globalcolor{secondary}}
+
+% --- Hipervínculos Elegantes ---
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=primary,
+    urlcolor=primary,
+    citecolor=primary,
+    pdftitle={Cuaderno de Notas Académicas - QSE Program},
+    pdfauthor={Jair Aguilar Peña}
+}
+
+% --- Comandos Personalizados ---
+\newcommand{\vect}[1]{\mathbf{#1}}
+
+% =========================================================================
+% CONFIGURACIÓN DE JERARQUÍA DE CAPTIONS (LEYENDAS)
+% =========================================================================
+\DeclareCaptionFont{teal}{\color{primary}}
+\captionsetup[figure]{
+    labelfont={bf,teal},
+    textfont=normalfont,
+    labelsep=colon,
+    skip=10pt
+}
+\captionsetup[table]{
+    labelfont={bf,teal},
+    textfont=normalfont,
+    labelsep=colon,
+    skip=10pt
+}
+\captionsetup[lstlisting]{
+    labelfont={bf,teal},
+    textfont=normalfont,
+    labelsep=colon,
+    skip=10pt
+}
+
+% --- Soporte Multilingüe para Leyendas (Babel) ---
+\addto\captionsspanish{%
+  \renewcommand{\figurename}{Figura}%
+  \renewcommand{\tablename}{Tabla}%
+  \renewcommand{\lstlistingname}{Fragmento de código}%
+}
+\addto\captionsenglish{%
+  \renewcommand{\figurename}{Figure}%
+  \renewcommand{\tablename}{Table}%
+  \renewcommand{\lstlistingname}{Code Snippet}%
+}
+
+% =========================================================================
+% SOPORTE MULTILENGUAJE DE CÓDIGO (LISTINGS)
+% =========================================================================
+\lstdefinestyle{customcode}{
+    backgroundcolor=\color{codebg},
+    commentstyle=\color{primary!70}\itshape,
+    keywordstyle=\color{primary}\bfseries,
+    numberstyle=\tiny\color{gray},
+    stringstyle=\color{orange!80!black},
+    basicstyle=\ttfamily\small,
+    breakatwhitespace=false,
+    breaklines=true,
+    captionpos=b,
+    keepspaces=true,
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2,
+    frame=single,
+    rulecolor=\color{grayborder},
+    aboveskip=15pt,
+    belowskip=10pt
+}
+\lstset{style=customcode}
+
+% --- Definiciones de Lenguajes Adicionales ---
+\lstdefinelanguage{Pseudocodigo}{
+    sensitive=false,
+    morekeywords={Inicio, Fin, Si, Entonces, Sino, FinSi, Para, Hasta, Hacer, FinPara, Mientras, FinMientras, Retornar, Funcion, Procedimiento, Escribir, Leer},
+    morecomment=[l]{//},
+    morestring=[b]"
+}
+
+% --- Pseudocode (English) ---
+\lstdefinelanguage{Pseudocode}{
+    sensitive=false,
+    morekeywords={Begin, End, If, Then, Else, EndIf, For, To, Do, EndFor, While, EndWhile, Return, Function, Procedure, Write, Read},
+    morecomment=[l]{//},
+    morestring=[b]"
+}
+
+\lstdefinelanguage{Rust}{
+    sensitive=true,
+    morekeywords={fn, let, mut, impl, struct, enum, trait, use, mod, pub, match, return, if, else, loop, while, for, in, unsafe, async, await, type, as, self, Self},
+    morecomment=[l]{//},
+    morecomment=[s]{/*}{*/},
+    morestring=[b]",
+    morestring=[b]'
+}
+
+\lstdefinelanguage{JavaScript}{
+    sensitive=true,
+    morekeywords={const, let, var, function, return, if, else, for, while, class, extends, new, import, export, from, true, false, null, undefined, console, log},
+    morecomment=[l]{//},
+    morecomment=[s]{/*}{*/},
+    morestring=[b]",
+    morestring=[b]'
+}
+
+\lstdefinelanguage{CSS}{
+    sensitive=false,
+    morekeywords={color, background, margin, padding, border, display, flex, position, width, height, font, family, size, weight, align, justify},
+    morecomment=[s]{/*}{*/},
+    morestring=[b]"
+}
+
+\lstdefinelanguage{Lua}{
+    sensitive=true,
+    morekeywords={local, function, end, then, else, elseif, if, for, while, do, repeat, until, nil, true, false, return, break, in, pairs, ipairs},
+    morecomment=[l]{--},
+    morecomment=[s]{--[[}{]]},
+    morestring=[b]",
+    morestring=[b]'
+}
+
+\title{\textbf{\color{primary}Cuaderno de Notas Académicas Centralizado\\ \large Registros de Estudio Cuatrimestral}}
+\author{Jair Aguilar Peña}
+\date{Cuatrimestre: [Indicar Año/Trimestre, ej. Y1Q1]}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+Este documento sirve como libreta única y centralizada para registrar todos los conceptos teóricos, demostraciones matemáticas, resúmenes de lecturas y bitácoras de depuración de código del cuatrimestre. Su estructura de secciones replica exactamente la jerarquía del planeador trimestral para facilitar la indexación rápida y la sincronización con herramientas de inteligencia artificial como NotebookLM.
+\end{abstract}
+
+\tableofcontents
+\newpage
+
+% ==========================================
+% SECCIÓN DE SEMANA 1
+% ==========================================
+\section{Semana 1: [Nombre de la Semana]}
+
+\subsection{Resumen de Lecturas y Teoría}
+\textbf{Tema principal}: [Ej. Representación de Datos e Endianness (CS:APP Sección 2.1)]
+
+\begin{itemize}
+    \item \textbf{Concepto Clave 1: Endianness}
+    La memoria de un computador se organiza linealmente por bytes direccionables. Cuando un tipo de dato requiere múltiples bytes (como un entero de 32 bits), el orden de almacenamiento varía según la arquitectura:
+    \begin{itemize}
+        \item \textbf{Little-Endian} (ej. Arquitecturas x86-64 y ARM estándar): El byte menos significativo (*Least Significant Byte - LSB*) se guarda en la dirección de memoria más baja.
+        \item \textbf{Big-Endian} (ej. Protocolos de red TCP/IP e infraestructuras legadas): El byte más significativo (*Most Significant Byte - MSB*) se almacena en la dirección más baja.
+    \end{itemize}
+    
+    \item \textbf{Concepto Clave 2: Aritmética de Matrices (Geometría Lineal)}
+    La multiplicación de matrices $C = AB$ puede verse como combinaciones lineales de las columnas de $A$ pesadas por las entradas en las columnas de $B$.
+\end{itemize}
+
+\subsection{Laboratorio Práctico y Código}
+\textbf{Proyecto o Ejercicio}: \texttt{Ejercicios/Y1Q1\_E01\_hello/} \\
+\textbf{Problema abordado}: Validación de endianness de la CPU en tiempo de ejecución.
+
+\begin{lstlisting}[language=C, caption={Verificación de Endianness en C}, label={code:endian}]
+#include <stdio.h>
+
+int main(void) {
+    unsigned int x = 0x01234567;
+    unsigned char *p = (unsigned char *)&x;
+    
+    // Imprimir bytes individuales en memoria física
+    if (*p == 0x67) {
+        printf("La CPU es Little-Endian.\n");
+    } else if (*p == 0x01) {
+        printf("La CPU es Big-Endian.\n");
+    } else {
+        printf("Estructura de bytes desconocida.\n");
+    }
+    return 0;
+}
+\end{lstlisting}
+
+\subsection{Errores Comunes y Depuración}
+\begin{itemize}
+    \item \textbf{Error de Casting de Punteros}: Al realizar el casting de \texttt{\&x} de \texttt{unsigned int*} a \texttt{unsigned char*}, omitir el calificador \texttt{unsigned} genera comportamientos indefinidos por extensión de signo al imprimir con formato \texttt{\%X}.
+    \item \textbf{Solución}: Asegurar que los punteros que leen bytes directos de memoria física sean declarados como \texttt{unsigned char*} o \texttt{uint8\_t*}.
+\end{itemize}
+
+\subsection{Apuntes de Minors}
+*   \textbf{Neovim + \LaTeX}: Aprendí a usar el atajo \texttt{\textbackslash ll} para compilar bajo demanda en el buffer local y configurar la ruta de salida dinámica hacia la subcarpeta local \texttt{PDF/}.
+*   \textbf{Inglés Técnico}: Vocabulario clave de la semana: \textit{asymptotic complexity} (complejidad asintótica), \textit{borrow checker} (validador de préstamos), \textit{byte ordering} (ordenamiento de bytes).
+
+\noindent\rule{\textwidth}{0.4pt}
+\newpage
+
+% ==========================================
+% SECCIÓN DE SEMANA 2
+% ==========================================
+\section{Semana 2: [Nombre de la Semana]}
+\subsection{Resumen de Lecturas y Teoría}
+[Ingresar apuntes teóricos]
+
+\subsection{Laboratorio Práctico y Código}
+[Ingresar detalles de código]
+
+\subsection{Errores Comunes}
+[Bitácora de errores]
+
+\end{document}

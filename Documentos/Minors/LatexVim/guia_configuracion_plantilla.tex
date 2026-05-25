@@ -1,0 +1,157 @@
+% =========================================================================
+% GUÍA DE CONFIGURACIÓN Y ESTILOS DE LA PLANTILLA SOBRIA
+% Diseñada con el formato Charter para Ingeniería y Ciencias.
+% =========================================================================
+\documentclass[11pt, a4paper]{article}
+
+% --- Paquetes de Estilo ---
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[spanish, es-tabla]{babel}
+\usepackage{amsmath, amssymb, amsfonts}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{xcolor}
+\usepackage{listings}
+\usepackage{charter}
+\usepackage{microtype}
+\usepackage{metalogo}      % Corrige el espaciado y kerning de los logos (ej. \LaTeX) con fuentes personalizadas
+\usepackage{setspace}
+\setstretch{1.12}
+
+% --- Geometría ---
+\usepackage[margin=2.5cm]{geometry}
+
+% --- Colores ---
+\definecolor{primary}{rgb}{0.0, 0.35, 0.35}  % Verde azulado sobrio
+\definecolor{secondary}{rgb}{0.2, 0.2, 0.2} % Gris carbón
+\definecolor{codebg}{rgb}{0.97, 0.97, 0.95}
+\definecolor{grayborder}{rgb}{0.85, 0.85, 0.85}
+
+% Aplicar color secundario al cuerpo del texto
+\makeatletter
+\newcommand{\globalcolor}[1]{%
+  \color{#1}\global\let\default@color\current@color
+}
+\makeatother
+\AtBeginDocument{\globalcolor{secondary}}
+
+% --- Hipervínculos ---
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=primary,
+    urlcolor=primary,
+    citecolor=primary,
+    pdftitle={Guía de Configuración: Plantilla Sobria},
+    pdfauthor={Jair Aguilar Peña}
+}
+
+% --- Listings ---
+\lstdefinestyle{customcode}{
+    backgroundcolor=\color{codebg},
+    commentstyle=\color{primary!70}\itshape,
+    keywordstyle=\color{primary}\bfseries,
+    numberstyle=\tiny\color{gray},
+    stringstyle=\color{orange!80!black},
+    basicstyle=\ttfamily\small,
+    breakatwhitespace=false,
+    breaklines=true,
+    captionpos=b,
+    keepspaces=true,
+    numbers=left,
+    numbersep=5pt,
+    frame=single,
+    rulecolor=\color{grayborder},
+    aboveskip=15pt,
+    belowskip=10pt
+}
+\lstset{style=customcode}
+
+% =========================================================================
+% DATOS DEL DOCUMENTO
+% =========================================================================
+\title{\textbf{\color{primary}Guía de Configuración: Plantilla Académica Sobria}}
+\author{Jair Aguilar Peña}
+\date{\today}
+
+% =========================================================================
+% DOCUMENTO
+% =========================================================================
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+Este documento describe de manera detallada las decisiones de diseño, paquetes utilizados y configuraciones que componen la plantilla sobria y minimalista orientada a ciencias e ingeniería. El objetivo es explicar el porqué de cada elemento y cómo este formato asegura un aspecto profesional y legible, listo para cumplir con rigurosos filtros de publicación.
+\end{abstract}
+
+\section{Introducción}
+El diseño de documentos científicos requiere un balance entre estética y apego a normas rigurosas. Tradicionalmente, los documentos de \LaTeX\ pecan de verse demasiado densos o visualmente anticuados por usar la tipografía predeterminada \textit{Computer Modern} sin configuraciones adicionales de espaciado.
+
+Esta plantilla propone resolver ese problema usando tres principios:
+\begin{enumerate}
+    \item \textbf{Legibilidad de pantalla:} El $95\%$ de las revisiones académicas se hacen en pantallas de computadora o tabletas.
+    \item \textbf{Espaciado descansado:} Suficiente aire en márgenes y entre líneas sin perder densidad de información.
+    \item \textbf{Adaptabilidad al cambio:} Configuración puramente semántica que permite migrar a formatos como IEEEtran o ACM con mínimos cambios.
+\end{enumerate}
+
+\section{Análisis de la Configuración y Paquetes Clave}
+A continuación se detalla el propósito de cada paquete seleccionado en la plantilla.
+
+\subsection{Tipografía Charter (\texttt{\textbackslash usepackage\{charter\}})}
+Diseñada por Matthew Carter en 1987 para impresoras de baja resolución de la época, la fuente \textit{Charter} posee caracteres con serifas robustas y formas abiertas. 
+\begin{itemize}
+    \item \textbf{Por qué se usa:} Sus trazos gruesos y equilibrados se renderizan extremadamente bien en pantallas modernas de alta resolución, evitando la delgadez que a veces hace que la tipografía tradicional se vea "borrosa" o difícil de leer en pantallas medianas.
+    \item \textbf{Compatibilidad:} Es ideal para ingeniería, ya que combina perfectamente con símbolos matemáticos y denota seriedad sin la rigidez de \textit{Times New Roman}.
+\end{itemize}
+
+\subsection{Microtipografía (\texttt{\textbackslash usepackage\{microtype\}})}
+Este paquete realiza ajustes dinámicos invisibles a nivel de caracteres (protrusión y expansión de fuentes).
+\begin{itemize}
+    \item \textbf{Por qué se usa:} Elimina las molestas "calles" o espacios en blanco gigantescos que ocurren cuando \LaTeX\ intenta justificar a la fuerza un párrafo. Hace que el bloque de texto se vea uniforme y pulcro, elevando drásticamente el nivel estético del documento.
+\end{itemize}
+
+\subsection{Interlineado Moderno (\texttt{\textbackslash setstretch\{1.12\}})}
+Por defecto, \LaTeX\ compila con un interlineado muy cerrado ($1.0$), diseñado originalmente para ahorrar papel de imprenta.
+\begin{itemize}
+    \item \textbf{Por qué se usa:} Un interlineado de $1.12$ a $1.15$ (habilitado mediante el paquete \texttt{setspace}) introduce el aire suficiente entre líneas para descansar la vista en lecturas largas, sin cruzar el límite hacia el "doble espacio" que suele verse desordenado en documentos cortos.
+\end{itemize}
+
+\subsection{Geometría de Página (\texttt{\textbackslash usepackage[margin=2.5cm]\{geometry\}})}
+Los márgenes predeterminados de \LaTeX\ son extremadamente anchos.
+\begin{itemize}
+    \item \textbf{Por qué se usa:} Establecer los márgenes en $2.5\text{ cm}$ optimiza el uso del espacio en papel A4 o Carta. Es el tamaño estándar aceptado por la mayoría de las universidades y reportes oficiales.
+\end{itemize}
+
+\subsection{Paleta de Colores (\texttt{xcolor})}
+El minimalismo radica en usar color con un propósito funcional, no decorativo.
+\begin{itemize}
+    \item \textbf{\texttt{primary} (Teal obscuro):} Se utiliza para títulos y enlaces web (`href`). Aporta un toque distintivo sin la agresividad del rojo o el azul eléctrico predeterminado de \LaTeX.
+    \item \textbf{\texttt{secondary} (Gris carbón):} En lugar de negro puro (`\#000`), el cuerpo del texto está tintado en un gris muy obscuro (`rgb(0.2, 0.2, 0.2)`). Esto suaviza el contraste en pantallas retroiluminadas y previene la fatiga ocular.
+\end{itemize}
+
+\section{Buenas Prácticas de Escritura Semántica}
+Para asegurar que tu documento pase los filtros de verificación oficiales sin contratiempos, sigue estas reglas de estructuración:
+
+\subsection{Tablas con \texttt{booktabs}}
+El uso de líneas verticales (ej. \texttt{|c|c|}) y rejillas completas es considerado mala práctica en publicaciones científicas modernas. En su lugar, usa el paquete \texttt{booktabs} y limita tu diseño a tres líneas horizontales clave:
+\begin{lstlisting}[language=TeX, caption={Sintaxis correcta de tablas académicas.}]
+\begin{table}[h]
+\centering
+\caption{Título de la tabla (SIEMPRE ARRIBA).}
+\begin{tabular}{lll}
+    \toprule
+    Cabecera 1 & Cabecera 2 & Cabecera 3 \\
+    \midrule
+    Dato A     & Dato B     & Dato C \\
+    Dato D     & Dato E     & Dato F \\
+    \bottomrule
+\end{tabular}
+\end{table}
+\end{lstlisting}
+
+\subsection{Imágenes y Código}
+Recuerda que para imágenes (`figure`) y listados de código (`lstlisting`), la descripción (o caption) debe ir **siempre debajo** del elemento. El lector necesita procesar la información visual primero antes de leer su descripción detallada.
+
+\end{document}

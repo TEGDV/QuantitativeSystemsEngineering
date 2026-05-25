@@ -58,3 +58,10 @@ __pycache__/
 *.pyc
 *.pyo
 *.pyd
+
+# LaTeX compilation outputs
+*.pdf
+*.synctex
+*.synctex.gz
+
+PDF/

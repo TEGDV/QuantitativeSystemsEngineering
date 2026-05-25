@@ -1,0 +1,381 @@
+% =========================================================================
+% PLANTILLA_GENERAL_CON_EJEMPLOS.tex
+% Plantilla Académica Sobria y Minimalista (Ciencias e Ingeniería)
+% Configurada para el estándar de Ph.D. en Quantitative Systems Engineering
+% =========================================================================
+\documentclass[11pt, a4paper]{article}
+
+% --- Paquetes Esenciales ---
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[english, spanish, es-tabla]{babel}
+\spanishdeactivate{~<>"}
+\usepackage{amsmath, amssymb, amsfonts}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{xcolor}
+\usepackage{listings}
+\usepackage{caption} % Personalización avanzada de leyendas (captions)
+
+% --- Tipografía de Alta Calidad (Charter) ---
+\usepackage{charter}
+\usepackage{microtype}
+\usepackage{metalogo}
+
+% --- Diseño de Página y Espaciados ---
+\usepackage[margin=2.5cm]{geometry}
+\usepackage{setspace}
+\setstretch{1.12}
+
+% --- Paleta de Colores Sobria ---
+\definecolor{primary}{rgb}{0.0, 0.35, 0.35}  % Teal apagado - Formal y sobrio
+\definecolor{secondary}{rgb}{0.2, 0.2, 0.2} % Gris carbón para texto principal
+\definecolor{codebg}{rgb}{0.97, 0.97, 0.95}  % Fondo suave para código
+\definecolor{grayborder}{rgb}{0.85, 0.85, 0.85}
+
+% Aplicar color secundario al cuerpo del texto
+\makeatletter
+\newcommand{\globalcolor}[1]{%
+  \color{#1}\global\let\default@color\current@color
+}
+\makeatother
+\AtBeginDocument{\globalcolor{secondary}}
+
+% --- Hipervínculos Elegantes ---
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=primary,
+    urlcolor=primary,
+    citecolor=primary,
+    pdftitle={Plantilla General Académica con Ejemplos},
+    pdfauthor={Jair Aguilar Peña}
+}
+
+% --- Comandos Personalizados ---
+\newcommand{\vect}[1]{\mathbf{#1}}
+
+% =========================================================================
+% CONFIGURACIÓN DE JERARQUÍA DE CAPTIONS (LEYENDAS)
+% =========================================================================
+% Se personalizan las etiquetas y se les da un formato consistente utilizando
+% el color primario de la plantilla para destacar el identificador.
+\DeclareCaptionFont{teal}{\color{primary}}
+\captionsetup[figure]{
+    labelfont={bf,teal},
+    textfont=normalfont,
+    labelsep=colon,
+    skip=10pt
+}
+\captionsetup[table]{
+    labelfont={bf,teal},
+    textfont=normalfont,
+    labelsep=colon,
+    skip=10pt
+}
+\captionsetup[lstlisting]{
+    labelfont={bf,teal},
+    textfont=normalfont,
+    labelsep=colon,
+    skip=10pt
+}
+
+% --- Soporte Multilingüe para Leyendas (Babel) ---
+\addto\captionsspanish{%
+  \renewcommand{\figurename}{Figura}%
+  \renewcommand{\tablename}{Tabla}%
+  \renewcommand{\lstlistingname}{Fragmento de código}%
+}
+\addto\captionsenglish{%
+  \renewcommand{\figurename}{Figure}%
+  \renewcommand{\tablename}{Table}%
+  \renewcommand{\lstlistingname}{Code Snippet}%
+}
+
+% --- Guía de Expansión de Leyendas (Futuras Extensiones) ---
+% Si en el futuro desea añadir nuevos elementos con sus propios prefijos 
+% (por ejemplo, "Gráfico" o "Diagrama"), puede cargar el paquete `newfloat`
+% o `float` en el preámbulo y declarar el nuevo tipo de la siguiente manera:
+%
+%   \usepackage{newfloat}
+%   \DeclareFloatingEnvironment[fileext=lod, listname={Índice de Diagramas}, name=Diagrama]{diagrama}
+%   \captionsetup[diagrama]{labelfont={bf,color=primary}, textfont=normalfont}
+%
+%   Esto le permitirá usar el entorno \begin{diagrama} ... \end{diagrama} con su propio
+%   contador independiente y un caption que dirá "Diagrama X: Título".
+
+% =========================================================================
+% SOPORTE MULTILENGUAJE DE CÓDIGO (LISTINGS)
+% =========================================================================
+% Definición del estilo visual unificado
+\lstdefinestyle{customcode}{
+    backgroundcolor=\color{codebg},
+    commentstyle=\color{primary!70}\itshape,
+    keywordstyle=\color{primary}\bfseries,
+    numberstyle=\tiny\color{gray},
+    stringstyle=\color{orange!80!black},
+    basicstyle=\ttfamily\small,
+    breakatwhitespace=false,
+    breaklines=true,
+    captionpos=b, % Título siempre abajo
+    keepspaces=true,
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2,
+    frame=single,
+    rulecolor=\color{grayborder},
+    aboveskip=15pt,
+    belowskip=10pt
+}
+\lstset{style=customcode}
+
+% --- Definiciones de Lenguajes Adicionales no Nativos en Listings ---
+
+% 1. Pseudocódigo (Español)
+\lstdefinelanguage{Pseudocodigo}{
+    sensitive=false,
+    morekeywords={Inicio, Fin, Si, Entonces, Sino, FinSi, Para, Hasta, Hacer, FinPara, Mientras, FinMientras, Retornar, Funcion, Procedimiento, Escribir, Leer},
+    morecomment=[l]{//},
+    morestring=[b]"
+}
+
+% 1b. Pseudocode (English)
+\lstdefinelanguage{Pseudocode}{
+    sensitive=false,
+    morekeywords={Begin, End, If, Then, Else, EndIf, For, To, Do, EndFor, While, EndWhile, Return, Function, Procedure, Write, Read},
+    morecomment=[l]{//},
+    morestring=[b]"
+}
+
+% 2. Rust
+\lstdefinelanguage{Rust}{
+    sensitive=true,
+    morekeywords={fn, let, mut, impl, struct, enum, trait, use, mod, pub, match, return, if, else, loop, while, for, in, unsafe, async, await, type, as, self, Self},
+    morecomment=[l]{//},
+    morecomment=[s]{/*}{*/},
+    morestring=[b]",
+    morestring=[b]'
+}
+
+% 3. JavaScript
+\lstdefinelanguage{JavaScript}{
+    sensitive=true,
+    morekeywords={const, let, var, function, return, if, else, for, while, class, extends, new, import, export, from, true, false, null, undefined, console, log},
+    morecomment=[l]{//},
+    morecomment=[s]{/*}{*/},
+    morestring=[b]",
+    morestring=[b]'
+}
+
+% 4. CSS
+\lstdefinelanguage{CSS}{
+    sensitive=false,
+    morekeywords={color, background, margin, padding, border, display, flex, position, width, height, font, family, size, weight, align, justify},
+    morecomment=[s]{/*}{*/},
+    morestring=[b]"
+}
+
+% 5. Lua
+\lstdefinelanguage{Lua}{
+    sensitive=true,
+    morekeywords={local, function, end, then, else, elseif, if, for, while, do, repeat, until, nil, true, false, return, break, in, pairs, ipairs},
+    morecomment=[l]{--},
+    morecomment=[s]{--[[}{]]},
+    morestring=[b]",
+    morestring=[b]'
+}
+
+% =========================================================================
+% DATOS DEL DOCUMENTO
+% =========================================================================
+\title{\textbf{\color{primary}Plantilla General Académica con Ejemplos de Soporte}}
+\author{Jair Aguilar Peña}
+\date{\today}
+
+% =========================================================================
+% INICIO DEL DOCUMENTO
+% =========================================================================
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+Este documento consolida la plantilla general académica para Ingeniería de Sistemas Cuantitativos. Muestra la integración de la tipografía Charter serif, colores corporativos y la configuración de leyendas independientes para figuras, tablas y códigos. Adicionalmente, incluye ejemplos listos de sintaxis para siete lenguajes de programación y pseudocódigo.
+\end{abstract}
+
+\tableofcontents
+\newpage
+
+\section{Estructura y Ejemplos de Leyendas (Captions)}
+
+Las leyendas se formatean automáticamente con una jerarquía dedicada. Las etiquetas se resaltan en negrita y color verde azulado primario para asegurar un estándar editorial limpio.
+
+\subsection{Ejemplo de Tabla de Alta Calidad}
+Evite líneas verticales. Use el paquete \texttt{booktabs} como se muestra en la Tabla~\ref{tab:parametros}.
+
+\begin{table}[h]
+\centering
+\caption{Parámetros de prueba del sistema en tiempo real.}
+\label{tab:parametros}
+\begin{tabular}{lcc}
+    \toprule
+    \textbf{Componente} & \textbf{Latencia Promedio} & \textbf{Desviación Estándar} \\
+    \midrule
+    Decodificador Binario & $120\text{ ns}$ & $\pm 5\text{ ns}$ \\
+    Motor de Riesgo & $85\text{ ns}$ & $\pm 2\text{ ns}$ \\
+    Enrutador de Órdenes & $150\text{ ns}$ & $\pm 8\text{ ns}$ \\
+    \bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Ejemplo de Figura o Imagen}
+Las imágenes se integran usando el entorno estándar de figuras (ver Figura~\ref{fig:ejemplo}).
+
+\begin{figure}[h]
+\centering
+% \includegraphics[width=0.4\textwidth]{nombre_imagen.png} % Reemplace con su imagen real
+\framebox(200,80){Espacio reservado para Diagrama}
+\caption{Esquema geométrico y flujo lógico del procesador.}
+\label{fig:ejemplo}
+\end{figure}
+
+\newpage
+\section{Ejemplos de Sintaxis de Programación}
+
+\subsection{Pseudocódigo y Leyendas Dinámicas (Español / English)}
+
+\begin{lstlisting}[language=Pseudocodigo, caption={Estructura básica de una búsqueda binaria en pseudocódigo.}]
+Inicio
+    Funcion BuscarElemento(arreglo, objetivo)
+        izq = 0
+        der = Longitud(arreglo) - 1
+        Mientras izq <= der Hacer
+            medio = (izq + der) / 2
+            Si arreglo[medio] == objetivo Entonces
+                Retornar medio
+            Sino Si arreglo[medio] < objetivo Entonces
+                izq = medio + 1
+            Sino
+                der = medio - 1
+            FinSi
+        FinMientras
+        Retornar -1
+    FinFuncion
+Fin
+\end{lstlisting}
+
+\begin{otherlanguage}{english}
+\begin{lstlisting}[language=Pseudocode, caption={Basic binary search structure in pseudocode.}]
+Begin
+    Function BinarySearch(array, target)
+        left = 0
+        right = Length(array) - 1
+        While left <= right Do
+            mid = (left + right) / 2
+            If array[mid] == target Then
+                Return mid
+            Else If array[mid] < target Then
+                left = mid + 1
+            Else
+                right = mid - 1
+            EndIf
+        EndWhile
+        Return -1
+    EndFunction
+End
+\end{lstlisting}
+\end{otherlanguage}
+
+\subsection{Python}
+\begin{lstlisting}[language=Python, caption={Calculo de error de latencia en Python.}]
+def calcular_error(medido: float, teorico: float) -> float:
+    # Retorna el porcentaje de error absoluto
+    assert teorico > 0, "El valor teórico debe ser mayor a cero"
+    return abs(medido - teorico) / teorico * 100
+\end{lstlisting}
+
+\subsection{Rust}
+\begin{lstlisting}[language=Rust, caption={Verificacion de propiedad y referencias en Rust.}]
+fn main() {
+    let mut data: String = String::from("Sistemas Cuantitativos");
+    {
+        let ref_immut = &data; // Préstamo inmutable
+        println!("Lectura: {}", ref_immut);
+    } // Termina el ámbito de la referencia inmutable
+    
+    let ref_mut = &mut data; // Préstamo mutable
+    ref_mut.push_str(" (Ph.D. Track)");
+    println!("Resultado: {}", ref_mut);
+}
+\end{lstlisting}
+
+\subsection{C y C++}
+\begin{lstlisting}[language=C, caption={Deteccion de endianness de la CPU en C.}]
+#include <stdio.h>
+
+int main(void) {
+    unsigned int word = 0x01234567;
+    unsigned char *byte_ptr = (unsigned char *)&word;
+    
+    if (*byte_ptr == 0x67) {
+        printf("Arquitectura Little-Endian\n");
+    } else {
+        printf("Arquitectura Big-Endian\n");
+    }
+    return 0;
+}
+\end{lstlisting}
+
+\subsection{LaTeX}
+\begin{lstlisting}[language={[LaTeX]TeX}, caption={Fragmento de codigo matematico estructurado en LaTeX.}]
+\begin{equation}
+    A \vect{x} = \lambda \vect{x}
+\end{equation}
+Donde $\lambda$ representa el valor característico de la matriz de coeficientes.
+\end{lstlisting}
+
+\subsection{HTML, CSS y JavaScript (Tecnologías Web)}
+\begin{lstlisting}[language=HTML, caption={Estructura básica e interactividad en HTML.}]
+<div id="app">
+    <h1>Quantitative Systems Engineering</h1>
+    <button onclick="registrar()">Registrar Avance</button>
+</div>
+\end{lstlisting}
+
+\begin{lstlisting}[language=CSS, caption={Estilo formal del bloque principal en CSS.}]
+#app {
+    background: #f7f7f5;
+    border: 1px solid #d5d5d5;
+    padding: 20px;
+    margin: 15px auto;
+}
+\end{lstlisting}
+
+\begin{lstlisting}[language=JavaScript, caption={Función de registro en JavaScript.}]
+function registrar() {
+    const timestamp = Date.now();
+    console.log("Evento registrado a las: " + timestamp);
+}
+\end{lstlisting}
+
+\subsection{Lua}
+\begin{lstlisting}[language=Lua, caption={Script de configuracion para cargadores rápidos en Lua.}]
+local config = {
+    theme = "sobrio",
+    latency_threshold = 200, -- nanosegundos
+    verbose = true
+}
+
+function check_performance(value)
+    if value > config.latency_threshold then
+        return false
+    else
+        return true
+    end
+end
+\end{lstlisting}
+
+\end{document}

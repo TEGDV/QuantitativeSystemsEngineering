@@ -1,0 +1,158 @@
+% =========================================================================
+% PATRONES COMUNES EN DOCUMENTOS: LISTAS (CIENCIAS E INGENIERÍA)
+% Basado en la Plantilla Académica Sobria y Minimalista.
+% =========================================================================
+\documentclass[11pt, a4paper]{article}
+
+% --- Paquetes Esenciales ---
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc} % Soporte correcto de fuentes vectoriales
+\usepackage[spanish, es-tabla]{babel} % Idioma español (es-tabla pone "Tabla" en vez de "Cuadro")
+\usepackage{amsmath, amssymb, amsfonts} % Paquete matemático estándar
+\usepackage{graphicx} % Para insertar figuras/imágenes
+\usepackage{booktabs} % Para tablas con diseño limpio profesional
+\usepackage{xcolor} % Soporte de colores
+\usepackage{listings} % Para bloques de código de programación
+
+% --- Tipografía de Alta Calidad (Charter) ---
+\usepackage{charter}       % Fuente serif Charter: Excelente legibilidad en pantalla e impresión
+\usepackage{microtype}     % Ajustes automáticos de espaciado tipográfico (clave del look limpio)
+\usepackage{metalogo}      % Corrige el espaciado y kerning de los logos (ej. \LaTeX) con fuentes personalizadas
+
+% --- Diseño de Página y Espaciados ---
+\usepackage[margin=2.5cm]{geometry} % Márgenes de 2.5cm equilibrados
+\usepackage{setspace}
+\setstretch{1.12} % Interlineado relajado para lectura en pantalla sin parecer doble espacio
+
+% --- Paleta de Colores Sóbria ---
+\definecolor{primary}{rgb}{0.0, 0.35, 0.35}  % Verde azulado (Teal) apagado - Formal y sobrio
+\definecolor{secondary}{rgb}{0.2, 0.2, 0.2} % Gris carbón para texto principal menos agresivo que negro puro
+\definecolor{codebg}{rgb}{0.97, 0.97, 0.95}  % Fondo muy suave para fragmentos de código
+\definecolor{grayborder}{rgb}{0.85, 0.85, 0.85} % Borde sutil para cajas
+
+% Aplicar color secundario al cuerpo del texto
+\makeatletter
+\newcommand{\globalcolor}[1]{%
+  \color{#1}\global\let\default@color\current@color
+}
+\makeatother
+\AtBeginDocument{\globalcolor{secondary}}
+
+% --- Hipervínculos Elegantes ---
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=primary,
+    urlcolor=primary,
+    citecolor=primary,
+    pdftitle={Patrones Comunes en Documentos: Listas},
+    pdfauthor={Jair Aguilar Peña}
+}
+
+% --- Configuración de Código (Listings) ---
+\lstdefinestyle{customcode}{
+    backgroundcolor=\color{codebg},
+    commentstyle=\color{primary!70}\itshape,
+    keywordstyle=\color{primary}\bfseries,
+    numberstyle=\tiny\color{gray},
+    stringstyle=\color{orange!80!black},
+    basicstyle=\ttfamily\small,
+    breakatwhitespace=false,
+    breaklines=true,
+    captionpos=b, % Título del código siempre ABAJO
+    keepspaces=true,
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2,
+    frame=single,
+    rulecolor=\color{grayborder},
+    language=[LaTeX]TeX,
+    aboveskip=15pt,
+    belowskip=10pt
+}
+\lstset{style=customcode}
+
+% =========================================================================
+% DATOS DEL DOCUMENTO
+% =========================================================================
+\title{\textbf{\color{primary}Patrones comunes en documentos}}
+\author{Jair Aguilar Peña}
+\date{\today}
+
+% =========================================================================
+% INICIO DEL DOCUMENTO
+% =========================================================================
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+Este documento sirve como una guía de referencia rápida sobre cómo estructurar patrones visuales y organizativos recurrentes en escritos técnicos. En esta sección nos enfocamos en el estudio y modelado de listas (numeradas y no numeradas) siguiendo los principios de legibilidad moderna de la tipografía Charter.
+\end{abstract}
+
+\section{Introducción}
+Esta sección contiene ejemplos prácticos sobre cómo implementar patrones de presentación visual y estructuración en documentos profesionales de \LaTeX. El propósito de este archivo es servir como una guía de referencia rápida para redactores y estudiantes de ingeniería.
+
+\subsection{Listas}
+Las listas son una de las herramientas de documentación más fundamentales para organizar y agrupar información relacionada. Su función principal es facilitar la lectura rápida (escaneo visual) y ordenar conceptos de manera jerárquica.
+
+\subsubsection{Lista Indefinida (No Numerada)}
+Una \textbf{lista indefinida} (implementada mediante el entorno \texttt{itemize}) se utiliza cuando el orden de los elementos no es relevante para la comprensión del texto. 
+
+\vspace{0.3cm}
+\noindent\textbf{Casos de Uso Comunes:}
+\begin{itemize}
+    \item Listar los ingredientes necesarios en una receta de cocina (el orden en que los compras o preparas en la mesa no altera el plato).
+    \item Enumerar los requisitos previos para cursar una asignatura.
+    \item Detallar las características técnicas o componentes de un sistema de hardware.
+\end{itemize}
+
+\vspace{0.3cm}
+\noindent\textbf{Ejemplo en el Documento:}
+\begin{itemize}
+    \item[*] Elemento marcado con un asterisco personalizado.
+    \item[$\rightarrow$] Elemento marcado con una flecha matemática.
+    \item[Nota:] Elemento precedido por una etiqueta de texto personalizada.
+\end{itemize} 
+
+La sintaxis para implementar este tipo de lista en \LaTeX\ se detalla a continuación:
+
+\begin{lstlisting}[caption={Código para listas no numeradas personalizadas}]
+\begin{itemize}
+    \item[*] Elemento marcado con un asterisco personalizado.
+    \item[$\rightarrow$] Elemento marcado con una flecha matemática.
+    \item[Nota:] Elemento precedido por una etiqueta de texto personalizada.
+\end{itemize} 
+\end{lstlisting}
+
+\subsubsection{Lista Definida (Numerada)}
+Una \textbf{lista definida} (implementada mediante el entorno \texttt{enumerate}) se utiliza cuando el orden de los elementos es crítico y debe seguir una secuencia lógica, temporal o de prioridad específica.
+
+\vspace{0.3cm}
+\noindent\textbf{Casos de Uso Comunes:}
+\begin{itemize}
+    \item Describir los pasos cronológicos para preparar una receta de cocina (p. ej., 1. Mezclar, 2. Hornear).
+    \item Detallar los pasos de ejecución de un algoritmo de programación o una demostración matemática.
+    \item Estructurar las preguntas de una evaluación o examen para su ponderación secuencial.
+\end{itemize}
+
+\vspace{0.3cm}
+\noindent\textbf{Ejemplo en el Documento:}
+\begin{enumerate}
+  \item Paso inicial o concepto prioritario 1.
+  \item Paso secuencial o concepto subordinado 2.
+\end{enumerate} 
+
+La sintaxis correspondiente para declarar listas numeradas en \LaTeX\ es la siguiente:
+
+\begin{lstlisting}[caption={Código para listas numeradas secuenciales}]
+\begin{enumerate}
+  \item Paso inicial o concepto prioritario 1.
+  \item Paso secuencial o concepto subordinado 2.
+\end{enumerate} 
+\end{lstlisting}
+
+\end{document}

@@ -1,107 +1,153 @@
-# Quantitative Systems Engineering: A Mandate for Mastery
+# Quantitative Systems Engineering: A 7-Year Academic Mandate for Mastery
 
-This repository will document my self-imposed, five-year mission to forge top-0.1% expertise in low-latency finance and decentralized systems. This is not an academic exercise; it is the chronicle of a graduate-level campaign I am undertaking to fuse three domains into a single, cohesive skillset: the theoretical purity of a mathematician, the ruthless optimization of a systems programmer, and the sharp instinct of a trader.
+Este repositorio documenta mi campaña de autoestudio estructurada de **7 años** para adquirir un nivel de maestría y rigor equivalente a un Ph.D. en Ingeniería de Sistemas Cuantitativos (*Quantitative Systems Engineering*). Esta misión busca consolidar tres disciplinas en un solo perfil técnico y científico de élite: la rigurosidad abstracta de un matemático, el control físico del hardware de un programador de sistemas y el instinto empírico de un operador de mercado (*trader*).
 
-My "degree" will be this repository. My "grades" will be my contributions to core infrastructure. My "thesis" will be a live, demonstrable system that performs at the highest level.
-
-## 📜 The Philosophy of the Forge
-
-I am building this project on the conviction that the highest-performing financial systems are not just written; they are engineered with mathematical rigor and an unyielding command of the underlying hardware and protocols. My focus will be on **building, measuring, and optimizing.** Excuses are discarded. The borrow checker is not an obstacle; it is a discipline that enforces correct thought. My objective is to create value from pure logic and electricity.
-
-## 🛠️ The Arsenal: Core Technology Stack
-
-I have chosen these tools for their uncompromising performance, safety, and control.
-
-* **Primary Systems Language: Rust.** For its performance guarantees, memory safety, and powerful concurrency model. The ideal weapon for building robust, high-stakes trading and blockchain systems.
-* **Performance & Legacy: Modern C++ (17/20/23).** For its deep roots in HFT and the necessity of understanding existing elite infrastructure.
-* **Analysis & Prototyping: Python.** With `Polars`, `NumPy`, and `JAX` for rapid data analysis, strategy backtesting, and model validation before low-latency implementation.
-* **Operating System: Linux.** The undisputed arena for high-performance computing. Mastery of its internals is non-negotiable.
-* **DeFi Ecosystem: Solana.** Chosen for its performance-oriented design and its native **Rust** environment.
-
-## 🗺️ The Five-Year Campaign
-
-I have designed this curriculum as a forced march through foundational knowledge into elite specialization. Each year is a distinct phase with a clear objective.
-
-### **Year 1: The Foundation - Humility and Concrete**
-
-* **Mission:** Master the fundamentals. I am nothing without a solid foundation. I will learn how a computer actually works, from the metal up, and internalize the mathematics of uncertainty and structure.
-* **Key Resources:**
-    * [*Computer Systems: A Programmer's Perspective* (CS:APP)](http://csapp.cs.cmu.edu/) by Bryant & O'Hallaron.
-    * [*Operating Systems: Three Easy Pieces* (OSTEP)](https://pages.cs.wisc.edu/~remzi/OSTEP/) (Free No-Excuses)
-    * [*Introduction to Linear Algebra*](https://math.mit.edu/~gs/linearalgebra/) by Gilbert Strang. The [MIT OCW course](https://ocw.mit.edu/courses/18-06-linear-algebra-spring-2010/) is essential. (Free No-Excuses)
-    * [*The Rust Programming Language*](https://doc.rust-lang.org/book/) (Free No-Excuses)
-* **The Forge (Project):** I will build a Limit Order Book (LOB) Matching Engine, first in C for raw understanding, then rewrite it idiomatically in **Rust** to master its core principles.
-
-### **Year 2: The Protocols - Speaking the Language of the Market**
-
-* **Mission:** Master the protocols that carry billions of dollars a day and the probabilistic math that models market movements.
-* **Key Resources:**
-    * [*Unix Network Programming, Vol. 1*](https://www.pearson.com/en-us/subject-catalog/p/unix-network-programming-volume-1-the-sockets-networking-api/P200000003488/9780131411555) by W. Richard Stevens.
-    * [*Beej's Guide to Network Programming*](https://beej.us/guide/bgnet/) (Free No-Excuses)
-    * [*Trading and Exchanges: Market Microstructure for Practitioners*](https://global.oup.com/academic/product/trading-and-exchanges-9780195144703) by Larry Harris.
-    * [*A First Course in Probability*](https://www.pearson.com/en-us/subject-catalog/p/a-first-course-in-probability/P200000006323/9780136891222) by Sheldon Ross.
-    * [Harvard's Stat 110 course](https://projects.iq.harvard.edu/stat110) on YouTube. (Free No-Excuses)
-* **The Forge (Projects):**
-    * **Track A (HFT):** I will build a FIX Protocol (v4.2) engine from scratch in C++.
-    * **Track B (Solana):** I will build a WebSocket client in **Rust** connecting to a Solana RPC node, subscribing to a specific Openbook market, and decoding its data structures live.
-
-### **Year 3: The Speed - Forging the Nanosecond Blade**
-
-* **Mission:** This is where the men are separated from the boys. It's all about latency. I will learn to measure and optimize in nanoseconds and bend the OS to my will.
-* **Key Resources:**
-    * [*Systems Performance*](http://www.brendangregg.com/systems-performance-2nd-edition-book.html) by Brendan Gregg. His [blog](http.brendangregg.com/) is a must-read. (Free No-Excuses)
-    * [*Stochastic Calculus for Finance I & II*](https://link.springer.com/book/10.1007/978-1-4939-2815-2) by Steven Shreve.
-    * [Lecture notes from top-tier university courses](https://www.google.com/search?q=stochastic+calculus+lecture+notes+pdf+site%3A.edu). (Free No-Excuses)
-    * [Talks on low-latency from CppCon](https://www.youtube.com/user/cppcon). (Free No-Excuses)
-* **The Forge (Projects):**
-    * **Track A (HFT):** I will build a market data feed handler that reconstructs a full order book in real-time, profiling it relentlessly to achieve sub-microsecond processing.
-    * **Track B (Solana):** I will build a simple MEV "searcher" in **Rust** that scans the Solana mempool (via Jito) for arbitrage opportunities and constructs transaction bundles.
-
-### **Year 4: The Alpha - The Hunt for Edge**
-
-* **Mission:** With the tools forged, I will now develop the logic. This year is about quantitative research, signal generation, and risk management.
-* **Key Resources:**
-    * [*Advances in Financial Machine Learning*](https://www.wiley.com/en-us/Advances+in+Financial+Machine+Learning-p-9781119482086) by Marcos López de Prado.
-    * [*Algorithmic Trading: Winning Strategies and Their Rationale*](https://www.wiley.com/en-us/Algorithmic+Trading%3A+Winning+Strategies+and+Their+Rationale-p-9781118460146) by Ernie Chan. His [blog](https://epchan.blogspot.com/) is also valuable.
-    * Foundational MEV research paper: [*Flash Boys 2.0*](https://arxiv.org/abs/1905.05164). (Free No-Excuses)
-* **The Forge (Projects):** I will build a complete backtesting framework in **Python/Polars/Rust** and use it to design and implement a specific MEV strategy in a simulated environment.
-
-### **Year 5: The Synthesis - The Masterwork**
-
-* **Mission:** Integrate everything. Build a complete, end-to-end trading system. This will be my thesis, a testament to the four years of work.
-* **Key Resources:**
-    * [*Designing Data-Intensive Applications*](https://www.oreilly.com/library/view/designing-data-intensive-applications/9781449373320/) by Martin Kleppmann. His [talks and articles](https://martin.kleppmann.com/archive.html) are also excellent. (Free No-Excuses)
-    * **Open Source Contribution:** I will become a meaningful contributor to a core project like [`reth`](https://github.com/paradigmxyz/reth), [`solana-labs`](https://github.com/solana-labs/solana), [`tokio`](https://github.com/tokio-rs/tokio), or [`mio`](https://github.com/tokio-rs/mio). My pull requests will be my credentials. (Free No-Excuses)
-* **The Forge (Project):** I will build a full-stack, paper-trading system. It will use my **Track A** feed handler for market data and my **Track B** Solana monitor for alternative data signals. It will manage risk, execute orders (in simulation), and log every action with nanosecond precision.
-
-## 🏛️ Rules of Engagement
-
-1.  **My GitHub is My Transcript.** Every commit will matter. My code will be clean, my documentation clear, and my tests comprehensive. The market is the final judge.
-2.  **The PhD is Taken, Not Given.** I understand that recognition comes from contribution. By Year 4, I will dedicate significant time to a core open-source project and become so valuable they can't ignore me.
-3.  **Produce, Don't Just Consume.** I will learn by struggling, by building, by breaking things and then fixing them.
-
-**The clock is ticking. Execute.**
+Mi grado académico será este repositorio. Mi portafolio de investigación consistirá en la réplica de modelos y la creación de infraestructura crítica y de ultra-baja latencia documentada en este espacio.
 
 ---
 
-## 🛠️ Operational Tools & NotebookLM Sync
+## 📜 Filosofía de Estudio y Estructuración Plana
 
-To support your daily study habit and sync notes with your LLM context:
+El aprendizaje a nivel doctoral de manera autodidacta requiere eliminar la fricción de navegación. Para evitar la sobrecarga cognitiva de sistemas de notas "atómicos" con directorios profundamente anidados, este repositorio adopta una **filosofía de organización plana**:
 
-*   **Daily Log Generator:** Automatically generates formatted daily study logs in your active curriculum path.
-    ```bash
-    python3 scripts/new_log.py [year_number] [quarter_number]
-    # Example: python3 scripts/new_log.py 1
-    ```
-*   **Notes Compiler:** Manually compiles all LaTeX fragment files into a master document (`compiled_academic_notes.tex`) and compiles them into a unified PDF (`compiled_academic_notes.pdf`). Note: This runs automatically on push via GitHub Actions.
-    ```bash
-    python3 scripts/compile_notes.py
-    ```
-*   **NotebookLM Sync:** Connect your NotebookLM context to the compiled notes. See the complete setup instructions and study routine tips in [NOTEBOOK_LM_SYNC.md](file:///home/templance1/QuantitativeSystemsEngineering/NOTEBOOK_LM_SYNC.md).
+1. **Centralización Cuatrimestral**: En lugar de archivos semanales dispersos, la planeación y las notas se centralizan en documentos maestros de LaTeX por cada cuatrimestre académico.
+2. **Jerarquía Simétrica**: El cuaderno de notas del cuatrimestre replica de forma exacta la jerarquía del planeador del trimestre correspondiente, permitiendo una correlación inmediata de la teoría y la práctica.
+3. **Registro Práctico Directo**: Todos los desarrollos de software y proyectos de ingeniería se almacenan directamente en la raíz de la carpeta de ejercicios, organizados por proyectos específicos.
 
-## 📞 Contact
+---
 
-* **Author:** [Jair Aguilar Peña]
-* **Email:** [apjair97@gmail.com]
-* **Website:** [jap_kode.pro] (WIP)
+## 📅 Estructura de Tiempo No Negociable
 
+El programa está diseñado con base en un presupuesto de **8.5 horas semanales** de enfoque absoluto y sin distracciones:
+
+*   **Lunes a Viernes**: **1 hora diaria** dedicada a la asimilación de conceptos teóricos fundamentales y lecturas rápidas de pocket books (5 horas totales).
+*   **Sábado**: **3 horas consecutivas** de desarrollo práctico y codificación deliberada en *La Forja* (capstones y proyectos de código).
+*   **Domingo**: **30 minutos** reservados exclusivamente para la revisión de la semana finalizada, planeación detallada del próximo ciclo cuatrimestral y ajustes organizativos en LaTeX.
+
+---
+
+## 🗺️ La Estructura de Carpetas del Repositorio
+
+El espacio de trabajo se organiza formalmente en únicamente **4 directorios** en la raíz del repositorio:
+
+```text
+QuantitativeSystemsEngineering/
+├── Documentos/    # Manuales, plantillas base y libros de referencia en PDF.
+├── Ejercicios/    # Carpetas de proyectos de código y exámenes/cuestionarios .tex.
+├── Notas/         # Cuadernos de apuntes teóricos en LaTeX (.tex) y bitácoras cuatrimestrales.
+└── Planeacion/    # Planes maestros y planificadores cuatrimestrales en LaTeX.
+```
+
+---
+
+## 🏷️ Convenciones de Nomenclatura de Archivos y Carpetas
+
+Para asegurar la legibilidad por agentes de Inteligencia Artificial y la consistencia editorial, se aplican estrictamente los siguientes patrones de nomenclatura:
+
+### 1. Proyectos de Código y Prácticas (`Ejercicios/`)
+*   **Carpetas de Ejercicios**: `Y{Año}Q{Cuatrimestre}_E{Número}_{nombre_descriptivo_con_guiones_bajos}`
+    *   *Ejemplo*: `Ejercicios/Y1Q1_E02_detector_endianness/`
+*   **Exámenes y Cuestionarios**: `Y{Año}Q{Cuatrimestre}_EXAMEN_{minor_o_materia}.tex` dentro de la subcarpeta del ejercicio correspondiente.
+    *   *Ejemplo*: `Ejercicios/Y1Q1_E07_evaluaciones/Y1Q1_EXAMEN_ingles.tex`
+
+### 2. Documentos Académicos y Libros (`Documentos/`)
+*   **Libros y Manuales PDF**: `NOMBRE_DEL_LIBRO_EN_MAYUSCULAS_SIN_ESPACIOS.pdf`
+    *   *Ejemplo*: `Documentos/Books/COMPUTERSYSTEMS_PROGRAMMER_PERSPECTIVE_3ED.pdf`
+*   **Plantillas Base LaTeX**: `PLANTILLA_GENERAL_CON_EJEMPLOS.tex`, `TEMPLATE_CUADERNO_NOTAS.tex`, `TEMPLATE_PLANNER_CUATRIMESTRAL.tex`.
+
+### 3. Notas Teóricas y Bitácoras (`Notas/`)
+*   **Cuadernos de Notas Cuatrimestrales**: `CUADERNO_NOTAS_Y{Año}Q{Cuatrimestre}.tex`
+    *   *Ejemplo*: `Notas/CUADERNO_NOTAS_Y1Q1.tex`
+*   **PDFs Compilados**: Se almacenan en la misma carpeta junto a su fuente `.tex` correspondiente.
+
+### 4. Planificadores y Currículum
+*   **Currículum Maestro**: Ubicado en la raíz del repositorio como [CURRICULUM.md](file:///home/templance1/QuantitativeSystemsEngineering/CURRICULUM.md).
+*   **Planificadores Cuatrimestrales**: `PLANNER_CUATRIMESTRAL_Y{Año}Q{Cuatrimestre}.tex` dentro de `Planeacion/`.
+    *   *Ejemplo*: `Planeacion/PLANNER_CUATRIMESTRAL_Y1Q1.tex`
+
+---
+
+## 🛠️ Herramientas Tecnológicas y Requerimientos de Software
+
+El desarrollo práctico de esta campaña requiere un entorno Linux configurado para el desarrollo de sistemas de baja latencia y maquetación científica:
+
+### 1. Entorno de Desarrollo y Edición
+*   **Neovim (v0.9+)**: Configurado con Lua como editor principal.
+*   **Vimtex**: Plugin de integración para Neovim que permite la compilación bajo demanda, resaltado y sincronización directa con el visor de PDF (desactivando la autocompilación y archivos synctex según directiva de optimización).
+*   **LSPs (Language Server Protocol)**: Configuración de `rust-analyzer` (Rust), `clangd` (C/C++), `pyright` (Python) y `texlab` (LaTeX).
+
+### 2. Compiladores y Runtimes
+*   **LaTeX (Tectonic Engine)**: Compilador moderno y autocontenido de LaTeX que descarga dependencias y paquetes dinámicamente, asegurando consistencia entre entornos.
+*   **C y C++ Compiler (GCC / Clang)**: Soporte completo para estándares modernos (C11, C++20) y depuración nativa con `gdb` o `lldb`.
+*   **Rust (Rustup / Cargo)**: Cadena de herramientas nativa de Rust en versión estable para desarrollo concurrente y asíncrono.
+*   **Python (v3.10+)**: Utilización del gestor de paquetes de alto rendimiento `uv` o `pip` para análisis matemático mediante `pandas` / `polars`.
+*   **Lua (v5.1+)**: Motor de scripting ligero utilizado para la configuración avanzada de buffers en Neovim.
+
+### 3. Utilidades de Sistema y Control
+*   **Git**: Control de versiones estricto de todos los desarrollos teóricos y prácticos.
+*   **GNU Coreutils**: Herramientas estándar de terminal Linux para manipulación e inspección de datos.
+*   **poppler-utils**: Para herramientas como `pdftoppm` utilizadas para verificar layouts compilados.
+
+---
+
+## 📚 El Arsenal de Recursos: Ediciones Críticas y Pocket Guides
+
+Para optimizar la hora diaria de estudio teórico, se complementan los textos principales con guías de bolsillo (*Pocket Guides*) de lectura rápida para asimilar la intuición conceptual antes de abordar el rigor formal:
+
+### 1. Computación y Sistemas
+*   **Textos Principales**:
+    *   *Computer Systems: A Programmer's Perspective (CS:APP)*, 3rd Edition (Bryant \& O'Hallaron) – Enfocado exclusivamente en x86-64.
+    *   *Operating Systems: Three Easy Pieces (OSTEP)*, Versión 1.10 (Arpaci-Dusseau) – Virtualización, concurrencia y persistencia.
+    *   *The C++ Programming Language*, 4th Edition (Bjarne Stroustrup) – El manual de referencia definitivo de C++ moderno.
+*   **Pocket Guides \& Recursos de Concepto Rápido**:
+    *   *Linux Pocket Guide*, 4th Edition (Daniel J. Barrett) – Referencia rápida de comandos y administración de sistemas.
+    *   *C Pocket Reference* (Peter Prinz) – Lógica y sintaxis de C al instante.
+    *   *C++ Pocket Reference* (Kyle Loudon) – Estructura de C++ moderno.
+
+### 2. Matemáticas y Algoritmos
+*   **Textos Principales**:
+    *   *Introduction to Linear Algebra*, 6th Edition (Gilbert Strang, 2023) – Integración de optimización y deep learning.
+    *   *Introduction to Algorithms (CLRS)*, 4th Edition (Cormen, Leiserson, Rivest, Stein, 2022) – Estructuras y análisis de complejidad.
+*   **Pocket Guides \& Recursos de Concepto Rápido**:
+    *   *Linear Algebra Done Right*, 4th Edition (Sheldon Axler, 2024) – Enfoque conceptual y teórico de espacios vectoriales sin determinantes iniciales.
+    *   *Grokking Algorithms*, 2nd Edition (Aditya Bhargava, 2024) – Explicación visual y de alta velocidad de estructuras de datos básicas.
+
+### 3. Sistemas de Sistemas, Lenguajes y Maquetación
+*   **Textos Principales**:
+    *   *The Rust Programming Language*, 2nd Edition (Klabnik \& Nichols).
+    *   *Rust for Rustaceans*, 1st Edition (Jon Gjengset) – Conceptos avanzados de Rust (lifetimes, unsafe, macros, async).
+    *   *Rust Atomics and Locks*, 1st Edition (Mara Bos) – Modelos de memoria concurrentes y primitivas de sincronización.
+    *   *Asynchronous Programming in Rust (Async Rust)* (Official Working Group) – Desarrollo concurrente asíncrono.
+    *   *The LaTeX Companion: Parts I \& II*, 3rd Edition (Mittelbach \& Fischer, 2023) – La biblia definitiva de maquetación en LaTeX.
+    *   *Unix Network Programming, Vol. 1*, 3rd Edition (W. Richard Stevens) – APIs de Sockets.
+    *   *Designing Data-Intensive Applications*, 1st Edition (Martin Kleppmann).
+*   **Pocket Guides \& Recursos de Concepto Rápido**:
+    *   *Command-Line Rust* (Ken Youens-Clark) – Diseño y desarrollo práctico de herramientas CLI robustas en Rust.
+    *   *Effective Rust: 35 Specific Ways to Improve Your Rust Code* (Alastair Reid) – Guía práctica de mejores prácticas en Rust.
+    *   *Rust Cheat Sheet* (rust-cheatsheet.ch) – Referencia de memoria y borrow checker.
+
+### 4. Microestructura Financiera y Machine Learning
+*   **Textos Principales**:
+    *   *Trading and Exchanges: Market Microstructure for Practitioners*, 1st Edition (Larry Harris) – Dinámica de órdenes y liquidez.
+    *   *Advances in Financial Machine Learning*, 1st Edition (Marcos López de Prado) – Modelos financieros avanzados.
+    *   *Causality and Factor Investing: A Primer* (Marcos López de Prado, 2023) – Modelado causal de factores de inversión.
+*   **Pocket Guides \& Recursos de Concepto Rápido**:
+    *   *Machine Learning for Asset Managers* (Marcos López de Prado, 2020) – Versión conceptual y concisa de aplicación.
+
+---
+
+## 🏛️ Los Minors (Estudios Especializados Opcionales)
+
+A la par de la línea de investigación principal (*Major*), cursaré **Minors** específicos diseñados para optimizar mi arsenal operativo:
+
+1.  **Edición y Mantenimiento de Documentos con Neovim + LaTeX**: Dominio de Neovim y atajos de teclado para eliminar la fricción entre el pensamiento y el registro escrito técnico.
+2.  **Inglés Técnico Avanzado**: Desarrollo de la fluidez y redacción académica para la lectura fluida de papers científicos y aportaciones en la comunidad global de desarrollo.
+
+---
+
+## 📞 Datos de Contacto y Operación
+
+*   **Autor**: Jair Aguilar Peña
+*   **Email**: apjair97@gmail.com
+*   **Sitio Web**: jap_kode.pro (WIP)
+*   **Herramienta de Registro**: NotebookLM sincronizado de manera automatizada con el archivo unificado de notas cuatrimestrales compilado en PDF.

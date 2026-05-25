@@ -1,0 +1,643 @@
+% =========================================================================
+% PLANNER_CUATRIMESTRAL_Y1Q1.tex
+% Planeador Académico Cuatrimestral - Quantitative Systems Engineering
+% Año 1 - Cuatrimestre 1 (Y1Q1)
+% Basado en el estándar de diseño bilingüe de las plantillas base
+% =========================================================================
+\documentclass[11pt, a4paper]{article}
+
+% --- Paquetes Esenciales ---
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[english, spanish, es-tabla]{babel}
+\spanishdeactivate{~<>"}
+\usepackage{amsmath, amssymb, amsfonts}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{xcolor}
+\usepackage{listings}
+\usepackage{caption} % Personalización avanzada de leyendas (captions)
+
+% --- Tipografía de Alta Calidad (Charter) ---
+\usepackage{charter}
+\usepackage{microtype}
+\usepackage{metalogo}
+
+% --- Diseño de Página y Espaciados ---
+\usepackage[margin=2.5cm]{geometry}
+\usepackage{setspace}
+\setstretch{1.12}
+
+% --- Paleta de Colores Sobria ---
+\definecolor{primary}{rgb}{0.0, 0.35, 0.35}  % Teal apagado - Formal y sobrio
+\definecolor{secondary}{rgb}{0.2, 0.2, 0.2} % Gris carbón para texto principal
+\definecolor{codebg}{rgb}{0.97, 0.97, 0.95}  % Fondo suave para código
+\definecolor{grayborder}{rgb}{0.85, 0.85, 0.85}
+
+% Aplicar color secundario al cuerpo del texto
+\makeatletter
+\newcommand{\globalcolor}[1]{%
+  \color{#1}\global\let\default@color\current@color
+}
+\makeatother
+\AtBeginDocument{\globalcolor{secondary}}
+
+% --- Hipervínculos Elegantes ---
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=primary,
+    urlcolor=primary,
+    citecolor=primary,
+    pdftitle={Planeador Académico Cuatrimestral - Y1Q1},
+    pdfauthor={Jair Aguilar Peña}
+}
+
+% --- Comandos Personalizados ---
+\newcommand{\vect}[1]{\mathbf{#1}}
+
+% =========================================================================
+% CONFIGURACIÓN DE JERARQUÍA DE CAPTIONS (LEYENDAS)
+% =========================================================================
+\DeclareCaptionFont{teal}{\color{primary}}
+\captionsetup[figure]{
+    labelfont={bf,teal},
+    textfont=normalfont,
+    labelsep=colon,
+    skip=10pt
+}
+\captionsetup[table]{
+    labelfont={bf,teal},
+    textfont=normalfont,
+    labelsep=colon,
+    skip=10pt
+}
+\captionsetup[lstlisting]{
+    labelfont={bf,teal},
+    textfont=normalfont,
+    labelsep=colon,
+    skip=10pt
+}
+
+% --- Soporte Multilingüe para Leyendas (Babel) ---
+\addto\captionsspanish{%
+  \renewcommand{\figurename}{Figura}%
+  \renewcommand{\tablename}{Tabla}%
+  \renewcommand{\lstlistingname}{Fragmento de código}%
+}
+\addto\captionsenglish{%
+  \renewcommand{\figurename}{Figure}%
+  \renewcommand{\tablename}{Table}%
+  \renewcommand{\lstlistingname}{Code Snippet}%
+}
+
+% =========================================================================
+% SOPORTE MULTILENGUAJE DE CÓDIGO (LISTINGS)
+% =========================================================================
+\lstdefinestyle{customcode}{
+    backgroundcolor=\color{codebg},
+    commentstyle=\color{primary!70}\itshape,
+    keywordstyle=\color{primary}\bfseries,
+    numberstyle=\tiny\color{gray},
+    stringstyle=\color{orange!80!black},
+    basicstyle=\ttfamily\small,
+    breakatwhitespace=false,
+    breaklines=true,
+    captionpos=b,
+    keepspaces=true,
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2,
+    frame=single,
+    rulecolor=\color{grayborder},
+    aboveskip=15pt,
+    belowskip=10pt
+}
+\lstset{style=customcode}
+
+% --- Definiciones de Lenguajes Adicionales ---
+\lstdefinelanguage{Pseudocodigo}{
+    sensitive=false,
+    morekeywords={Inicio, Fin, Si, Entonces, Sino, FinSi, Para, Hasta, Hacer, FinPara, Mientras, FinMientras, Retornar, Funcion, Procedimiento, Escribir, Leer},
+    morecomment=[l]{//},
+    morestring=[b]"
+}
+
+\lstdefinelanguage{Pseudocode}{
+    sensitive=false,
+    morekeywords={Begin, End, If, Then, Else, EndIf, For, To, Do, EndFor, While, EndWhile, Return, Function, Procedure, Write, Read},
+    morecomment=[l]{//},
+    morestring=[b]"
+}
+
+\lstdefinelanguage{Rust}{
+    sensitive=true,
+    morekeywords={fn, let, mut, impl, struct, enum, trait, use, mod, pub, match, return, if, else, loop, while, for, in, unsafe, async, await, type, as, self, Self},
+    morecomment=[l]{//},
+    morecomment=[s]{/*}{*/},
+    morestring=[b]",
+    morestring=[b]'
+}
+
+\lstdefinelanguage{JavaScript}{
+    sensitive=true,
+    morekeywords={const, let, var, function, return, if, else, for, while, class, extends, new, import, export, from, true, false, null, undefined, console, log},
+    morecomment=[l]{//},
+    morecomment=[s]{/*}{*/},
+    morestring=[b]",
+    morestring=[b]'
+}
+
+\lstdefinelanguage{CSS}{
+    sensitive=false,
+    morekeywords={color, background, margin, padding, border, display, flex, position, width, height, font, family, size, weight, align, justify},
+    morecomment=[s]{/*}{*/},
+    morestring=[b]"
+}
+
+\lstdefinelanguage{Lua}{
+    sensitive=true,
+    morekeywords={local, function, end, then, else, elseif, if, for, while, do, repeat, until, nil, true, false, return, break, in, pairs, ipairs},
+    morecomment=[l]{--},
+    morecomment=[s]{--[[}{]]},
+    morestring=[b]",
+    morestring=[b]'
+}
+
+\title{\textbf{\color{primary}Planeador Académico Cuatrimestral\\ \large Quantitative Systems Engineering (Ph.D. Track)}}
+\author{Jair Aguilar Peña}
+\date{Año 1 - Cuatrimestre 1 (Y1Q1)}
+
+\begin{document}
+\spanishdeactivate{~<>"}
+
+\maketitle
+
+\begin{abstract}
+Este documento constituye el plan operativo maestro de autoestudio detallado para el primer cuatrimestre académico (Y1Q1). Organiza de manera secuencial 16 semanas completas de dedicación rigurosa bajo el presupuesto estricto de 8.5 horas semanales (1 hora diaria de lunes a viernes, 3 horas el sábado y 30 minutos el domingo). Los temas y lecturas se programan de forma integral siguiendo los rangos exactos de páginas de las ediciones críticas. Las sesiones prácticas de los sábados integran desarrollos de hardware junto a implementaciones programáticas de los conceptos algebraicos y matemáticos asimilados durante la semana, exigiendo además la resolución del mayor número posible de ejercicios prácticos de los textos core.
+\end{abstract}
+
+\tableofcontents
+\newpage
+
+\section{Resumen Cuatrimestral y Metas Core}
+\begin{itemize}
+    \item \textbf{Objetivo Principal del Cuatrimestre}: Dominar la representación de información a nivel binario, aritmética y punto flotante, el flujo de control y direccionamiento en código de máquina (ensamblador x86-64), las bases de la sintaxis estructural en C y Rust (Ownership), y los principios fundamentales de la geometría matricial y la eliminación gaussiana.
+    \item \textbf{Recursos Principales de Lectura}:
+    \begin{itemize}
+        \item \textit{Computer Systems: A Programmer's Perspective (CS:APP)}, 3rd Edition (Capítulos 1 y 2 completos, y Capítulo 3 hasta Sección 3.10).
+        \item \textit{The C Programming Language (K\&R)}, 2nd Edition (Capítulos 1 a 6 completos).
+        \item \textit{Linear Algebra (Gilbert Strang \& Stanley Grossman)}: Strang Capítulos 1 y 2, Grossman Capítulo 5 (Secciones 5.1 a 5.5).
+        \item \textit{The Rust Programming Language}, 2nd Edition (Capítulos 1 a 8 completos).
+    \end{itemize}
+    \item \textbf{Proyecto de la Forja (Entregable Cuatrimestral)}: Conversor binario estructurado y emulador aritmético en C y Rust, y primer borrador del Paper de Réplica académica: \textit{El impacto de la representación binaria y el endianness en la eficiencia física de procesamiento}.
+    \item \textbf{Estatus de los Minors Activos}:
+    \begin{itemize}
+        \item Minor 1 (Neovim + \LaTeX): Eliminación de fricción de maquetación y depuración en caliente sin compilación automática ni synctex.
+        \item Minor 2 (Inglés Técnico): Redacción bilingüe de leyendas independientes y traducción de pseudocódigo estructural.
+    \end{itemize}
+\end{itemize}
+
+\noindent\rule{\textwidth}{0.4pt}
+\newpage
+
+% ==========================================
+% SECCIÓN DE SEMANAS
+% ==========================================
+
+\section{Bloque Académico 1: Fundamentos de Sistemas y Sintaxis Básica (Semanas 1 a 4)}
+
+\subsection{Semana 1: Arquitectura de Sistemas e Introducción a C/Rust}
+\textbf{Objetivo semanal}: Asimilar el flujo de compilación de programas, la jerarquía de hardware de una CPU y escribir el primer programa compilado formalmente en C y Rust.
+
+\subsubsection{Planeación Diaria y Lecturas (Lunes a Viernes - 1h/día)}
+\begin{itemize}
+    \item \textbf{Lunes (Sistemas)}: CS:APP Cap 1 (La información como bits, compilación y hardware, pp. 35 - 47).
+    \item \textbf{Martes (Matemáticas)}: Strang Sec 1.1 (Intro al álgebra lineal y vectores, pp. 1 - 3) y Grossman Sec 1.1 (Dos ecuaciones lineales con dos incógnitas, pp. 19 - 23).
+    \item \textbf{Miércoles (Sistemas)}: CS:APP Cap 1 (El sistema operativo, memoria virtual, archivos y redes, pp. 48 - 60).
+    \item \textbf{Jueves (Lenguajes/C)}: K\&R Cap 1 (Tutorial introductorio de C: Hello world, variables, for, constantes, pp. 9 - 16).
+    \item \textbf{Viernes (Lenguajes/Rust)}: Rust Book Cap 1 (Instalación de Rust, compilador rustc, Cargo y hello world, pp. 1 - 15).
+\end{itemize}
+
+\subsubsection{Laboratorio Práctico de La Forja (Sábado - 3h)}
+\begin{itemize}
+    \item \textbf{Sistemas}: Configuración inicial de Neovim y vimtex. Compilación manual de `hello.c` utilizando el compilador nativo de la terminal (`gcc hello.c -o hello`) e inspección del binario ejecutable.
+    \item \textbf{Matemáticas}: Implementar operaciones fundamentales de vectores en $\mathbb{R}^n$ (suma, resta y multiplicación por un escalar) y un solucionador determinista de sistemas de ecuaciones lineales $2 \times 2$ en C y Rust.
+    \item \textbf{Ejercicios Core}: Resolver todos los problemas impares prácticos de Strang Sec 1.1 y Grossman Sec 1.1.
+\end{itemize}
+
+\subsubsection{Auditoría y Planificación (Domingo - 30 min)}
+\begin{itemize}
+    \item \textbf{Revisión de Cumplimiento}: [ ] Completado | [ ] Incompleto
+    \item \textbf{Puntos Débiles}: Identificación de conceptos difusos sobre el marco de compilación.
+\end{itemize}
+
+\noindent\rule{\textwidth}{0.4pt}
+
+\subsection{Semana 2: Almacenamiento de Información y Operaciones de Bitwise}
+\textbf{Objetivo semanal}: Comprender cómo la memoria física de una computadora se organiza linealmente por bytes y manipular bits de forma directa mediante operaciones de enmascaramiento.
+
+\subsubsection{Planeación Diaria y Lecturas (Lunes a Viernes - 1h/día)}
+\begin{itemize}
+    \item \textbf{Lunes (Sistemas)}: CS:APP Sec 2.1 (Hexadecimal, tamaños de palabra en x86-64 y direccionamiento de bytes, pp. 67 - 78).
+    \item \textbf{Martes (Matemáticas)}: Strang Sec 1.2 (La geometría de las ecuaciones lineales: Row Picture vs Column Picture, pp. 4 - 10).
+    \item \textbf{Miércoles (Sistemas)}: CS:APP Sec 2.1 (Operaciones a nivel de bit, AND, OR, XOR, NOT y desplazamientos de bits, pp. 79 - 89).
+    \item \textbf{Jueves (Lenguajes/C)}: K\&R Cap 1 (Entrada y salida de caracteres, copia de archivos, y vectores básicos de almacenamiento, pp. 17 - 25).
+    \item \textbf{Viernes (Lenguajes/Rust)}: Rust Book Cap 2 (Desarrollo del juego de adivinanza de números en Rust para entender scopes, pp. 16 - 30).
+\end{itemize}
+
+\subsubsection{Laboratorio Práctico de La Forja (Sábado - 3h)}
+\begin{itemize}
+    \item \textbf{Sistemas}: Escribir una función modular en C que reciba un entero de 32 bits y devuelva su representación en hexadecimal sin usar especificadores de formato de `printf`, utilizando exclusivamente operaciones a nivel de bit (`\&` y `>>`).
+    \item \textbf{Matemáticas}: Implementar en C y Rust un multiplicador matriz-vector de $m \times n$ y renderizar en la terminal tanto la perspectiva por renglones (Row Picture) como la combinación lineal de columnas (Column Picture) de Strang Sec 1.2.
+    \item \textbf{Ejercicios Core}: Resolver todos los problemas impares conceptuales de Strang Sec 1.2.
+\end{itemize}
+
+\subsubsection{Auditoría y Planificación (Domingo - 30 min)}
+\begin{itemize}
+    \item \textbf{Revisión de Cumplimiento}: [ ] Completado | [ ] Incompleto
+\end{itemize}
+
+\noindent\rule{\textwidth}{0.4pt}
+
+\subsection{Semana 3: Representación de Enteros y Eliminación Gaussiana}
+\textbf{Objetivo semanal}: Dominar la representación de enteros con signo mediante el complemento a dos y aplicar eliminación de Gauss-Jordan para resolver sistemas de ecuaciones homogéneos.
+
+\subsubsection{Planeación Diaria y Lecturas (Lunes a Viernes - 1h/día)}
+\begin{itemize}
+    \item \textbf{Lunes (Sistemas)}: CS:APP Sec 2.2 (Representación de enteros: Signados/No signados y representación de complemento a dos, pp. 90 - 101).
+    \item \textbf{Martes (Matemáticas)}: Strang Sec 1.3 (Eliminación gaussiana de sistemas de ecuaciones y selección de pivotes, pp. 11 - 18).
+    \item \textbf{Miércoles (Sistemas)}: CS:APP Sec 2.2 (Conversiones entre tipos con y sin signo, extensión y truncamiento de bits en memoria física, pp. 102 - 112).
+    \item \textbf{Jueves (Lenguajes/C)}: K\&R Cap 1 (Funciones en C, argumentos pasados por valor, matrices de caracteres y variables de ámbito externo, pp. 26 - 35).
+    \item \textbf{Viernes (Lenguajes/Rust)}: Rust Book Cap 3 (Variables, mutabilidad de referencias, constantes y tipos de datos en Rust, pp. 31 - 45).
+\end{itemize}
+
+\subsubsection{Laboratorio Práctico de La Forja (Sábado - 3h)}
+\begin{itemize}
+    \item \textbf{Sistemas}: Escribir un programa portable en C que lea la memoria directa de una variable (`unsigned int`) y determine si la arquitectura del procesador anfitrión es Little-Endian o Big-Endian mediante un puntero `unsigned char*`.
+    \item \textbf{Matemáticas}: Implementar el algoritmo de Eliminación Gaussiana con pivoteo parcial en C y Rust para resolver sistemas estructurados de ecuaciones lineales de dimensión $n \times n$.
+    \item \textbf{Ejercicios Core}: Resolver de forma analítica y programática todos los problemas prácticos de Strang Sec 1.3.
+\end{itemize}
+
+\subsubsection{Auditoría y Planificación (Domingo - 30 min)}
+\begin{itemize}
+    \item \textbf{Revisión de Cumplimiento}: [ ] Completado | [ ] Incompleto
+\end{itemize}
+
+\noindent\rule{\textwidth}{0.4pt}
+
+\subsection{Semana 4: Aritmética de Enteros y Álgebra Matricial}
+\textbf{Objetivo semanal}: Entender cómo ocurren los desbordamientos aritméticos de suma y multiplicación a nivel de bit y dominar el producto matricial.
+
+\subsubsection{Planeación Diaria y Lecturas (Lunes a Viernes - 1h/día)}
+\begin{itemize}
+    \item \textbf{Lunes (Sistemas)}: CS:APP Sec 2.3 (Aritmética de enteros: Suma sin signo, desbordamiento y suma de complemento a dos con y sin signo, pp. 113 - 122).
+    \item \textbf{Martes (Matemáticas)}: Strang Sec 1.4 (Notación matricial, álgebra matricial y operaciones algebraicas de multiplicación de matrices, pp. 19 - 31).
+    \item \textbf{Miércoles (Sistemas)}: CS:APP Sec 2.3 (Multiplicación de enteros, división por potencias de 2 mediante shifts aritméticos y lógicos, pp. 123 - 132).
+    \item \textbf{Jueves (Lenguajes/C)}: K\&R Cap 2 (Sintaxis de nombres, tipos de datos, constantes simbólicas, declaraciones y operadores de control, pp. 36 - 42).
+    \item \textbf{Viernes (Lenguajes/Rust)}: Rust Book Cap 3 (Funciones y control de flujo estructural en Rust mediante bloques `if` e `in`, pp. 46 - 60).
+\end{itemize}
+
+\subsubsection{Laboratorio Práctico de La Forja (Sábado - 3h)}
+\begin{itemize}
+    \item \textbf{Sistemas}: Diseñar un emulador en C y Rust que realice suma y multiplicación de enteros simulando un registro de 8 bits con signo, registrando manualmente en una bandera (*flag*) si ha ocurrido un *overflow* o desbordamiento de bits.
+    \item \textbf{Matemáticas}: Implementar y contrastar empíricamente dos algoritmos de producto matricial $C = AB$ en C y Rust: el método directo tradicional de tres bucles anidados frente a un algoritmo por bloques adaptado a la optimización de líneas de caché de hardware.
+    \item \textbf{Ejercicios Core}: Resolver todos los ejercicios de Strang Sec 1.4.
+\end{itemize}
+
+\subsubsection{Auditoría y Planificación (Domingo - 30 min)}
+\begin{itemize}
+    \item \textbf{Revisión de Cumplimiento}: [ ] Completado | [ ] Incompleto
+\end{itemize}
+
+\noindent\rule{\textwidth}{0.4pt}
+\newpage
+
+% ==========================================
+\section{Bloque Académico 2: Punto Flotante, Ensamblador y Espacios Vectoriales (Semanas 5 a 8)}
+
+\subsection{Semana 5: Punto Flotante y Factorizaciones LU}
+\textbf{Objetivo semanal}: Asimilar el estándar internacional IEEE 754 de punto flotante de precisión simple y doble, y dominar la descomposición matricial $A = LU$.
+
+\subsubsection{Planeación Diaria y Lecturas (Lunes a Viernes - 1h/día)}
+\begin{itemize}
+    \item \textbf{Lunes (Sistemas)}: CS:APP Sec 2.4 (Punto flotante: Fracciones binarias, estándar IEEE 754 de exponente y mantisa de precisión simple y doble, pp. 133 - 143).
+    \item \textbf{Martes (Matemáticas)}: Strang Sec 1.5 (Factorización triangular matricial $A = LU$ e intercambio de filas $PA = LU$, pp. 32 - 44).
+    \item \textbf{Miércoles (Sistemas)}: CS:APP Sec 2.4 - 2.5 (Operaciones de punto flotante, redondeo de precisión y resumen formal del Capítulo 2, pp. 144 - 153).
+    \item \textbf{Jueves (Lenguajes/C)}: K\&R Cap 2 (Conversiones de tipo automáticas, cast implícito, operadores de incremento y decremento, pp. 42 - 47).
+    \item \textbf{Viernes (Lenguajes/Rust)}: Rust Book Cap 4 (El concepto fundamental de propiedad - *Ownership* de variables en Rust y gestión de ámbito de memoria, pp. 61 - 73).
+\end{itemize}
+
+\subsubsection{Laboratorio Práctico de La Forja (Sábado - 3h)}
+\begin{itemize}
+    \item \textbf{Sistemas}: Escribir funciones en C que capturen un número flotante, lean su representación de 32 bits a nivel binario y extraigan de forma aislada el bit de signo, los 8 bits del exponente y los 23 bits de la mantisa.
+    \item \textbf{Matemáticas}: Implementar el algoritmo de Factorización $A = LU$ y $PA = LU$ en C y Rust para acelerar la resolución recursiva de ecuaciones de sistemas redundantes.
+    \item \textbf{Ejercicios Core}: Resolver todos los problemas algebraicos impares de Strang Sec 1.5.
+\end{itemize}
+
+\subsubsection{Auditoría y Planificación (Domingo - 30 min)}
+\begin{itemize}
+    \item \textbf{Revisión de Cumplimiento}: [ ] Completado | [ ] Incompleto
+\end{itemize}
+
+\noindent\rule{\textwidth}{0.4pt}
+
+\subsection{Semana 6: Repaso de Datos y Matrices Inversas}
+\textbf{Objetivo semanal}: Resolver problemas teóricos de desbordamientos de datos y calcular inversas matriciales mediante el método Gauss-Jordan.
+
+\subsubsection{Planeación Diaria y Lecturas (Lunes a Viernes - 1h/día)}
+\begin{itemize}
+    \item \textbf{Lunes (Sistemas)}: CS:APP Cap 2 (Problemas de tarea seleccionados y revisión de representaciones de enteros en máquina, pp. 153 - 170).
+    \item \textbf{Martes (Matemáticas)}: Strang Sec 1.6 (Inversas matriciales, método Gauss-Jordan para invertir y transposición de matrices, pp. 45 - 51).
+    \item \textbf{Miércoles (Sistemas)}: CS:APP Cap 2 (Solución estructurada a los problemas prácticos de punto flotante de final de capítulo, pp. 171 - 186).
+    \item \textbf{Jueves (Lenguajes/C)}: K\&R Cap 2 (Operadores binarios lógicos y relacionales, asignaciones abreviadas y precedencia de evaluación de expresiones en C, pp. 48 - 53).
+    \item \textbf{Viernes (Lenguajes/Rust)}: Rust Book Cap 4 (Referencias e inspección del *Borrow Checker* de Rust, préstamos mutables e inmutables, pp. 74 - 84).
+\end{itemize}
+
+\subsubsection{Laboratorio Práctico de La Forja (Sábado - 3h)}
+\begin{itemize}
+    \item \textbf{Sistemas}: Escribir un script estructurado en C y Rust que multiplique matrices de cualquier dimensión y verificar la corrección del resultado con Strang Capítulo 1.
+    \item \textbf{Matemáticas}: Implementar el cálculo programático de la inversa de una matriz de dimensión arbitraria mediante eliminación Gauss-Jordan y transposición de matrices *in-place*.
+    \item \textbf{Ejercicios Core}: Completar los ejercicios impares de Strang Sec 1.6.
+\end{itemize}
+
+\subsubsection{Auditoría y Planificación (Domingo - 30 min)}
+\begin{itemize}
+    \item \textbf{Revisión de Cumplimiento}: [ ] Completado | [ ] Incompleto
+\end{itemize}
+
+\noindent\rule{\textwidth}{0.4pt}
+
+\subsection{Semana 7: Código de Máquina y Estructuras Condicionales}
+\textbf{Objetivo semanal}: Aprender cómo se codifica el software escrito en lenguaje de alto nivel a código ensamblador e instrucciones de CPU nativas.
+
+\subsubsection{Planeación Diaria y Lecturas (Lunes a Viernes - 1h/día)}
+\begin{itemize}
+    \item \textbf{Lunes (Sistemas)}: CS:APP Sec 3.1 \& 3.2 (Perspectiva histórica del hardware, codificación de programas, ensamblador y código máquina binario, pp. 187 - 196).
+    \item \textbf{Martes (Matemáticas)}: Strang Cap 1 (Resolución de problemas complementarios de álgebra lineal numérica, pp. 48 - 51).
+    \item \textbf{Miércoles (Sistemas)}: CS:APP Sec 3.2 - 3.3 (Compilación interactiva de C a Ensamblador e identificación de los tipos y tamaños de datos del hardware, pp. 197 - 201).
+    \item \textbf{Jueves (Lenguajes/C)}: K\&R Cap 3 (Flujo de control: Sentencias y bloques, declaraciones de control condicional if-else, else-if y switch, pp. 54 - 57).
+    \item \textbf{Viernes (Lenguajes/Rust)}: Rust Book Cap 4 (El tipo de dato Slice en Rust y la gestión de punteros de lectura de subcadenas, pp. 84 - 93).
+\end{itemize}
+
+\subsubsection{Laboratorio Práctico de La Forja (Sábado - 3h)}
+\begin{itemize}
+    \item \textbf{Sistemas}: Escribir un programa modular en C con múltiples bifurcaciones `if-else`. Compilarlo a código ensamblador (`gcc -S`) e inspeccionar el archivo `.s` resultante, documentando qué registros de estado y saltos lógicos se generaron.
+    \item \textbf{Matemáticas}: Diseñar una herramienta de interfaz de línea de comandos (CLI) en Rust que consolide y unifique todos los algoritmos matriciales desarrollados hasta ahora (Multiplicación por bloques, Eliminación Gaussiana, PLU e Inversión Gauss-Jordan).
+    \item \textbf{Ejercicios Core}: Resolver todos los problemas complementarios de revisión del final de Strang Capítulo 1.
+\end{itemize}
+
+\subsubsection{Auditoría y Planificación (Domingo - 30 min)}
+\begin{itemize}
+    \item \textbf{Revisión de Cumplimiento}: [ ] Completado | [ ] Incompleto
+\end{itemize}
+
+\noindent\rule{\textwidth}{0.4pt}
+
+\subsection{Semana 8: Direccionamiento e Introducción a Espacios Vectoriales}
+\textbf{Objetivo semanal}: Dominar los modos de direccionamiento avanzados de x86-64 y asimilar los axiomas matemáticos que definen un espacio vectorial.
+
+\subsubsection{Planeación Diaria y Lecturas (Lunes a Viernes - 1h/día)}
+\begin{itemize}
+    \item \textbf{Lunes (Sistemas)}: CS:APP Sec 3.4 (Acceso a la información: Los registros del sistema de 64 bits y manipulación directa de operandos, pp. 202 - 205).
+    \item \textbf{Martes (Matemáticas)}: Strang Sec 2.1 (Espacios vectoriales y subespacios abstractos en $\mathbb{R}^n$, pp. 52 - 61) y Grossman Sec 5.1 (Definición y propiedades formales de los espacios vectoriales generales, pp. 313 - 325).
+    \item \textbf{Miércoles (Sistemas)}: CS:APP Sec 3.4 (Modos de direccionamiento avanzados, direccionamiento base más índice escalado, pp. 206 - 210).
+    \item \textbf{Jueves (Lenguajes/C)}: K\&R Cap 3 (Bucles interactivos while, for, do-while, y control de bifurcaciones mediante break, continue, y goto, pp. 58 - 67).
+    \item \textbf{Viernes (Lenguajes/Rust)}: Rust Book Cap 5 (Declaración de estructuras de datos, métodos en structs e instanciación de clases en Rust, pp. 94 - 105).
+\end{itemize}
+
+\subsubsection{Laboratorio Práctico de La Forja (Sábado - 3h)}
+\begin{itemize}
+    \item \textbf{Sistemas}: Escribir un programa que realice direccionamiento indexado y documentar cómo se mapea a nivel de registros físicos.
+    \item \textbf{Matemáticas}: Programar un entorno modular de pruebas de software en C y Rust que tome representaciones vectoriales genéricas e intente validar de forma algorítmica y determinista los 10 axiomas de un espacio vectorial según Grossman Sec 5.1.
+    \item \textbf{Ejercicios Core}: Resolver todos los ejercicios de Strang Sec 2.1 y Grossman Sec 5.1.
+\end{itemize}
+
+\subsubsection{Auditoría y Planificación (Domingo - 30 min)}
+\begin{itemize}
+    \item \textbf{Revisión de Cumplimiento}: [ ] Completado | [ ] Incompleto
+\end{itemize}
+
+\noindent\rule{\textwidth}{0.4pt}
+\newpage
+
+% ==========================================
+\section{Bloque Académico 3: Operaciones de Ensamblador, Funciones y Espacios Axiales (Semanas 9 a 12)}
+
+\subsection{Semana 9: Operaciones Aritméticas de Máquina y Estructuras en C}
+\textbf{Objetivo semanal}: Dominar el uso de la instrucción optimizada `leaq` en x86-64 y modularizar código C mediante funciones y variables globales.
+
+\subsubsection{Planeación Diaria y Lecturas (Lunes a Viernes - 1h/día)}
+\begin{itemize}
+    \item \textbf{Lunes (Sistemas)}: CS:APP Sec 3.5 (Operaciones aritméticas y lógicas en x86-64: La instrucción \texttt{leaq} para cómputo de direcciones e incremento, pp. 211 - 214).
+    \item \textbf{Martes (Matemáticas)}: Strang Sec 2.2 (El espacio nulo de una matriz, variables libres y resolución completa de sistemas homogéneos $Ax = 0$, pp. 62 - 70).
+    \item \textbf{Miércoles (Sistemas)}: CS:APP Sec 3.5 (Instrucciones unarias, binarias y de multiplicación, pp. 215 - 218).
+    \item \textbf{Jueves (Lenguajes/C)}: K\&R Cap 4 (Conceptos básicos de funciones, funciones que devuelven tipos no enteros y variables de ámbito externo, pp. 68 - 75).
+    \item \textbf{Viernes (Lenguajes/Rust)}: Rust Book Cap 5 (Métodos asociados y constructores \texttt{impl} en Rust, pp. 105 - 112).
+\end{itemize}
+
+\subsubsection{Laboratorio Práctico de La Forja (Sábado - 3h)}
+\begin{itemize}
+    \item \textbf{Sistemas}: Escribir funciones en ensamblador en línea (\texttt{\_\_asm\_\_}) en C para sumar y multiplicar variables del registro físico e inspeccionar cómo el compilador traduce la directiva usando \texttt{leaq}.
+    \item \textbf{Matemáticas}: Implementar en C y Rust un algoritmo para hallar la base formal del espacio nulo o núcleo (Nullspace) de cualquier matriz (resolviendo el sistema homogéneo $Ax = 0$) mediante eliminación e identificación de variables libres de Strang Sec 2.2.
+    \item \textbf{Ejercicios Core}: Resolver todos los problemas impares de Strang Sec 2.2 de la parte de sistemas homogéneos.
+\end{itemize}
+
+\subsubsection{Auditoría y Planificación (Domingo - 30 min)}
+\begin{itemize}
+    \item \textbf{Revisión de Cumplimiento}: [ ] Completado | [ ] Incompleto
+\end{itemize}
+
+\noindent\rule{\textwidth}{0.4pt}
+
+\subsection{Semana 10: Control de Flujo a Nivel de Máquina y Ámbitos de Scope}
+\textbf{Objetivo semanal}: Comprender cómo se realiza la traducción a nivel de máquina de bucles y sentencias condicionales e implementar enums en Rust.
+
+\subsubsection{Planeación Diaria y Lecturas (Lunes a Viernes - 1h/día)}
+\begin{itemize}
+    \item \textbf{Lunes (Sistemas)}: CS:APP Sec 3.6 (Códigos de condición de CPU, registros de estado, e instrucciones de comparación `cmp` y `test`, pp. 219 - 228).
+    \item \textbf{Martes (Matemáticas)}: Strang Sec 2.2 (La solución completa para $Ax = b$, el rango de una matriz y variables libres, pp. 71 - 76) y Grossman Sec 5.2 (Subespacios vectoriales y combinaciones, pp. 326 - 337).
+    \item \textbf{Miércoles (Sistemas)}: CS:APP Sec 3.6 (Traducción de bucles for, while, do-while, sentencias condicionales y optimizaciones `switch` con tablas de saltos, pp. 229 - 252).
+    \item \textbf{Jueves (Lenguajes/C)}: K\&R Cap 4 (Reglas de ámbito, alcance de variables, archivos de cabecera y variables estáticas internas, pp. 76 - 83).
+    \item \textbf{Viernes (Lenguajes/Rust)}: Rust Book Cap 6 (Definición de tipos estructurados Enums y el operador de control de flujo \texttt{match} en Rust, pp. 113 - 125).
+\end{itemize}
+
+\subsubsection{Laboratorio Práctico de La Forja (Sábado - 3h)}
+\begin{itemize}
+    \item \textbf{Sistemas}: Desarrollar en C y Rust un parser estructurado que reciba código en pseudocódigo inglés simple y ejecute los saltos condicionales.
+    \item \textbf{Matemáticas}: Implementar en C y Rust un solucionador lineal general que calcule la solución completa ($x = x_p + x_n$, solución particular más solución en el espacio nulo) para sistemas de ecuaciones lineales inconsistentes o indeterminados del tipo $Ax = b$.
+    \item \textbf{Ejercicios Core}: Resolver todos los ejercicios restantes impares de Strang Sec 2.2 y Grossman Sec 5.2.
+\end{itemize}
+
+\subsubsection{Auditoría y Planificación (Domingo - 30 min)}
+\begin{itemize}
+    \item \textbf{Revisión de Cumplimiento}: [ ] Completado | [ ] Incompleto
+\end{itemize}
+
+\noindent\rule{\textwidth}{0.4pt}
+
+\subsection{Semana 11: Gestión de Pila en Ensamblador e Independencia Lineal}
+\textbf{Objetivo semanal}: Dominar el mecanismo de llamada a funciones a nivel de máquina mediante la pila de ejecución y comprender el concepto de bases y dimensión matricial.
+
+\subsubsection{Planeación Diaria y Lecturas (Lunes a Viernes - 1h/día)}
+\begin{itemize}
+    \item \textbf{Lunes (Sistemas)}: CS:APP Sec 3.7 (Procedimientos: El marco de pila en memoria física y el uso del registro del puntero de pila \texttt{\%rsp}, pp. 253 - 258).
+    \item \textbf{Martes (Matemáticas)}: Strang Sec 2.3 (Independencia lineal de vectores, bases de un espacio vectorial y dimensión formal, pp. 77 - 89).
+    \item \textbf{Miércoles (Sistemas)}: CS:APP Sec 3.7 (Transferencia de control y datos en pila, paso de parámetros a través de registros de hardware, pp. 259 - 265).
+    \item \textbf{Jueves (Lenguajes/C)}: K\&R Cap 4 (Variables de registro, estructura de bloque, inicialización de arrays, funciones recursivas y directivas del preprocesador, pp. 84 - 89).
+    \item \textbf{Viernes (Lenguajes/Rust)}: Rust Book Cap 6 (El operador condensado \texttt{if let} y desempaque de patrones Option en Rust, pp. 125 - 132).
+\end{itemize}
+
+\subsubsection{Laboratorio Práctico de La Forja (Sábado - 3h)}
+\begin{itemize}
+    \item \textbf{Sistemas}: Escribir una función matemática recursiva compleja en C y Rust. Compilarla y depurarla interactivamente en \texttt{gdb} para inspeccionar en tiempo real cómo cambia la dirección del registro de pila \texttt{\%rsp}.
+    \item \textbf{Matemáticas}: Implementar en C y Rust un programa que reciba un conjunto arbitrario de vectores y determine de forma determinista si son linealmente independientes o dependientes, calculando el rango (número de pivotes) de la matriz que forman de Strang Sec 2.3.
+    \item \textbf{Ejercicios Core}: Resolver todos los problemas impares analíticos y conceptuales de Strang Sec 2.3.
+\end{itemize}
+
+\subsubsection{Auditoría y Planificación (Domingo - 30 min)}
+\begin{itemize}
+    \item \textbf{Revisión de Cumplimiento}: [ ] Completado | [ ] Incompleto
+\end{itemize}
+
+\noindent\rule{\textwidth}{0.4pt}
+
+\subsection{Semana 12: Aritmética de Punteros y los Cuatro Subespacios}
+\textbf{Objetivo semanal}: Dominar la relación entre punteros y vectores en memoria física y asimilar los cuatro subespacios fundamentales de una matriz.
+
+\subsubsection{Planeación Diaria y Lecturas (Lunes a Viernes - 1h/día)}
+\begin{itemize}
+    \item \textbf{Lunes (Sistemas)}: CS:APP Sec 3.8 (Asignación y acceso a arreglos: Aritmética de direcciones de memoria en x86-64, pp. 266 - 270).
+    \item \textbf{Martes (Matemáticas)}: Strang Sec 2.4 (Los cuatro subespacios fundamentales de una matriz y sus dimensiones fundamentales, pp. 90 - 102) y Grossman Sec 5.3 (Combinación lineal y espacio generado por subconjuntos, pp. 338 - 355).
+    \item \textbf{Miércoles (Sistemas)}: CS:APP Sec 3.8 (Arreglos multidimensionales planos y punteros implícitos en código de máquina, pp. 271 - 274).
+    \item \textbf{Jueves (Lenguajes/C)}: K\&R Cap 5 (Punteros y direcciones físicas, punteros como argumentos de función y paso por referencia, aritmética de direcciones, pp. 90 - 100).
+    \item \textbf{Viernes (Lenguajes/Rust)}: Rust Book Cap 7 (Organización del código en módulos en Rust, paquetes, cajas e importaciones dinámicas, pp. 133 - 145).
+\end{itemize}
+
+\subsubsection{Laboratorio Práctico de La Forja (Sábado - 3h)}
+\begin{itemize}
+    \item \textbf{Sistemas}: Escribir un programa modular en C que multiplique matrices mediante aritmética pura de punteros (`*(ptr + i*dim + j)`).
+    \item \textbf{Matemáticas}: Desarrollar en C y Rust un analizador estructural que reciba cualquier matriz y calcule una base ortogonal para cada uno de sus cuatro subespacios fundamentales: el Espacio Columna, el Espacio Fila, el Espacio Nulo y el Espacio Nulo Izquierdo según Strang Sec 2.4.
+    \item \textbf{Ejercicios Core}: Resolver todos los problemas impares analíticos y de demostración de Strang Sec 2.4 y Grossman Sec 5.3.
+\end{itemize}
+
+\subsubsection{Auditoría y Planificación (Domingo - 30 min)}
+\begin{itemize}
+    \item \textbf{Revisión de Cumplimiento}: [ ] Completado | [ ] Incompleto
+\end{itemize}
+
+\noindent\rule{\textwidth}{0.4pt}
+\newpage
+
+% ==========================================
+\section{Bloque Académico 4: Estructuras, Desbordamiento y Consolidación (Semanas 13 a 16)}
+
+\subsection{Semana 13: Estructuras Heterogéneas y Alineamiento de Memoria}
+\textbf{Objetivo semanal}: Comprender el alineamiento de variables estructuradas en memoria física y dominar la manipulación de cadenas de caracteres en C.
+
+\subsubsection{Planeación Diaria y Lecturas (Lunes a Viernes - 1h/día)}
+\begin{itemize}
+    \item \textbf{Lunes (Sistemas)}: CS:APP Sec 3.9 (Estructuras de datos heterogéneas: Sintaxis de Structs y Unions a nivel de máquina, pp. 275 - 279).
+    \item \textbf{Martes (Matemáticas)}: Strang Sec 2.5 (Grafos, redes, matrices de incidencia y flujos de red aplicados, pp. 103 - 114).
+    \item \textbf{Miércoles (Sistemas)}: CS:APP Sec 3.9 (Alineamiento de datos en la memoria del hardware y empaquetamiento optimizado, pp. 280 - 285).
+    \item \textbf{Jueves (Lenguajes/C)}: K\&R Cap 5 (Funciones y punteros a caracteres, cadenas literales en C y arreglos de punteros, pp. 101 - 110).
+    \item \textbf{Viernes (Lenguajes/Rust)}: Rust Book Cap 7 (Uso avanzado de la palabra clave `use` e importación estructurada de librerías en Rust, pp. 146 - 155).
+\end{itemize}
+
+\subsubsection{Laboratorio Práctico de La Forja (Sábado - 3h)}
+\begin{itemize}
+    \item \textbf{Sistemas}: Escribir estructuras de variables heterogéneas desordenadas en C. Medir su huella en bytes reales (`sizeof`). Reordenar las variables de forma óptima para optimizar la caché de hardware y evitar el desperdicio de memoria física por relleno (*padding*).
+    \item \textbf{Matemáticas}: Implementar en C y Rust una representación formal de grafos utilizando matrices de incidencia y resolver numéricamente las leyes de Kirchhoff para corrientes de red mediante resolución de matrices de incidencia lineales de Strang Sec 2.5.
+    \item \textbf{Ejercicios Core}: Resolver todos los ejercicios de Strang Sec 2.5.
+\end{itemize}
+
+\subsubsection{Auditoría y Planificación (Domingo - 30 min)}
+\begin{itemize}
+    \item \textbf{Revisión de Cumplimiento}: [ ] Completado | [ ] Incompleto
+\end{itemize}
+
+\noindent\rule{\textwidth}{0.4pt}
+
+\subsection{Semana 14: Desbordamiento de Buffer e Independencia de Vectores}
+\textbf{Objetivo semanal}: Comprender los mecanismos físicos de un ataque por desbordamiento de pila y mitigaciones modernas del compilador, y probar formalmente la independencia lineal de vectores.
+
+\subsubsection{Planeación Diaria y Lecturas (Lunes a Viernes - 1h/día)}
+\begin{itemize}
+    \item \textbf{Lunes (Sistemas)}: CS:APP Sec 3.10 (Punteros a nivel de ensamblador e ingeniería del ataque por desbordamiento de buffer, pp. 286 - 305).
+    \item \textbf{Martes (Matemáticas)}: Grossman Sec 5.4 (Independencia lineal de conjuntos de vectores y determinantes asociados, pp. 356 - 378).
+    \item \textbf{Miércoles (Sistemas)}: CS:APP Sec 3.10 (Mitigaciones modernas del hardware y sistema operativo: Canarios de pila, ASLR, y ejecución de páginas protegidas, pp. 306 - 320).
+    \item \textbf{Jueves (Lenguajes/C)}: K\&R Cap 5 (Punteros multidimensionales, parámetros de entrada argc y argv de la terminal, y punteros a funciones, pp. 111 - 123).
+    \item \textbf{Viernes (Lenguajes/Rust)}: Rust Book Cap 8 (Colecciones de datos dinámicas en Rust: Estructuras vectoriales \texttt{Vec}, tipos de String y HashMaps, pp. 156 - 170).
+\end{itemize}
+
+\subsubsection{Laboratorio Práctico de La Forja (Sábado - 3h)}
+\begin{itemize}
+    \item \textbf{Sistemas}: Diseñar un programa interactivo en C vulnerable a Buffer Overflow y probar la eficacia de los canarios de compilación (`-fstack-protector`).
+    \item \textbf{Matemáticas}: Implementar un evaluador interactivo en C y Rust que determine de forma exacta la independencia lineal de conjuntos de polinomios de grado arbitrario $P_n$ y de matrices $2 \times 2$ mediante la construcción de matrices de coordenadas e isomorfismos bajo Grossman Sec 5.4.
+    \item \textbf{Ejercicios Core}: Resolver todos los problemas impares analíticos y conceptuales de Grossman Sec 5.4.
+\end{itemize}
+
+\subsubsection{Auditoría y Planificación (Domingo - 30 min)}
+\begin{itemize}
+    \item \textbf{Revisión de Cumplimiento}: [ ] Completado | [ ] Incompleto
+\end{itemize}
+
+\noindent\rule{\textwidth}{0.4pt}
+
+\subsection{Semana 15: Estructuras de Datos Auto-referenciales en C}
+\textbf{Objetivo semanal}: Implementar árboles binarios y listas enlazadas en C con control absoluto de memoria y manipular colecciones dinámicas en Rust.
+
+\subsubsection{Planeación Diaria y Lecturas (Lunes a Viernes - 1h/día)}
+\begin{itemize}
+    \item \textbf{Lunes (Sistemas)}: CS:APP Cap 3 Repaso (Revisión de vulnerabilidades y problemas resueltos del Capítulo 3, pp. 321 - 340).
+    \item \textbf{Martes (Matemáticas)}: Grossman Sec 5.5 (Bases y dimensión de espacios vectoriales generales, pp. 379 - 403).
+    \item \textbf{Miércoles (Sistemas)}: CS:APP Cap 3 Repaso (Problemas prácticos de traducción de ensamblador a código C, pp. 341 - 366).
+    \item \textbf{Jueves (Lenguajes/C)}: K\&R Cap 6 (Conceptos de Estructuras auto-referenciales: Listas enlazadas, árboles de búsqueda y punteros a structs, pp. 124 - 134).
+    \item \textbf{Viernes (Lenguajes/Rust)}: Rust Book Cap 8 (Manipulación óptima de arreglos y colecciones de datos dinámicas en Rust, pp. 171 - 185).
+\end{itemize}
+
+\subsubsection{Laboratorio Práctico de La Forja (Sábado - 3h)}
+\begin{itemize}
+    \item \textbf{Sistemas}: Diseñar e implementar desde cero una tabla hash (*Hash Table*) estática en C para almacenar cadenas de caracteres utilizando colisiones por encadenamiento mediante listas dinámicas auto-referenciales.
+    \item \textbf{Matemáticas}: Implementar una calculadora matricial bilingüe en Rust que realice el cálculo completo de la Matriz de Transición o Cambio de Base para espacios vectoriales arbitrarios dadas dos bases de entrada según Grossman Sec 5.5.
+    \item \textbf{Ejercicios Core}: Resolver todos los problemas impares analíticos y matemáticos de Grossman Sec 5.5.
+\end{itemize}
+
+\subsubsection{Auditoría y Planificación (Domingo - 30 min)}
+\begin{itemize}
+    \item \textbf{Revisión de Cumplimiento}: [ ] Completado | [ ] Incompleto
+\end{itemize}
+
+\noindent\rule{\textwidth}{0.4pt}
+
+\subsection{Semana 16: Repaso General del Primer Cuatrimestre y Exámenes de Minors}
+\textbf{Objetivo semanal}: Consolidar el conocimiento del primer cuatrimestre, evaluar formalmente los minors y maquetar el reporte científico de réplica en LaTeX.
+
+\subsubsection{Planeación Diaria y Lecturas (Lunes a Viernes - 1h/día)}
+\begin{itemize}
+    \item \textbf{Lunes (Sistemas)}: Repaso integral y auto-evaluación teórica de CS:APP Capítulos 1 y 2.
+    \item \textbf{Martes (Matemáticas)}: Repaso formal de álgebra de matrices y espacios vectoriales (Strang Caps 1 y 2, Grossman Cap 5).
+    \item \textbf{Miércoles (Sistemas)}: Repaso integral y auto-evaluación teórica de CS:APP Capítulo 3 (Secciones 3.1 a 3.10).
+    \item \textbf{Jueves (Lenguajes/C)}: Evaluación formal del Minor 1 (Atajos en Neovim) y Minor 2 (Traducción y redacción de abstracts en inglés técnico en LaTeX).
+    \item \textbf{Viernes (Lenguajes/Rust)}: Repaso general del sistema de Ownership, borrowing, y de las colecciones dinámicas de Rust.
+\end{itemize}
+
+\subsubsection{Laboratorio Práctico de La Forja (Sábado - 3h)}
+\begin{itemize}
+    \item \textbf{Consolidación}: Ensamblar y consolidar todos los módulos de código (Sistemas y Álgebra Matricial) programados a lo largo del cuatrimestre en una única biblioteca técnica unificada de Ph.D. Track en C y Rust.
+    \item \textbf{Portafolio}: Redacción final del manuscrito formal del Paper de Réplica: \textit{El impacto físico de los formatos binarios y el endianness en arquitecturas de hardware modernas} compilado en PDF mediante Tectonic.
+    \item \textbf{Ejercicios Core}: Resolver exámenes finales y cuestionarios prácticos de minors estructurados en LaTeX.
+\end{itemize}
+
+\subsubsection{Auditoría y Planificación (Domingo - 30 min)}
+\begin{itemize}
+    \item \textbf{Revisión de Cumplimiento}: [ ] Completado | [ ] Incompleto
+    \item \textbf{Cierre Cuatrimestral}: Generación de archivos binarios finales PDF y carga en NotebookLM para indexación semántica.
+\end{itemize}
+
+\noindent\rule{\textwidth}{0.4pt}
+
+\end{document}
