@@ -118,6 +118,40 @@
 }
 \lstset{style=customcode}
 
+% --- Extensión de Listings estilo CS:APP (Figura 1.1) ---
+\makeatletter
+\lst@Key{path}\relax{\def\lst@path{#1}}
+\global\let\lst@path\@empty
+
+\newcommand{\codebar}[1]{%
+  \ifx#1\@empty\else
+    \noindent\leavevmode\leaders\vrule height 0.6ex depth -0.5ex\hfill\quad{\small\texttt{\expandafter\detokenize\expandafter{#1}}}%
+    \par\nobreak\vspace{0.3em}%
+  \fi
+}
+
+\newcommand{\codebarbottom}[1]{%
+  \ifx#1\@empty\else
+    \vspace{0.3em}\noindent\leavevmode\leaders\vrule height 0.6ex depth -0.5ex\hfill\quad{\small\texttt{\expandafter\detokenize\expandafter{#1}}}%
+    \par
+  \fi
+}
+
+\lst@AddToHook{PreInit}{%
+  \ifx\lst@path\@empty\else
+    \codebar{\lst@path}%
+    \lstset{frame=none}% Desactivar marco para emular CS:APP
+  \fi
+}
+
+\lst@AddToHook{DeInit}{%
+  \ifx\lst@path\@empty\else
+    \codebarbottom{\lst@path}%
+    \global\let\lst@path\@empty
+  \fi
+}
+\makeatother
+
 % --- Definiciones de Lenguajes Adicionales ---
 \lstdefinelanguage{Pseudocodigo}{
     sensitive=false,
@@ -216,7 +250,7 @@ Este documento constituye el plan operativo maestro de autoestudio detallado par
 \subsubsection{Planeación Diaria y Lecturas (Lunes a Viernes - 1h/día)}
 \begin{itemize}
     \item \textbf{Lunes (Sistemas)}: CS:APP Cap 1 (La información como bits, compilación y hardware, pp. 35 - 47).
-    \item \textbf{Martes (Matemáticas)}: Strang Sec 1.1 (Intro al álgebra lineal y vectores, pp. 1 - 3) y Grossman Sec 1.1 (Dos ecuaciones lineales con dos incógnitas, pp. 19 - 23).
+    \item \textbf{Martes (Matemáticas)}: Strang Sec 1.1 (Intro al álgebra lineal y vectores, pp. 1 - 3) y Grossman Sec 1.1 (Dos ecuaciones lineales con dos incógnitas, pp. 20 - 25).
     \item \textbf{Miércoles (Sistemas)}: CS:APP Cap 1 (El sistema operativo, memoria virtual, archivos y redes, pp. 48 - 60).
     \item \textbf{Jueves (Lenguajes/C)}: K\&R Cap 1 (Tutorial introductorio de C: Hello world, variables, for, constantes, pp. 9 - 16).
     \item \textbf{Viernes (Lenguajes/Rust)}: Rust Book Cap 1 (Instalación de Rust, compilador rustc, Cargo y hello world, pp. 1 - 15).
@@ -403,7 +437,7 @@ Este documento constituye el plan operativo maestro de autoestudio detallado par
 \subsubsection{Planeación Diaria y Lecturas (Lunes a Viernes - 1h/día)}
 \begin{itemize}
     \item \textbf{Lunes (Sistemas)}: CS:APP Sec 3.4 (Acceso a la información: Los registros del sistema de 64 bits y manipulación directa de operandos, pp. 202 - 205).
-    \item \textbf{Martes (Matemáticas)}: Strang Sec 2.1 (Espacios vectoriales y subespacios abstractos en $\mathbb{R}^n$, pp. 52 - 61) y Grossman Sec 5.1 (Definición y propiedades formales de los espacios vectoriales generales, pp. 313 - 325).
+    \item \textbf{Martes (Matemáticas)}: Strang Sec 2.1 (Espacios vectoriales y subespacios abstractos en $\mathbb{R}^n$, pp. 52 - 61) y Grossman Sec 5.1 (Definición y propiedades formales de los espacios vectoriales generales, pp. 314 - 325).
     \item \textbf{Miércoles (Sistemas)}: CS:APP Sec 3.4 (Modos de direccionamiento avanzados, direccionamiento base más índice escalado, pp. 206 - 210).
     \item \textbf{Jueves (Lenguajes/C)}: K\&R Cap 3 (Bucles interactivos while, for, do-while, y control de bifurcaciones mediante break, continue, y goto, pp. 58 - 67).
     \item \textbf{Viernes (Lenguajes/Rust)}: Rust Book Cap 5 (Declaración de estructuras de datos, métodos en structs e instanciación de clases en Rust, pp. 94 - 105).
@@ -459,7 +493,7 @@ Este documento constituye el plan operativo maestro de autoestudio detallado par
 \subsubsection{Planeación Diaria y Lecturas (Lunes a Viernes - 1h/día)}
 \begin{itemize}
     \item \textbf{Lunes (Sistemas)}: CS:APP Sec 3.6 (Códigos de condición de CPU, registros de estado, e instrucciones de comparación `cmp` y `test`, pp. 219 - 228).
-    \item \textbf{Martes (Matemáticas)}: Strang Sec 2.2 (La solución completa para $Ax = b$, el rango de una matriz y variables libres, pp. 71 - 76) y Grossman Sec 5.2 (Subespacios vectoriales y combinaciones, pp. 326 - 337).
+    \item \textbf{Martes (Matemáticas)}: Strang Sec 2.2 (La solución completa para $Ax = b$, el rango de una matriz y variables libres, pp. 71 - 76) y Grossman Sec 5.2 (Subespacios vectoriales y combinaciones, pp. 326 - 332).
     \item \textbf{Miércoles (Sistemas)}: CS:APP Sec 3.6 (Traducción de bucles for, while, do-while, sentencias condicionales y optimizaciones `switch` con tablas de saltos, pp. 229 - 252).
     \item \textbf{Jueves (Lenguajes/C)}: K\&R Cap 4 (Reglas de ámbito, alcance de variables, archivos de cabecera y variables estáticas internas, pp. 76 - 83).
     \item \textbf{Viernes (Lenguajes/Rust)}: Rust Book Cap 6 (Definición de tipos estructurados Enums y el operador de control de flujo \texttt{match} en Rust, pp. 113 - 125).
@@ -511,7 +545,7 @@ Este documento constituye el plan operativo maestro de autoestudio detallado par
 \subsubsection{Planeación Diaria y Lecturas (Lunes a Viernes - 1h/día)}
 \begin{itemize}
     \item \textbf{Lunes (Sistemas)}: CS:APP Sec 3.8 (Asignación y acceso a arreglos: Aritmética de direcciones de memoria en x86-64, pp. 266 - 270).
-    \item \textbf{Martes (Matemáticas)}: Strang Sec 2.4 (Los cuatro subespacios fundamentales de una matriz y sus dimensiones fundamentales, pp. 90 - 102) y Grossman Sec 5.3 (Combinación lineal y espacio generado por subconjuntos, pp. 338 - 355).
+    \item \textbf{Martes (Matemáticas)}: Strang Sec 2.4 (Los cuatro subespacios fundamentales de una matriz y sus dimensiones fundamentales, pp. 90 - 102) y Grossman Sec 5.3 (Combinación lineal y espacio generado por subconjuntos, pp. 333 - 348).
     \item \textbf{Miércoles (Sistemas)}: CS:APP Sec 3.8 (Arreglos multidimensionales planos y punteros implícitos en código de máquina, pp. 271 - 274).
     \item \textbf{Jueves (Lenguajes/C)}: K\&R Cap 5 (Punteros y direcciones físicas, punteros como argumentos de función y paso por referencia, aritmética de direcciones, pp. 90 - 100).
     \item \textbf{Viernes (Lenguajes/Rust)}: Rust Book Cap 7 (Organización del código en módulos en Rust, paquetes, cajas e importaciones dinámicas, pp. 133 - 145).
@@ -567,7 +601,7 @@ Este documento constituye el plan operativo maestro de autoestudio detallado par
 \subsubsection{Planeación Diaria y Lecturas (Lunes a Viernes - 1h/día)}
 \begin{itemize}
     \item \textbf{Lunes (Sistemas)}: CS:APP Sec 3.10 (Punteros a nivel de ensamblador e ingeniería del ataque por desbordamiento de buffer, pp. 286 - 305).
-    \item \textbf{Martes (Matemáticas)}: Grossman Sec 5.4 (Independencia lineal de conjuntos de vectores y determinantes asociados, pp. 356 - 378).
+    \item \textbf{Martes (Matemáticas)}: Grossman Sec 5.4 (Independencia lineal de conjuntos de vectores y determinantes asociados, pp. 349 - 366).
     \item \textbf{Miércoles (Sistemas)}: CS:APP Sec 3.10 (Mitigaciones modernas del hardware y sistema operativo: Canarios de pila, ASLR, y ejecución de páginas protegidas, pp. 306 - 320).
     \item \textbf{Jueves (Lenguajes/C)}: K\&R Cap 5 (Punteros multidimensionales, parámetros de entrada argc y argv de la terminal, y punteros a funciones, pp. 111 - 123).
     \item \textbf{Viernes (Lenguajes/Rust)}: Rust Book Cap 8 (Colecciones de datos dinámicas en Rust: Estructuras vectoriales \texttt{Vec}, tipos de String y HashMaps, pp. 156 - 170).
@@ -593,7 +627,7 @@ Este documento constituye el plan operativo maestro de autoestudio detallado par
 \subsubsection{Planeación Diaria y Lecturas (Lunes a Viernes - 1h/día)}
 \begin{itemize}
     \item \textbf{Lunes (Sistemas)}: CS:APP Cap 3 Repaso (Revisión de vulnerabilidades y problemas resueltos del Capítulo 3, pp. 321 - 340).
-    \item \textbf{Martes (Matemáticas)}: Grossman Sec 5.5 (Bases y dimensión de espacios vectoriales generales, pp. 379 - 403).
+    \item \textbf{Martes (Matemáticas)}: Grossman Sec 5.5 (Bases y dimensión de espacios vectoriales generales, pp. 367 - 379).
     \item \textbf{Miércoles (Sistemas)}: CS:APP Cap 3 Repaso (Problemas prácticos de traducción de ensamblador a código C, pp. 341 - 366).
     \item \textbf{Jueves (Lenguajes/C)}: K\&R Cap 6 (Conceptos de Estructuras auto-referenciales: Listas enlazadas, árboles de búsqueda y punteros a structs, pp. 124 - 134).
     \item \textbf{Viernes (Lenguajes/Rust)}: Rust Book Cap 8 (Manipulación óptima de arreglos y colecciones de datos dinámicas en Rust, pp. 171 - 185).

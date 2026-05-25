@@ -117,6 +117,40 @@
 }
 \lstset{style=customcode}
 
+% --- Extensión de Listings estilo CS:APP (Figura 1.1) ---
+\makeatletter
+\lst@Key{path}\relax{\def\lst@path{#1}}
+\global\let\lst@path\@empty
+
+\newcommand{\codebar}[1]{%
+  \ifx#1\@empty\else
+    \noindent\leavevmode\leaders\vrule height 0.6ex depth -0.5ex\hfill\quad{\small\texttt{\expandafter\detokenize\expandafter{#1}}}%
+    \par\nobreak\vspace{0.3em}%
+  \fi
+}
+
+\newcommand{\codebarbottom}[1]{%
+  \ifx#1\@empty\else
+    \vspace{0.3em}\noindent\leavevmode\leaders\vrule height 0.6ex depth -0.5ex\hfill\quad{\small\texttt{\expandafter\detokenize\expandafter{#1}}}%
+    \par
+  \fi
+}
+
+\lst@AddToHook{PreInit}{%
+  \ifx\lst@path\@empty\else
+    \codebar{\lst@path}%
+    \lstset{frame=none}% Desactivar marco para emular CS:APP
+  \fi
+}
+
+\lst@AddToHook{DeInit}{%
+  \ifx\lst@path\@empty\else
+    \codebarbottom{\lst@path}%
+    \global\let\lst@path\@empty
+  \fi
+}
+\makeatother
+
 % --- Definiciones de Lenguajes Adicionales ---
 \lstdefinelanguage{Pseudocodigo}{
     sensitive=false,
@@ -206,7 +240,7 @@ Este documento sirve como libreta única y centralizada para registrar todos los
 \textbf{Proyecto o Ejercicio}: \texttt{Ejercicios/Y1Q1\_E01\_hello/} \\
 \textbf{Problema abordado}: Validación de endianness de la CPU en tiempo de ejecución.
 
-\begin{lstlisting}[language=C, caption={Verificación de Endianness en C}, label={code:endian}]
+\begin{lstlisting}[language=C, caption={Verificación de Endianness en C}, label={code:endian}, path={Ejercicios/Y1Q1_E01_hello/endian.c}]
 #include <stdio.h>
 
 int main(void) {

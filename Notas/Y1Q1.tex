@@ -1,0 +1,382 @@
+% =========================================================================
+% TEMPLATE_CUADERNO_NOTAS.tex
+% Cuaderno de Notas Académicas - Quantitative Systems Engineering
+% Basado en el estándar de diseño de plantilla_sobria.tex
+% =========================================================================
+\documentclass[11pt, a4paper]{article}
+
+% --- Paquetes Esenciales ---
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[english, spanish, es-tabla]{babel}
+\spanishdeactivate{~<>"}
+\usepackage{amsmath, amssymb, amsfonts}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{xcolor}
+\usepackage{listings}
+\usepackage{caption} % Personalización avanzada de leyendas (captions)
+
+% --- Tipografía de Alta Calidad (Charter) ---
+\usepackage{charter}
+\usepackage{microtype}
+\usepackage{metalogo}
+
+% --- Diseño de Página y Espaciados ---
+\usepackage[margin=2.5cm]{geometry}
+\usepackage{setspace}
+\setstretch{1.12}
+
+% --- Paleta de Colores Sobria ---
+\definecolor{primary}{rgb}{0.0, 0.35, 0.35}  % Teal apagado - Formal y sobrio
+\definecolor{secondary}{rgb}{0.2, 0.2, 0.2} % Gris carbón para texto principal
+\definecolor{codebg}{rgb}{0.97, 0.97, 0.95}  % Fondo suave para código
+\definecolor{grayborder}{rgb}{0.85, 0.85, 0.85}
+
+% Aplicar color secundario al cuerpo del texto
+\makeatletter
+\newcommand{\globalcolor}[1]{%
+  \color{#1}\global\let\default@color\current@color
+}
+\makeatother
+\AtBeginDocument{\globalcolor{secondary}}
+
+% --- Hipervínculos Elegantes ---
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=primary,
+    urlcolor=primary,
+    citecolor=primary,
+    pdftitle={Cuaderno de Notas Académicas - QSE Program},
+    pdfauthor={Jair Aguilar Peña}
+}
+
+% --- Comandos Personalizados ---
+\newcommand{\vect}[1]{\mathbf{#1}}
+
+% =========================================================================
+% CONFIGURACIÓN DE JERARQUÍA DE CAPTIONS (LEYENDAS)
+% =========================================================================
+\DeclareCaptionFont{teal}{\color{primary}}
+\captionsetup[figure]{
+    labelfont={bf,teal},
+    textfont=normalfont,
+    labelsep=colon,
+    skip=10pt
+}
+\captionsetup[table]{
+    labelfont={bf,teal},
+    textfont=normalfont,
+    labelsep=colon,
+    skip=10pt
+}
+\captionsetup[lstlisting]{
+    labelfont={bf,teal},
+    textfont=normalfont,
+    labelsep=colon,
+    skip=10pt
+}
+
+% --- Soporte Multilingüe para Leyendas (Babel) ---
+\addto\captionsspanish{%
+  \renewcommand{\figurename}{Figura}%
+  \renewcommand{\tablename}{Tabla}%
+  \renewcommand{\lstlistingname}{Fragmento de código}%
+}
+\addto\captionsenglish{%
+  \renewcommand{\figurename}{Figure}%
+  \renewcommand{\tablename}{Table}%
+  \renewcommand{\lstlistingname}{Code Snippet}%
+}
+
+% =========================================================================
+% SOPORTE MULTILENGUAJE DE CÓDIGO (LISTINGS)
+% =========================================================================
+\lstdefinestyle{customcode}{
+    backgroundcolor=\color{codebg},
+    commentstyle=\color{primary!70}\itshape,
+    keywordstyle=\color{primary}\bfseries,
+    numberstyle=\tiny\color{gray},
+    stringstyle=\color{orange!80!black},
+    basicstyle=\ttfamily\small,
+    breakatwhitespace=false,
+    breaklines=true,
+    captionpos=b,
+    keepspaces=true,
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2,
+    frame=single,
+    rulecolor=\color{grayborder},
+    aboveskip=15pt,
+    belowskip=10pt
+}
+\lstset{style=customcode}
+
+% --- Extensión de Listings estilo CS:APP (Figura 1.1) ---
+\makeatletter
+\lst@Key{path}\relax{\def\lst@path{#1}}
+\global\let\lst@path\@empty
+
+\newcommand{\codebar}[1]{%
+  \ifx#1\@empty\else
+    \noindent\leavevmode\leaders\vrule height 0.6ex depth -0.5ex\hfill\quad{\small\texttt{\expandafter\detokenize\expandafter{#1}}}%
+    \par\nobreak\vspace{0.3em}%
+  \fi
+}
+
+\newcommand{\codebarbottom}[1]{%
+  \ifx#1\@empty\else
+    \vspace{0.3em}\noindent\leavevmode\leaders\vrule height 0.6ex depth -0.5ex\hfill\quad{\small\texttt{\expandafter\detokenize\expandafter{#1}}}%
+    \par
+  \fi
+}
+
+\lst@AddToHook{PreInit}{%
+  \ifx\lst@path\@empty\else
+    \codebar{\lst@path}%
+    \lstset{frame=none}% Desactivar marco para emular CS:APP
+  \fi
+}
+
+\lst@AddToHook{DeInit}{%
+  \ifx\lst@path\@empty\else
+    \codebarbottom{\lst@path}%
+    \global\let\lst@path\@empty
+  \fi
+}
+\makeatother
+
+% --- Definiciones de Lenguajes Adicionales ---
+\lstdefinelanguage{Pseudocodigo}{
+    sensitive=false,
+    morekeywords={Inicio, Fin, Si, Entonces, Sino, FinSi, Para, Hasta, Hacer, FinPara, Mientras, FinMientras, Retornar, Funcion, Procedimiento, Escribir, Leer},
+    morecomment=[l]{//},
+    morestring=[b]"
+}
+
+% --- Pseudocode (English) ---
+\lstdefinelanguage{Pseudocode}{
+    sensitive=false,
+    morekeywords={Begin, End, If, Then, Else, EndIf, For, To, Do, EndFor, While, EndWhile, Return, Function, Procedure, Write, Read},
+    morecomment=[l]{//},
+    morestring=[b]"
+}
+
+\lstdefinelanguage{Rust}{
+    sensitive=true,
+    morekeywords={fn, let, mut, impl, struct, enum, trait, use, mod, pub, match, return, if, else, loop, while, for, in, unsafe, async, await, type, as, self, Self},
+    morecomment=[l]{//},
+    morecomment=[s]{/*}{*/},
+    morestring=[b]",
+    morestring=[b]'
+}
+
+\lstdefinelanguage{JavaScript}{
+    sensitive=true,
+    morekeywords={const, let, var, function, return, if, else, for, while, class, extends, new, import, export, from, true, false, null, undefined, console, log},
+    morecomment=[l]{//},
+    morecomment=[s]{/*}{*/},
+    morestring=[b]",
+    morestring=[b]'
+}
+
+\lstdefinelanguage{CSS}{
+    sensitive=false,
+    morekeywords={color, background, margin, padding, border, display, flex, position, width, height, font, family, size, weight, align, justify},
+    morecomment=[s]{/*}{*/},
+    morestring=[b]"
+}
+
+\lstdefinelanguage{Lua}{
+    sensitive=true,
+    morekeywords={local, function, end, then, else, elseif, if, for, while, do, repeat, until, nil, true, false, return, break, in, pairs, ipairs},
+    morecomment=[l]{--},
+    morecomment=[s]{--[[}{]]},
+    morestring=[b]",
+    morestring=[b]'
+}
+
+\title{\textbf{\color{primary}Cuaderno de Notas Académicas Centralizado\\ \large Registros de Estudio Cuatrimestral}}
+\author{Jair Aguilar Peña}
+\date{Cuatrimestre: [Indicar Año/Trimestre, ej. Y1Q1]}
+
+\begin{document}
+\spanishdeactivate{~<>"}
+
+\maketitle
+
+\begin{abstract}
+Este documento sirve como libreta única y centralizada para registrar todos los conceptos teóricos, demostraciones matemáticas, resúmenes de lecturas y bitácoras de depuración de código del cuatrimestre. Su estructura de secciones replica exactamente la jerarquía del planeador trimestral para facilitar la indexación rápida y la sincronización con herramientas de inteligencia artificial como NotebookLM.
+\end{abstract}
+
+\tableofcontents
+\newpage
+
+% =========================================================================
+% SECCIÓN DE BLOQUE ACADÉMICO (Igual que en el Planeador)
+% =========================================================================
+\section{Bloque Académico 1: Fundamentos de Sistemas y Sintaxis Básica (Semanas 1 a 4)}
+
+% =========================================================================
+% SUBSECCIÓN DE SEMANA (Mapeado exacto de Semana 1)
+% =========================================================================
+\subsection{Semana 1: Arquitectura de Sistemas e Introducción a C/Rust}
+
+% -------------------------------------------------------------------------
+% LUNES (SISTEMAS)
+% -------------------------------------------------------------------------
+\subsubsection{Lunes (Sistemas): Habilidades Core, Bits y Contexto (CS:APP pp. 37 - 47)}
+\begin{itemize}
+  \item[] \textbf{Fecha de registro:} 25 de Mayo del 2026
+  \item[] \textbf{Contenido:} CS:APP pp. 37 - 47 (Capítulo 1: Secciones 1.1 a 1.4)
+\end{itemize}
+
+\noindent\textbf{Apuntes del Cuaderno: Habilidades Core de Ingeniería}\\[0.5em]
+De acuerdo con el propósito del libro central de estudio (\textit{CS:APP}), a lo largo de este cuatrimestre adquiriremos tres habilidades core de ingeniería:
+\begin{itemize}
+  \item \textbf{Correctitud del programa (\textit{Program Correctness}):} Capacidad de nuestras soluciones para cumplir su propósito de manera precisa bajo cualquier condición lógica de borde.
+  \item \textbf{Desempeño y optimización (\textit{Performance}):} Capacidad de maximizar el uso de los recursos de hardware para ejecutar en el menor tiempo posible y con la menor huella física.
+  \item \textbf{Comprensión integrada (\textit{Hardware-Software Interface}):} Entender de forma profunda qué sucede en el software y el hardware para emplear técnicas que mejoren la tolerancia a fallos, la robustez ante desbordamientos y la seguridad física.
+\end{itemize}
+
+\noindent\textbf{Sección 1.1: La Información son Bits + Contexto}\\[0.5em]
+Todos los programas inician su ciclo de vida como un archivo fuente compuesto exclusivamente por una secuencia de caracteres de texto. Físicamente, el hardware organiza estos caracteres en grupos de 8 bits llamados \textit{Bytes}. Cada carácter del archivo es codificado mediante un estándar internacional:
+\begin{itemize}
+  \item \textbf{Codificación ASCII / UTF-8:} Por ejemplo, el carácter especial \texttt{\#} tiene asignado el entero único \texttt{35}. El libro resalta la gran verdad de los sistemas: \textit{Toda la información es representada como bytes físicos en memoria; la única diferencia entre ellos es el contexto.}
+  \item \textbf{Contexto interpretativo:} Una misma secuencia de bytes puede representar, según el subsistema de ejecución que la lea, un número entero, un flotante, una cadena de caracteres o incluso una instrucción de lenguaje máquina.
+\end{itemize}
+
+\noindent\textbf{Sección 1.2: Traducción de Programas (El Ciclo de Compilación)}\\[0.5em]
+Las instrucciones escritas en un archivo de alto nivel en lenguaje C o Rust no son legibles por la CPU. El sistema requiere un motor de traducción estructurado en cuatro fases para convertir el código fuente en un programa objeto ejecutable binario:
+\begin{itemize}
+  \item \textbf{Fase de Preprocesamiento (\texttt{cpp}):} El preprocesador expande las directivas de cabecera que inician con \texttt{\#} (como \texttt{\#include <stdio.h>}) insertando directamente su contenido. Produce un archivo intermedio con extensión \texttt{.i}.
+  \item \textbf{Fase de Compilación (\texttt{cc1}):} Traduce el archivo intermedio \texttt{.i} a código de lenguaje ensamblador de bajo nivel, generando un archivo con extensión \texttt{.s}.
+  \item \textbf{Fase de Ensamblado (\texttt{as}):} Convierte las instrucciones en ensamblador a lenguaje de máquina binario y las empaqueta en un formato llamado \textit{programa objeto reubicable}, guardado con extensión \texttt{.o}.
+  \item \textbf{Fase de Enlace (\texttt{ld}):} El enlazador combina las funciones de bibliotecas externas (como \texttt{printf.o}) con nuestro archivo objeto, unificando todo en un único binario ejecutable listo para ser cargado en memoria.
+\end{itemize}
+El comando estándar para orquestar este flujo de compilación bajo GCC es:
+\begin{lstlisting}[language=bash]
+gcc -o hello hello.c
+\end{lstlisting}
+
+\noindent\textbf{Sección 1.3: ¿Por qué entender los Sistemas de Compilación?}\\[0.5em]
+El dominio de los procesos internos del compilador elimina la ambigüedad conceptual en el desarrollo:
+\begin{itemize}
+  \item \textbf{Optimización fina:} Permite escribir código óptimo sabiendo si un bucle \texttt{for} genera saltos más eficientes que un \texttt{while} a nivel de instrucciones de ensamblador.
+  \item \textbf{Errores de tiempo de enlace (\textit{Link-time errors}):} Otorga las herramientas de análisis necesarias para resolver referencias externas faltantes o dependencias circulares complejas en grandes sistemas de software.
+  \item \textbf{Seguridad de Memoria:} Enseña cómo mitigar vectores de vulnerabilidad graves (como el \textit{Buffer Overflow} o desbordamiento de pila), aislando los búferes de memoria.
+\end{itemize}
+
+\noindent\textbf{Sección 1.4: Organización del Hardware e Instrucciones de CPU}\\[0.5em]
+Para comprender cómo se mueven los datos, es necesario esquematizar la arquitectura del hardware:
+\begin{itemize}
+  \item \textbf{Bases de comunicación (Buses):} Autopistas eléctricas que mueven palabras de tamaño fijo (actualmente 64 bits o 8 bytes en procesadores x86-64) a través del chip.
+  \item \textbf{Dispositivos de Entrada/Salida (I/O):} Interfaces que conectan la CPU con periféricos, pantallas, almacenamiento en disco y la red global.
+  \item \textbf{Memoria Principal (DRAM):} Almacén temporal que retiene tanto los bytes del programa ejecutable como las variables de datos en tiempo de ejecución.
+  \item \textbf{Procesador (CPU):} El núcleo ejecutor de instrucciones. Funciona bajo un bucle eterno de \textit{Fetch-Decode-Execute} (Buscar, Decodificar y Ejecutar). Sus cuatro instrucciones de bajo nivel principales son:
+  \begin{itemize}
+    \item \textbf{LOAD:} Copia una palabra de la memoria principal a un registro interno de la CPU.
+    \item \textbf{STORE:} Copia una palabra desde un registro interno de la CPU de vuelta a la memoria principal.
+    \item \textbf{OPERATE:} Envía el contenido de dos registros a la ALU (Unidad Aritmético-Lógica) para realizar una operación aritmética/lógica y almacena el resultado en otro registro.
+    \item \textbf{JUMP:} Sobrescribe el contador de programa (PC - \textit{Program Counter}) para desviar el flujo de ejecución hacia otra dirección física en memoria.
+  \end{itemize}
+\end{itemize}
+
+% -------------------------------------------------------------------------
+% MARTES (MATEMÁTICAS)
+% -------------------------------------------------------------------------
+\subsubsection{Martes (Matemáticas): Geometría Vectorial y Ecuaciones Lineales (Strang 1.1 / Grossman 1.1)}
+\begin{itemize}
+  \item[] \textbf{Fecha de registro:} 26 de Mayo del 2026
+  \item[] \textbf{Contenido:} Strang Sec 1.1 (pp. 1 - 3) / Grossman Sec 1.1 (pp. 20 - 25)
+\end{itemize}
+
+\noindent\textbf{Apuntes del Cuaderno: Introducción al Álgebra Lineal y Vectores}\\[0.5em]
+[Aquí escribirás mañana tus apuntes de Geometría Vectorial y Ecuaciones Lineales. Al estar encapsulados en esta subsubsección dedicada, la naturaleza matemática de tus notas de mañana fluirá libremente con sus ecuaciones y diagramas, sin interferir con las secciones de sistemas.]
+
+% -------------------------------------------------------------------------
+% MIÉRCOLES (SISTEMAS)
+% -------------------------------------------------------------------------
+\subsubsection{Miércoles (Sistemas): Memoria Caché y Virtualización (CS:APP pp. 48 - 60)}
+\begin{itemize}
+  \item[] \textbf{Fecha de registro:} 27 de Mayo del 2026
+  \item[] \textbf{Contenido:} CS:APP Capítulo 1: Secciones 1.5 a 1.10 (pp. 48 - 60)
+\end{itemize}
+
+\noindent\textbf{Sección 1.5: La Memoria Caché y su Importancia (\textit{Caches Matter})}\\[0.5em]
+Un gran reto físico en la informática es la disparidad de velocidad de transferencia entre los componentes:
+\begin{itemize}
+  \item \textbf{La Brecha del Procesador y Memoria:} Mientras que una CPU procesa a frecuencias de gigahercios y ejecuta instrucciones en fracciones de nanosegundo, la memoria principal DRAM requiere cientos de ciclos de reloj para responder a una solicitud de lectura.
+  \item \textbf{Cachés L1, L2 y L3:} Para mitigar este cuello de botella físico, se diseñan pequeñas memorias intermedias ultra-rápidas construidas con tecnología SRAM (\textit{Static RAM}), integradas físicamente muy cerca o dentro de la CPU.
+  \item \textbf{El Principio de Localidad:} Estas memorias guardan copias de las palabras que el programa solicita frecuentemente basándose en dos patrones:
+  \begin{itemize}
+    \item \textbf{Localidad Temporal:} Si una variable fue accedida una vez, es altamente probable que sea accedida de nuevo en un corto intervalo de tiempo (ej. bucles).
+    \item \textbf{Localidad Espacial:} Si una dirección física de memoria fue accedida, es muy probable que sus direcciones vecinas sean leídas inmediatamente después (ej. arreglos secuenciales).
+  \end{itemize}
+\end{itemize}
+Aprovechar al máximo la caché escribiendo código compatible con la localidad espacial reduce drásticamente los accesos tardíos a la DRAM, acelerando en órdenes de magnitud el desempeño computacional.
+
+% -------------------------------------------------------------------------
+% JUEVES (LENGUAJES - C)
+% -------------------------------------------------------------------------
+\subsubsection{Jueves (Lenguajes/C): Estructura del Lenguaje y Entrada/Salida (K\&R Cap. 1 pp. 9 - 16)}
+\begin{itemize}
+  \item[] \textbf{Fecha de registro:} 28 de Mayo del 2026
+  \item[] \textbf{Contenido:} K\&R Capítulo 1 (pp. 9 - 16)
+\end{itemize}
+
+\noindent\textbf{Apuntes del Cuaderno: Hello World, Variables y Loops en C}\\[0.5em]
+[Aquí escribirás el jueves tus notas sobre la sintaxis estructural de C, tipos de datos básicos y control de flujo según el tutorial introductorio de K\&R.]
+
+% -------------------------------------------------------------------------
+% VIERNES (LENGUAJES - RUST)
+% -------------------------------------------------------------------------
+\subsubsection{Viernes (Lenguajes/Rust): Ecosistema, Cargo y Compilación (Rust Book Cap. 1 pp. 1 - 15)}
+\begin{itemize}
+  \item[] \textbf{Fecha de registro:} 29 de Mayo del 2026
+  \item[] \textbf{Contenido:} Rust Programming Language Capítulo 1 (pp. 1 - 15)
+\end{itemize}
+
+\noindent\textbf{Apuntes del Cuaderno: Introducción a Rust y su Toolchain}\\[0.5em]
+[Aquí escribirás el viernes tus notas de Rust: el uso de \texttt{rustc}, gestor de paquetes Cargo, y la estructura elemental de un proyecto en Rust.]
+
+% -------------------------------------------------------------------------
+% SÁBADO (LA FORJA)
+% -------------------------------------------------------------------------
+\subsubsection{Sábado (La Forja): Laboratorio Práctico de Sistemas y Código Integrado}
+\begin{itemize}
+  \item[] \textbf{Fecha de registro:} 30 de Mayo del 2026
+  \item[] \textbf{Contenido:} Práctica operativa de fin de semana en La Forja
+\end{itemize}
+
+\noindent\textbf{Laboratorio Práctico: Hola Mundo en C}\\[0.5em]
+A continuación se presenta el código clásico de inicialización. Hemos extendido el bloque de código para documentar su ruta física de almacenamiento en la barra superior e inferior, emulando la maquetación del libro original.
+
+\begin{lstlisting}[language=C, caption={Hola mundo en C}, path={/Ejercicios/hello/hello.c}]
+#include <stdio.h>
+int main()
+{
+  printf("hello, hello world\n");
+}
+\end{lstlisting}
+
+% -------------------------------------------------------------------------
+% DOMINGO (AUDITORÍA)
+% -------------------------------------------------------------------------
+\subsubsection{Domingo: Auditoría Semanal y Planificación}
+\begin{itemize}
+  \item[] \textbf{Fecha de registro:} 31 de Mayo del 2026
+  \item[] \textbf{Contenido:} Checklist de metas cumplidas y planeación del próximo bloque
+\end{itemize}
+
+\noindent\textbf{Auditoría de Progreso Semanal}\\[0.5em]
+[Aquí realizarás el domingo tu auditoría rápida de 30 minutos para registrar tu cumplimiento semanal de metas y planificar el bloque de la Semana 2.]
+
+\newpage
+
+\end{document}
