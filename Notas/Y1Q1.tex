@@ -16,6 +16,8 @@
 \usepackage{xcolor}
 \usepackage{listings}
 \usepackage{caption} % Personalización avanzada de leyendas (captions)
+\usepackage{siunitx}
+
 
 % --- Tipografía de Alta Calidad (Charter) ---
 \usepackage{charter}
@@ -530,14 +532,196 @@ Un sistema computacional moderno consta de componentes de hardware y capas de so
 % -------------------------------------------------------------------------
 % JUEVES (LENGUAJES - C)
 % -------------------------------------------------------------------------
-\subsubsection{Jueves (Lenguajes/C): Estructura del Lenguaje y Entrada/Salida (K\&R Cap. 1 pp. 9 - 16)}
+\subsubsection{Jueves (Lenguajes/C): Estructura del Lenguaje I (K\&R Cap. 1 pp. 9 - 16)}
 \begin{itemize}
   \item[] \textbf{Fecha de registro:} 28 de Mayo del 2026
   \item[] \textbf{Contenido:} K\&R Capítulo 1 (pp. 9 - 16)
 \end{itemize}
 
-\noindent\textbf{Apuntes del Cuaderno: Hello World, Variables y Loops en C}\\[0.5em]
-[Aquí escribirás el jueves tus notas sobre la sintaxis estructural de C, tipos de datos básicos y control de flujo según el tutorial introductorio de K\&R.]
+\noindent\textbf{Tutorial Introductorio}\\[0.5em]
+El enfoque inicial de esta sección se centra en los cimientos del lenguaje C:
+\begin{itemize}
+  \item Declaración de variables y constantes.
+  \item Expresiones y aritmética elemental.
+  \item Estructuras básicas de control de flujo (\texttt{while}, \texttt{for}).
+  \item Definición y modularización mediante funciones.
+  \item Entrada y salida de datos rudimentaria (E/S a nivel de caracteres).
+\end{itemize}
+
+El primer programa obligatorio para validar la correcta configuración del compilador e imprimir el texto \textit{hello, world} en la salida estándar es:
+
+\begin{lstlisting}[language=C, caption={Hola mundo en C}, path={/Ejercicios/hello/hello.c}]
+#include <stdio.h>
+
+int main()
+{
+    printf("hello, world\n");
+    return 0;
+}
+\end{lstlisting}
+
+Para compilar este código en un sistema compatible con Unix, ejecutamos el comando:
+\begin{lstlisting}[language=bash]
+cc hello.c
+\end{lstlisting}
+Si la estructura lógica y sintáctica del archivo fuente es correcta, el compilador genera un archivo binario ejecutable denominado por defecto \textbf{a.out}.
+
+\noindent\textbf{Errores comunes de principiantes en archivos C:}
+\begin{itemize}
+  \item \textbf{Falta del punto y coma (\texttt{;}):} Olvidar colocar el terminador de expresiones al final de una sentencia, lo cual produce fallas sintácticas en cascada durante la compilación.
+  \item \textbf{Omisión de cabeceras estándar:} Utilizar funciones de biblioteca como \texttt{printf} sin incluir la directiva del preprocesador correspondiente (\texttt{\#include <stdio.h>}).
+  \item \textbf{Uso incorrecto de secuencias de escape:} Confundir la barra inclinada de escape escribiendo \texttt{/n} en lugar del carácter de nueva línea correcto \texttt{\textbackslash n}.
+  \item \textbf{Comentarios multilínea sin cerrar:} Abrir un bloque de comentario con \texttt{/*} y olvidar el delimitador de cierre \texttt{*/}, inhabilitando inadvertidamente todo el código subsiguiente.
+  \item \textbf{Firma incorrecta de \texttt{main}:} No especificar el tipo de retorno \texttt{int} o no retornar un estado de salida explícito (por ejemplo, \texttt{return 0;}) al finalizar la ejecución de la función principal.
+\end{itemize}
+
+\noindent\textbf{Variables y Expresiones Aritméticas}\\[0.5em]
+El siguiente programa implementa la conversión matemática $^{\circ}\text{C} = (5/9)(^{\circ}\text{F} - 32)$ para imprimir una tabla comparativa de temperaturas en grados Fahrenheit y sus correspondientes valores equivalentes en grados Celsius.
+
+\begin{table}[htbp]
+    \centering
+    \small
+    \begin{tabular}{rr}
+        \toprule
+        \textbf{Fahrenheit ($^{\circ}\text{F}$)} & \textbf{Celsius ($^{\circ}\text{C}$)} \\
+        \midrule
+        0   & -17 \\
+        20  & -6  \\
+        40  & 4   \\
+        60  & 15  \\
+        80  & 26  \\
+        100 & 37  \\
+        120 & 48  \\
+        140 & 60  \\
+        160 & 71  \\
+        180 & 82  \\
+        200 & 93  \\
+        220 & 104 \\
+        240 & 115 \\
+        260 & 126 \\
+        280 & 137 \\
+        300 & 148 \\
+        \bottomrule
+    \end{tabular}
+    \caption{Tabla de correspondencia de datos de temperatura (Conversión entera).}
+    \label{tab:datos_conversion}
+\end{table}
+
+\begin{lstlisting}[language=C, caption={Programa de conversión Fahrenheit-Celsius (Versión entera)}, path={/Ejercicios/fahrenheit-celsius/f-to-c.c}]
+#include <stdio.h>
+
+/* Imprime la tabla de conversión Fahrenheit-Celsius
+   para fahr = 0, 20, ..., 300 */
+int main()
+{
+    int fahr, celsius;
+    int lower, upper, step;
+
+    lower = 0;   /* Limite inferior de la escala */
+    upper = 300; /* Limite superior */
+    step = 20;   /* Tamaño del incremento */
+
+    fahr = lower;
+    while (fahr <= upper) {
+        celsius = 5 * (fahr - 32) / 9;
+        printf("%d\t%d\n", fahr, celsius);
+        fahr = fahr + step;
+    }
+    return 0;
+}
+\end{lstlisting}
+
+\noindent\textbf{Observaciones técnicas sobre el código anterior:}
+\begin{itemize}
+  \item \textbf{Sintaxis de Comentarios:} En el estándar clásico C, los comentarios se delimitan exclusivamente entre los bloques \texttt{/* ... */}.
+  \item \textbf{Declaración Estricta:} Todas las variables empleadas en el programa deben ser explícitamente declaradas con su respectivo tipo de dato al inicio del bloque de ejecución.
+  \item \textbf{Truncamiento de División Entera:} La expresión matemática para la conversión se reestructura deliberadamente como \texttt{5 * (fahr - 32) / 9} en lugar de escribirla de forma directa como \texttt{(5 / 9) * (fahr - 32)}. Esto se debe a que la división entre enteros en C trunca la fracción (se descartan los decimales). Como \texttt{5 / 9} equivale a \texttt{0.55...}, el truncamiento entero produciría \texttt{0}, aunlando toda la expresión aritmética. Multiplicar primero por \texttt{5} evita este comportamiento no deseado.
+  \item \textbf{Especificadores de Formato:} En la función \texttt{printf}, el carácter especial \texttt{\%d} actúa como marcador de posición para la representación de valores numéricos de tipo entero en base decimal.
+\end{itemize}
+
+\noindent\textbf{Tipos de datos fundamentales en el lenguaje C:}
+El estándar de C de Kernighan \& Ritchie define un conjunto básico de tipos de datos que mapean de manera directa con las representaciones de hardware nativas de la máquina:
+
+\begin{center}
+\small
+\begin{tabular}{llcl}
+\toprule
+\textbf{Tipo} & \textbf{Propósito / Descripción} & \textbf{Tamaño Común} & \textbf{Especificador} \\
+\midrule
+\texttt{char} & Carácter o número entero de rango reducido & 1 byte & \texttt{\%c} (o \texttt{\%d}) \\
+\texttt{int} & Número entero estándar de la arquitectura de la CPU & 4 bytes & \texttt{\%d} (o \texttt{\%i}) \\
+\texttt{float} & Valor numérico en coma flotante de precisión simple & 4 bytes & \texttt{\%f} \\
+\texttt{double} & Valor numérico en coma flotante de precisión doble & 8 bytes & \texttt{\%lf} \\
+\texttt{short} & Entero corto con rango numérico acotado & 2 bytes & \texttt{\%hd} \\
+\texttt{long} & Entero largo con rango numérico expandido & 4 u 8 bytes & \texttt{\%ld} \\
+\bottomrule
+\end{tabular}
+\captionof{table}{Tipos de datos nativos de bajo nivel en C (Estándar K\&R).}
+\end{center}
+
+Para lograr una mayor precisión matemática y evitar las limitaciones del redondeo truncado de la aritmética entera, podemos refactorizar el código utilizando variables en coma flotante de tipo \texttt{float}:
+
+\begin{lstlisting}[language=C, caption={Programa de conversión Fahrenheit-Celsius de alta precisión}, path={/Ejercicios/fahrenheit-celsius-precise/f-to-c.c}]
+#include <stdio.h>
+
+/* Imprime la tabla de conversión Fahrenheit-Celsius de alta precisión
+   para fahr = 0, 20, ..., 300 */
+int main()
+{
+    float fahr, celsius;
+    float lower, upper, step;
+
+    lower = 0.0;   /* Limite inferior */
+    upper = 300.0; /* Limite superior */
+    step = 20.0;   /* Tamaño del incremento */
+
+    fahr = lower;
+    printf("%10s\t%10s\n", "Fahrenheit", "Celsius");
+    while (fahr <= upper) {
+        celsius = (5.0 / 9.0) * (fahr - 32.0);
+        printf("%3.0f\t%6.1f\n", fahr, celsius);
+        fahr = fahr + step;
+    }
+    return 0;
+}
+\end{lstlisting}
+
+\noindent\textbf{Observaciones sobre la versión precisa:}
+\begin{itemize}
+  \item \textbf{Aritmética en Punto Flotante:} Al declarar las constantes de la fórmula con notación decimal explícita (\texttt{5.0} y \texttt{9.0}), el compilador ejecuta la división utilizando aritmética de precisión flotante sin truncar el resultado.
+  \item \textbf{Formateo de Salida:} El marcador de formato \texttt{\%6.1f} en la función \texttt{printf} indica al sistema que imprima el valor flotante alineado a la derecha en un ancho mínimo de \texttt{6} caracteres, reservando exactamente \texttt{1} dígito para la parte decimal después del punto.
+\end{itemize}
+
+\noindent\textbf{El ciclo for}\\[0.5em]
+El lenguaje C proporciona múltiples estructuras lógicas para controlar el flujo de repetición de instrucciones. El ciclo \texttt{for} condensa las fases de inicialización, condición de frontera e incremento en una única línea de control sintáctico, optimizando la claridad del algoritmo:
+
+\begin{lstlisting}[language=C, caption={Programa Fahrenheit-Celsius structured con ciclo for}, path={/Ejercicios/fahrenheit-celsius-for/f-to-c.c}]
+#include <stdio.h>
+
+/* Imprime la tabla de conversión usando el ciclo for */
+int main()
+{
+    int fahr;
+
+    for (fahr = 0; fahr <= 300; fahr = fahr + 20) {
+        printf("%3d\t%6.1f\n", fahr, (5.0 / 9.0) * (fahr - 32));
+    }
+    return 0;
+}
+\end{lstlisting}
+
+\noindent\textbf{Notas Técnicas: Constantes Simbólicas (K\&R Sección 1.4)}\\[0.5em]
+Una excelente práctica en el desarrollo de software profesional es evitar la propagación de "números mágicos" (constantes literales hardcodeadas como \texttt{300} o \texttt{20}) a lo largo del código fuente del sistema. El compilador de C resuelve este problema a través del uso de constantes simbólicas:
+\begin{itemize}
+  \item \textbf{Directiva del Preprocesador \texttt{\#define}:} Permite asociar de forma estática un identificador textual con un valor específico:
+    \begin{lstlisting}[language=C]
+#define LOWER 0
+#define UPPER 300
+#define STEP  20
+    \end{lstlisting}
+  \item \textbf{Fase de Preprocesamiento:} Antes de compilar el código de máquina ejecutable, el preprocesador (\texttt{cpp}) sustituye textualmente cada aparición del identificador simbólico por su valor literal asignado.
+  \item \textbf{Restricciones Sintácticas:} Las definiciones de constantes simbólicas no son sentencias ejecutables de C, por lo que \textbf{no llevan punto y coma (\texttt{;}) al final}. Por convención estándar de la industria, siempre se escriben en mayúsculas para diferenciarlas visualmente de las variables locales ordinarias.
+\end{itemize}
 
 % -------------------------------------------------------------------------
 % VIERNES (LENGUAJES - RUST)
