@@ -297,7 +297,123 @@ Para comprender cómo se mueven los datos, es necesario esquematizar la arquitec
 \end{itemize}
 
 \noindent\textbf{Apuntes del Cuaderno: Introducción al Álgebra Lineal y Vectores}\\[0.5em]
-[Aquí escribirás mañana tus apuntes de Geometría Vectorial y Ecuaciones Lineales. Al estar encapsulados en esta subsubsección dedicada, la naturaleza matemática de tus notas de mañana fluirá libremente con sus ecuaciones y diagramas, sin interferir con las secciones de sistemas.]
+
+En la página 1, el autor comienza a narrar los métodos para resolver sistemas de ecuaciones lineales, tales como la eliminación y los determinantes. Sin embargo, el texto nos recomienda evitar estos últimos (como la Regla de Cramer) por motivos de computación, ya que la \textit{Eliminación Gaussiana} es un algoritmo muy superior en términos de eficiencia para la resolución de sistemas de ecuaciones de gran escala.
+
+Así mismo, se menciona que el propósito de este capítulo es profundizar en aspectos clave como las \textit{ecuaciones lineales}, las cuales nos encaminarán hacia el tema de la \textit{geometría de los planos} en dimensiones superiores y, en el futuro, a emplear la notación matricial para abstraer y automatizar los procesos para sistemas más grandes.
+
+\noindent\textbf{Sistemas de $n$ Ecuaciones con $n$ Incógnitas (Caso $n=2$)}\\[0.5em]
+Comenzando con un sistema bidimensional de dos ecuaciones y dos incógnitas ($n=2$), analizamos los dos métodos principales descritos por el autor para encontrar la solución común:
+
+\begin{enumerate}
+    \item \textbf{Método de Eliminación Gaussiana (Operaciones de Fila):}
+    Consiste en restar múltiplos de una ecuación a otra para eliminar una de las variables y obtener un sistema triangular superior equivalente. Tomemos el sistema modelo:
+    \begin{equation}
+    \begin{aligned}
+      &\textbf{Dos ecuaciones} \quad & 1x + 2y &= 3 \\
+      &\textbf{Dos incógnitas}  \quad & 4x + 5y &= 6.
+    \end{aligned}
+    \end{equation}
+    Para resolver este sistema, identificamos el primer pivote $d_1 = 1$. Calculamos el multiplicador correspondiente dividiendo el coeficiente de la segunda ecuación entre este pivote:
+    $$l_{21} = \frac{4}{d_1} = \frac{4}{1} = 4$$
+    Restamos $4$ veces la ecuación 1 de la ecuación 2 para eliminar la variable $x$ de la segunda fila:
+    \begin{equation}
+    \textbf{(ecuación 2) - 4(ecuación 1)} \quad -3y = -6.
+    \end{equation}
+    Esta reducción lineal nos revela directamente que $y = 2$. Luego, aplicando el método de \textbf{sustitución hacia atrás}, reemplazamos el valor de $y$ en la primera ecuación para despejar la variable $x$:
+    \begin{equation}
+    \textbf{Sustitución hacia atrás} \quad 1x + 2(2) = 3 \quad \text{da} \quad x = -1.
+    \end{equation}
+    La solución única para este sistema soluble es el par ordenado $(x, y) = (-1, 2)$.
+
+    \item \textbf{Método de Determinantes (Regla de Cramer):}
+    La solución del sistema depende enteramente de los seis números que componen las ecuaciones (los cuatro coeficientes de la matriz $A$ y los dos términos independientes del vector $b$). La Regla de Cramer utiliza los determinantes de las matrices de coeficientes modificadas:
+    
+    El determinante del sistema (matriz de coeficientes) es:
+    $$|A| = \begin{vmatrix} 1 & 2 \\ 4 & 5 \end{vmatrix} = 1 \cdot 5 - 2 \cdot 4 = 5 - 8 = -3$$
+    
+    Para encontrar las soluciones de las incógnitas $x$ e $y$, calculamos:
+    \begin{equation}
+    x = \frac{\begin{vmatrix} 3 & 2 \\ 6 & 5 \end{vmatrix}}{\begin{vmatrix} 1 & 2 \\ 4 & 5 \end{vmatrix}} = \frac{3 \cdot 5 - 2 \cdot 6}{-3} = \frac{15 - 12}{-3} = \frac{3}{-3} = -1.
+    \end{equation}
+    \begin{equation}
+    y = \frac{\begin{vmatrix} 1 & 3 \\ 4 & 6 \end{vmatrix}}{\begin{vmatrix} 1 & 2 \\ 4 & 5 \end{vmatrix}} = \frac{1 \cdot 6 - 3 \cdot 4}{-3} = \frac{6 - 12}{-3} = \frac{-6}{-3} = 2.
+    \end{equation}
+    Este método algebraico, aunque es exacto y elegante en papel para sistemas pequeños, requiere un alto costo computacional (del orden de $O(n!)$ o $O(n^3)$ determinantes independientes) en comparación con el algoritmo de eliminación que opera en $O(n^3/3)$ operaciones de punto flotante.
+\end{enumerate}
+
+\noindent\textbf{Sección 1.3: Un Ejemplo de Eliminación Gaussiana y Pivotes (p. 11)}\\[0.5em]
+En la página 11, el texto introduce formalmente el algoritmo sistemático de la \textit{Eliminación Gaussiana} para resolver un sistema de tres ecuaciones con tres incógnitas ($3 \times 3$). Tomemos el siguiente sistema modelo:
+\begin{equation}
+\begin{aligned}
+  &\textbf{Tres ecuaciones} \quad & 2u + v + w &= 5 \\
+  &\textbf{Tres incógnitas}  \quad & 4u - 6v \phantom{+ 0w} &= -2 \\
+  &                          \quad & -2u + 7v + 2w &= 9.
+\end{aligned}
+\end{equation}
+El objetivo fundamental es transformar este sistema en un sistema equivalente con matriz triangular superior (matriz $U$), cuya resolución es directa a través del método de \textit{sustitución hacia atrás}.
+
+A continuación se presenta el desarrollo paso a paso del algoritmo, identificando los pivotes y los multiplicadores de fila empleados:
+
+\begin{enumerate}
+    \item \textbf{Identificación del Primer Pivote ($d_1$):}
+    En la primera ecuación ($2u + v + w = 5$), el coeficiente de la primera variable $u$ es \textbf{2}. Este es nuestro primer pivote:
+    $$d_1 = 2$$
+    El pivote no puede ser cero. Si lo fuera, el algoritmo requeriría un intercambio de filas (\textit{intercambio de filas} o pivoteo) para encontrar un coeficiente distinto de cero.
+
+    \item \textbf{Paso 1 de la Eliminación (Eliminar $u$ de las ecuaciones 2 y 3):}
+    \begin{itemize}
+        \item \textbf{Eliminación en la ecuación 2:} El término de $u$ en la segunda ecuación es $4u$. Calculamos el multiplicador correspondiente dividiendo este término entre el primer pivote:
+        $$l_{21} = \frac{4}{d_1} = \frac{4}{2} = 2$$
+        Restamos $2$ veces la primera ecuación de la segunda fila:
+        $$(4u - 6v) - 2(2u + v + w) = -2 - 2(5) \implies -8v - 2w = -12$$
+        
+        \item \textbf{Eliminación en la ecuación 3:} El término de $u$ en la tercera ecuación es $-2u$. Calculamos el multiplicador:
+        $$l_{31} = \frac{-2}{d_1} = \frac{-2}{2} = -1$$
+        Restamos $-1$ veces la primera ecuación de la tercera fila (lo cual es equivalente a sumar la ecuación 1 a la ecuación 3):
+        $$(-2u + 7v + 2w) - (-1)(2u + v + w) = 9 - (-1)(5) \implies 8v + 3w = 14$$
+    \end{itemize}
+    Tras este primer paso de eliminación hacia adelante, el sistema parcial toma la forma:
+\begin{equation}
+\begin{aligned}
+  &\textbf{Fila 1} \quad & 2u + \phantom{0}v + \phantom{0}w &= 5 \\
+  &\textbf{Fila 2} \quad & -8v - 2w &= -12 \\
+  &\textbf{Fila 3} \quad & 8v + 3w &= 14.
+\end{aligned}
+\end{equation}
+
+    \item \textbf{Identificación del Segundo Pivote ($d_2$):}
+    En la segunda ecuación del sistema modificado, el primer coeficiente no nulo es el de la variable $v$, que es \textbf{-8}. Este es nuestro segundo pivote:
+    $$d_2 = -8$$
+
+    \item \textbf{Paso 2 de la Eliminación (Eliminar $v$ de la ecuación 3):}
+    El término de $v$ en la tercera ecuación es $8v$. Calculamos el multiplicador dividiendo este coeficiente entre el segundo pivote:
+    $$l_{32} = \frac{8}{d_2} = \frac{8}{-8} = -1$$
+    Restamos $-1$ veces la segunda ecuación de la tercera ecuación (equivalente a sumarlas directamente):
+    $$(8v + 3w) - (-1)(-8v - 2w) = 14 - (-1)(-12) \implies w = 2$$
+
+    \item \textbf{Obtención de la Forma Triangular Superior ($U$):}
+    La variable $w$ en la ecuación 3 tiene coeficiente \textbf{1}, constituyendo el tercer pivote ($d_3 = 1$). El sistema acoplado ha sido reducido exitosamente a un sistema triangular superior equivalente:
+    \begin{equation}
+    \begin{aligned}
+      &\textbf{Sistema triangular} \quad & 2u + v + w &= 5 \\
+      &                            \quad & -8v - 2w &= -12 \\
+      &                            \quad & w &= 2.
+    \end{aligned}
+    \end{equation}
+
+    \item \textbf{Aplicación de Sustitución Hacia Atrás:}
+    Con el sistema en forma de escala triangular, resolvemos las variables en orden inverso (de abajo hacia arriba):
+    \begin{itemize}
+        \item \textbf{Incógnita $w$:} Se obtiene directamente de la última fila:
+        $$w = 2$$
+        \item \textbf{Incógnita $v$:} Sustituimos $w = 2$ en la segunda fila:
+        $$-8v - 2(2) = -12 \implies -8v - 4 = -12 \implies -8v = -8 \implies v = 1$$
+        \item \textbf{Incógnita $u$:} Sustituimos $w = 2$ e $y = 1$ en la primera fila:
+        $$2u + 1(1) + 1(2) = 5 \implies 2u + 3 = 5 \implies 2u = 2 \implies u = 1$$
+    \end{itemize}
+\end{enumerate}
+La solución única del sistema es el vector ordenado $(u, v, w) = (1, 1, 2)$.
 
 % -------------------------------------------------------------------------
 % MIÉRCOLES (SISTEMAS)
@@ -309,17 +425,107 @@ Para comprender cómo se mueven los datos, es necesario esquematizar la arquitec
 \end{itemize}
 
 \noindent\textbf{Sección 1.5: La Memoria Caché y su Importancia (\textit{Caches Matter})}\\[0.5em]
-Un gran reto físico en la informática es la disparidad de velocidad de transferencia entre los componentes:
+Un gran reto físico en la informática es la disparidad de velocidad de transferencia entre los componentes de hardware:
 \begin{itemize}
-  \item \textbf{La Brecha del Procesador y Memoria:} Mientras que una CPU procesa a frecuencias de gigahercios y ejecuta instrucciones en fracciones de nanosegundo, la memoria principal DRAM requiere cientos de ciclos de reloj para responder a una solicitud de lectura.
-  \item \textbf{Cachés L1, L2 y L3:} Para mitigar este cuello de botella físico, se diseñan pequeñas memorias intermedias ultra-rápidas construidas con tecnología SRAM (\textit{Static RAM}), integradas físicamente muy cerca o dentro de la CPU.
-  \item \textbf{El Principio de Localidad:} Estas memorias guardan copias de las palabras que el programa solicita frecuentemente basándose en dos patrones:
+  \item \textbf{La brecha de velocidad entre procesador y memoria:} Mientras que una CPU procesa a frecuencias de gigahercios y ejecuta instrucciones en fracciones de nanosegundo, la memoria principal DRAM requiere cientos de ciclos de reloj para responder a una sola solicitud de lectura.
+  \item \textbf{Cachés L1, L2 y L3:} Para mitigar este cuello de botella físico, se diseñan pequeñas memorias intermedias ultrarrápidas construidas con tecnología SRAM (\textit{Static RAM}), integradas físicamente en el chip del procesador.
+  \item \textbf{El Principio de Localidad:} Estas memorias intermedias guardan copias de los datos y las instrucciones que el procesador solicita frecuentemente, basándose en dos patrones de acceso:
   \begin{itemize}
-    \item \textbf{Localidad Temporal:} Si una variable fue accedida una vez, es altamente probable que sea accedida de nuevo en un corto intervalo de tiempo (ej. bucles).
-    \item \textbf{Localidad Espacial:} Si una dirección física de memoria fue accedida, es muy probable que sus direcciones vecinas sean leídas inmediatamente después (ej. arreglos secuenciales).
+    \item \textbf{Localidad Temporal:} Si una dirección de memoria fue accedida una vez, es altamente probable que el procesador vuelva a acceder a ella en un corto intervalo de tiempo (por ejemplo, en variables de control dentro de bucles).
+    \item \textbf{Localidad Espacial:} Si una dirección física de memoria fue accedida, es muy probable que sus direcciones contiguas sean leídas inmediatamente después (por ejemplo, al recorrer arreglos secuenciales).
   \end{itemize}
 \end{itemize}
-Aprovechar al máximo la caché escribiendo código compatible con la localidad espacial reduce drásticamente los accesos tardíos a la DRAM, acelerando en órdenes de magnitud el desempeño computacional.
+Aprovechar al máximo la memoria caché escribiendo código compatible con la localidad espacial reduce drásticamente las solicitudes directas a la DRAM, lo que incrementa el rendimiento general de los programas en varios órdenes de magnitud.
+
+\noindent\textbf{Sección 1.6: La jerarquía de los dispositivos de almacenamiento}\\[0.5em]
+El principio rector de una jerarquía de almacenamiento consiste en que, para cada nivel $k$, el dispositivo de almacenamiento en dicho nivel actúa como una caché rápida y de capacidad reducida para el dispositivo del nivel $k+1$ (el cual es más grande y lento). Comprender esta estructura es fundamental para diseñar software de alto rendimiento, optimizando el flujo de datos desde los registros de la CPU hasta el almacenamiento remoto.
+
+\begin{center}
+\small
+\begin{tabular}{llll}
+\toprule
+\textbf{Nivel} & \textbf{Dispositivo} & \textbf{Tecnología} & \textbf{Administrado por} \\
+\midrule
+L0 & Registros de la CPU & SRAM ultrarrápida & Compilador \\
+L1 & Caché L1 (Inst/Datos) & SRAM en el chip & Hardware de la CPU \\
+L2 & Caché L2 & SRAM en el chip & Hardware de la CPU \\
+L3 & Caché L3 (compartida) & SRAM en el chip & Hardware de la CPU \\
+L4 & Memoria Principal & DRAM & Sistema Operativo / VM \\
+L5 & Almacenamiento Local & SSD / HDD local & Sistema Operativo / FS \\
+L6 & Almacenamiento Remoto & Servidores / Nube & Protocolos / Aplicación \\
+\bottomrule
+\end{tabular}
+\captionof{table}{Jerarquía de dispositivos de almacenamiento (Adaptación de la Fig. 1.9 de CS:APP).}
+\end{center}
+
+\noindent\textbf{Sección 1.7: El Sistema Operativo administra el hardware}\\[0.5em]
+El sistema operativo es una capa de software intermediaria entre los programas de aplicación y el hardware físico. Cumple dos funciones primordiales:
+\begin{enumerate}
+  \item Proteger el hardware de accesos erróneos o programas fuera de control.
+  \item Proveer a los desarrolladores interfaces limpias y estandarizadas para interactuar con dispositivos físicos heterogéneos de manera transparente.
+\end{enumerate}
+
+A continuación, se definen los conceptos y abstracciones esenciales administrados por el sistema operativo:
+\begin{itemize}
+  \item \textbf{Proceso (\textit{Process}):} La abstracción que proporciona el sistema operativo para representar un programa en ejecución. Crea la ilusión de que el programa dispone del uso exclusivo de la CPU, la memoria y los dispositivos de Entrada/Salida (I/O), cuando en realidad compite con múltiples procesos que se ejecutan de manera concurrente.
+  \item \textbf{Cambio de Contexto (\textit{Context Switch}):} Mecanismo mediante el cual el sistema operativo suspende la ejecución de un proceso guardando su estado actual para restaurar el estado de otro proceso y cederle la CPU, permitiendo la multitarea cooperativa o preferente.
+  \item \textbf{Contexto (\textit{Context}):} Conjunto de datos que determina el estado exacto de un proceso en ejecución, incluyendo el valor del Program Counter (PC), el estado de los registros del procesador, el mapa de su memoria virtual y la tabla de descriptores de archivos abiertos.
+  \item \textbf{Llamada al Sistema (\textit{System Call}):} Interfaz de control que permite a los programas en espacio de usuario solicitar de manera segura servicios gestionados directamente por el núcleo del sistema operativo (tales como leer un archivo, enviar datos por red o solicitar memoria dinámica).
+  \item \textbf{Hilos de Ejecución (\textit{Threads}):} Unidades de flujo de control lógico dentro de un único proceso. Cada hilo se ejecuta en el contexto del proceso, compartiendo su código y variables globales, pero manteniendo su propia pila de llamadas y registros independientes para favorecer la concurrencia eficiente.
+  \item \textbf{Archivos (\textit{Files}):} Secuencia de bytes lógica. Todos los dispositivos de Entrada/Salida (I/O), incluyendo discos duros, teclados, pantallas y adaptadores de red, se abstraen y modelan como archivos de manera uniforme.
+  \item \textbf{Memoria Virtual (\textit{Virtual Memory}):} Abstracción que provee a cada proceso la ilusión de disponer de un espacio de direccionamiento contiguo y exclusivo para sí mismo, aislando el espacio de memoria de un proceso respecto a los demás y simplificando la gestión de la memoria física y el disco.
+  \item \textbf{Espacio de Direccionamiento Virtual (\textit{Virtual Address Space}):} Estructura jerárquica de la memoria virtual asignada a un proceso de usuario. De menor a mayor dirección de memoria, se organiza en:
+  \begin{itemize}
+    \item \textbf{Código y Datos de Usuario:} El código ejecutable compilado y las variables globales declaradas en tiempo de compilación.
+    \item \textbf{Heap (Montículo):} Región destinada a la asignación de memoria dinámica administrada en tiempo de ejecución (mediante funciones como \texttt{malloc} en C o el tipo \texttt{Box} en Rust). Su tamaño crece en sentido ascendente.
+    \item \textbf{Bibliotecas Compartidas (\textit{Shared Libraries}):} Segmento intermedio mapeado en memoria que almacena el código ejecutable de bibliotecas de uso común (como \texttt{libc}), reduciendo el uso duplicado en RAM física.
+    \item \textbf{Stack (Pila):} Región destinada a almacenar los marcos de las llamadas a funciones, incluyendo variables locales y direcciones de retorno. Su tamaño crece en sentido descendente.
+    \item \textbf{Memoria Virtual del Kernel:} Región superior de direcciones de memoria reservada exclusivamente para el código, estructuras de datos y controladores del núcleo del sistema operativo. Inaccesible directamente desde el espacio de usuario.
+  \end{itemize}
+\end{itemize}
+
+\noindent\textbf{Sección 1.8: Los sistemas se comunican con otros sistemas a través de redes}\\[0.5em]
+Desde el punto de vista de la arquitectura de hardware, la red es simplemente otro dispositivo de Entrada/Salida (I/O). Cuando el sistema procesa datos para enviarlos a una máquina remota, la CPU ejecuta instrucciones para copiar los bytes desde la memoria principal hacia el adaptador de red, el cual se encarga de transmitir físicamente la información a través de los medios físicos de comunicación.
+
+\noindent\textbf{Sección 1.9: Temas importantes}\\[0.5em]
+\begin{itemize}
+  \item \textbf{Concurrencia:} Capacidad del sistema para gestionar múltiples actividades realizadas de manera simultánea en el tiempo (por ejemplo, la multitarea por tiempo compartido).
+  \item \textbf{Paralelismo:} Uso de recursos de hardware concurrentes para acelerar la velocidad de ejecución física del sistema. Se clasifica en tres niveles fundamentales:
+  \begin{itemize}
+    \item \textbf{Concurrencia a nivel de hilo (\textit{Thread-Level Concurrency}):} Ejecución paralela real de múltiples flujos lógicos de instrucciones en procesadores de múltiples núcleos físicos compartiendo la memoria principal.
+    \item \textbf{Paralelismo a nivel de instrucción (\textit{Instruction-Level Parallelism}):} Capacidad de la CPU de ejecutar varias instrucciones máquina del mismo hilo simultáneamente en un mismo ciclo de reloj si no existen dependencias de datos entre ellas.
+    \item \textbf{Paralelismo SIMD (\textit{Single-Instruction, Multiple-Data}):} Uso de instrucciones especiales del procesador para ejecutar la misma operación aritmética sobre múltiples elementos de datos en paralelo a través de registros de tamaño extendido (vectores).
+  \end{itemize}
+  \item \textbf{Importancia de las Abstracciones (\textit{Abstractions}):} Las abstracciones ocultas bajo interfaces estandarizadas (como las APIs) facilitan el desarrollo de software complejo. Al aislar las especificaciones del diseño interno de un subsistema, el programador puede interactuar con el hardware o con bibliotecas complejas sin necesidad de comprender su microarquitectura interna.
+\end{itemize}
+
+\begin{center}
+\small
+\begin{tabular}{lp{8.5cm}}
+\toprule
+\textbf{Abstracción del Sistema} & \textbf{Componente(s) de Hardware que Oculta} \\
+\midrule
+Archivo (\textit{File}) & Dispositivos de Entrada/Salida (I/O) \\
+Memoria Virtual (\textit{Virtual Memory}) & Memoria Principal (DRAM) + Almacenamiento Secundario \\
+Proceso (\textit{Process}) & CPU + Memoria Principal + Dispositivos I/O \\
+Máquina Virtual (\textit{Virtual Machine}) & Computadora completa (incluyendo sistema operativo y hardware) \\
+\bottomrule
+\end{tabular}
+\captionof{table}{Abstracciones fundamentales de un sistema computacional (Adaptación de la Fig. 1.18 de CS:APP).}
+\end{center}
+
+\noindent\textbf{Sección 1.10: Resumen del Capítulo 1}\\[0.5em]
+Un sistema computacional moderno consta de componentes de hardware y capas de software que cooperan íntimamente para la ejecución de los programas de aplicación.
+
+\begin{itemize}
+  \item \textbf{Representación uniforme:} La información se almacena y transmite en grupos de bits. Su significado lógico depende enteramente del contexto interpretativo.
+  \item \textbf{Compilación y Enlace:} Los programas en lenguajes de alto nivel se traducen por medio de compiladores y enlazadores a archivos binarios legibles directamente por la CPU.
+  \item \textbf{Jerarquía de Almacenamiento:} El copiado ineficiente de datos entre registros y memoria se optimiza empleando una jerarquía de almacenamiento basada en cachés rápidas y de tamaño decreciente.
+  \item \textbf{Abstracciones del Sistema Operativo:} El núcleo o \textit{kernel} administra el hardware a través de tres abstracciones fundamentales: archivos (abstracción de I/O), memoria virtual (abstracción de RAM y discos) y procesos (abstracción de la CPU y recursos de ejecución).
+  \item \textbf{Interconexión de Redes:} Las redes permiten conectar sistemas individuales para compartir información y coordinar cómputo distribuido.
+\end{itemize}
+
+
 
 % -------------------------------------------------------------------------
 % JUEVES (LENGUAJES - C)
