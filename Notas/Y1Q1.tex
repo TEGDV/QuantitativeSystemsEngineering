@@ -732,8 +732,76 @@ Una excelente práctica en el desarrollo de software profesional es evitar la pr
   \item[] \textbf{Contenido:} Rust Programming Language Capítulo 1 (pp. 1 - 15)
 \end{itemize}
 
-\noindent\textbf{Apuntes del Cuaderno: Introducción a Rust y su Toolchain}\\[0.5em]
-[Aquí escribirás el viernes tus notas de Rust: el uso de \texttt{rustc}, gestor de paquetes Cargo, y la estructura elemental de un proyecto en Rust.]
+\noindent\textbf{Herramientas del Entorno y Toolchain de Rust}\\[0.5em]
+El ecosistema de desarrollo de Rust se destaca por integrar herramientas de primer nivel de forma nativa para la gestión del compilador, dependencias y documentación:
+\begin{itemize}
+  \item \textbf{\texttt{rustup}:} Instalador oficial y administrador de múltiples versiones del toolchain de Rust. Permite actualizar el compilador y alternar de forma transparente entre canales de lanzamiento (\textit{stable}, \textit{beta}, \textit{nightly}).
+    \begin{lstlisting}[language=bash]
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+    \end{lstlisting}
+  \item \textbf{\texttt{rustc}:} El compilador nativo de Rust. Traduce el código fuente en archivos ejecutable binarios de bajo nivel de forma estricta.
+  \item \textbf{\texttt{cargo}:} El gestor de paquetes y sistema de construcción integrado de Rust. Automatiza la descarga de bibliotecas externas (\textit{crates}), la compilación y las pruebas unitarias.
+  \item \textbf{Acceso offline al libro oficial:} El ecosistema provee acceso local inmediato a toda la documentación de referencia sin necesidad de conexión activa a internet:
+    \begin{lstlisting}[language=bash]
+rustup doc --book
+    \end{lstlisting}
+\end{itemize}
+
+\noindent\textbf{Compilación Directa: Hola Mundo en Rust}\\[0.5em]
+La estructura sintáctica básica de un programa autónomo en Rust requiere definir un punto de entrada a través de la función \texttt{main}:
+
+\begin{lstlisting}[language=Rust, caption={Hola Mundo básico en Rust}, path={/Ejercicios/hello_rust/hello_rust.rs}]
+fn main() {
+    println!("Hello, world!");
+}
+\end{lstlisting}
+
+\noindent\textbf{Flujo de compilación y ejecución directa:}
+\begin{enumerate}
+  \item \textbf{Compilación:} Invocamos directamente el compilador de Rust para traducir el archivo de origen:
+    \begin{lstlisting}[language=bash]
+rustc hello_rust.rs
+    \end{lstlisting}
+  \item \textbf{Ejecución:} Ejecutamos el archivo binario independiente generado en el directorio de trabajo actual:
+    \begin{lstlisting}[language=bash]
+./hello_rust
+    \end{lstlisting}
+\end{enumerate}
+
+\noindent\textbf{Conceptos clave del lenguaje:}
+\begin{itemize}
+  \item \textbf{Uso de macros:} La instrucción \texttt{println!} no representa una función convencional, sino una \textbf{macro de metaprogramación} (identificada sintácticamente por el signo de exclamación \texttt{!}). Esto permite a Rust analizar de forma estática en tiempo de compilación si los especificadores de formato coinciden con los argumentos dados, evitando errores de E/S en tiempo de ejecución.
+  \item \textbf{Terminación estricta:} En Rust, todas las expresiones que actúan como sentencias imperativas secuenciales deben culminar estrictamente con un punto y coma (\texttt{;}).
+\end{itemize}
+
+\noindent\textbf{Gestión de Proyectos con Cargo}\\[0.5em]
+En proyectos de ingeniería de mediano y gran tamaño, no se invoca directamente al compilador \texttt{rustc}. En su lugar, se emplea el gestor **Cargo** para orquestar de manera estructurada el flujo de trabajo:
+
+\begin{itemize}
+  \item \textbf{Estructura del Proyecto:} Al inicializar un proyecto con Cargo, este genera un esquema de directorios estandarizado:
+    \begin{itemize}
+      \item \texttt{Cargo.toml}: Archivo de metadatos en formato TOML que define la configuración del proyecto, el nombre, la versión y la lista detallada de dependencias externas (\textit{crates}).
+      \item \texttt{src/main.rs}: Punto de entrada por defecto para el código fuente del módulo ejecutable.
+    \end{itemize}
+\end{itemize}
+
+A continuación, se tabulan los comandos fundamentales de Cargo indispensables para la gestión diaria del desarrollo:
+
+\begin{center}
+\small
+\begin{tabular}{lp{9.5cm}}
+\toprule
+\textbf{Comando de Cargo} & \textbf{Acción y Propósito Técnico} \\
+\midrule
+\texttt{cargo new <nombre>} & Inicializa un directorio estructurado con la plantilla del proyecto de Rust. \\
+\texttt{cargo build} & Compila el proyecto en modo de depuración (\textit{debug}), generando el binario en \texttt{target/debug/}. \\
+\texttt{cargo build --release} & Compila el proyecto aplicando optimizaciones completas sin símbolos de depuración en \texttt{target/release/}. \\
+\texttt{cargo run} & Ejecuta el binario inmediatamente. Si hubo cambios en el código fuente, gatilla una recompilación previa. \\
+\texttt{cargo check} & Realiza una verificación estática ultrarrápida de tipos y sintaxis sin compilar a binario máquina, reduciendo tiempos de espera. \\
+\bottomrule
+\end{tabular}
+\captionof{table}{Comandos esenciales del gestor de compilación Cargo en Rust.}
+\end{center}
 
 % -------------------------------------------------------------------------
 % SÁBADO (LA FORJA)
